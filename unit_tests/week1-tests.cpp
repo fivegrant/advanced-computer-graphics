@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN
 #include <cmath>
 #include "../modules/catch2.hpp"
-#include "../mechancis/tuple.h"
+#include "../mechanics/tuple.h"
 
 
 TEST_CASE("Tuples, Vectors, and Points Functional", "[point, tuple, vector]"){
@@ -65,7 +65,6 @@ TEST_CASE("Tuples, Vectors, and Points Functional", "[point, tuple, vector]"){
     REQUIRE(zero - v == vector(-1, 2, -3)});
     }
 
-//Def not gonna work
   SECTION("Negating a tuple"){
     Tuple a{1, -2, 3, -4};
     REQUIRE(-a == Tuple{-1, 2, -3, -4});
@@ -76,76 +75,64 @@ TEST_CASE("Tuples, Vectors, and Points Functional", "[point, tuple, vector]"){
     REQUIRE(a * 3.5 == Tuple{3.5, -7, 10.5, -14});
     }
 
-
   SECTION("Multiplying a tuple by a fraction"){
     Tuple a{1, -2, 3, -4};
     REQUIRE(a * .5 == Tuple{0.5, 1, 1.5, -2});
     }
 
-//Def not gonna work
   SECTION("Dividing a tuple by a scalar"){
     Tuple a{1, -2, 3, -4};
     REQUIRE(a / 2 == Tuple{0.5, 1, 1.5, -2});
     }
 
-//Def not gonna work
   SECTION("Computing the magnitude of vector(1, 0, 0)"){
     v = vector(1, 0, 0);
     REQUIRE(magnitude(v) == 1;
     }
 
-//Def not gonna work
   SECTION("Computing the magnitude of vector(0, 1, 0)"){
     v = vector(0, 1, 0);
     REQUIRE(magnitude(v) == 1;
     }
 
-//Def not gonna work
   SECTION("Computing the magnitude of vector(0, 0, 1)"){
     v = vector(0, 0, 1);
     REQUIRE(magnitude(v) == 1;
     }
 
-//Def not gonna work
   SECTION("Computing the magnitude of vector(1, 2, 3)"){
     v = vector(1, 2, 3);
-    REQUIRE(magnitude(v) == sqrt(14);
+    REQUIRE(magnitude(v) == cmath::sqrt(14);
     }
 
-//Def not gonna work
   SECTION("Computing the magnitude of vector(1, 2, 3)"){
     v = vector(1, 2, 3);
-    REQUIRE(magnitude(v) == sqrt(14);
+    REQUIRE(magnitude(v) == cmath::sqrt(14);
     }
 
-//Def not gonna work
   SECTION("Normalizing vector(4, 0, 0) gives (1, 0, 0)"){
     v = vector(4, 0, 0);
     REQUIRE(normalize(v) == vector(1, 0, 0));
     }
 
-//Def not gonna work
   SECTION("Normalizing vector(1, 2, 3)"){
     v = vector(1, 2, 3);
-    s14 = sqrt(14)
+    s14 = cmath::sqrt(14)
     REQUIRE(normalize(v) == vector(s14, 2 * s14, 3 * s14));
     }
 
-//Def not gonna work
   SECTION("The magnitude of a normalized vector"){
     v = vector(1, 2, 3);
     norm = normalize(v);
     REQUIRE(magnitude(norm) == 1));
     }
 
-//Def not gonna work
   SECTION("The dot product of two tuples"){
     a = vector(1, 2, 3);
     b = vector(2, 3, 4);
     REQUIRE(dot(a, b) == 20));
     }
 
-//Def not gonna work
   SECTION("The cross product of two vectors"){
     a = vector(1, 2, 3);
     b = vector(2, 3, 4);

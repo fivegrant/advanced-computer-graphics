@@ -7,20 +7,20 @@
 TEST_CASE("Tuples, Vectors, and Points Functional", "[point, tuple, vector]"){
   SECTION("A tuple with w=1.0 is a point"){
     Tuple a{4.3, -4.2, 3.1, 1.0};
-    REQUIRE(a.x == (float) 4.3);
-    REQUIRE(a.y == (float) -4.2);
-    REQUIRE(a.z == (float) 3.1);
-    REQUIRE(a.w == (float) 1.0);
+    REQUIRE(a.x == (double) 4.3);
+    REQUIRE(a.y == (double) -4.2);
+    REQUIRE(a.z == (double) 3.1);
+    REQUIRE(a.w == (double) 1.0);
     REQUIRE(a.isPoint());
     REQUIRE(!a.isVector());
     }
 
   SECTION("A tuple with w=0.0 is a vector"){
     Tuple a{4.3, -4.2, 3.1, 0.0};
-    REQUIRE(a.x == (float) 4.3);
-    REQUIRE(a.y == (float) -4.2);
-    REQUIRE(a.z == (float) 3.1);
-    REQUIRE(a.w == (float) 0.0);
+    REQUIRE(a.x == (double) 4.3);
+    REQUIRE(a.y == (double) -4.2);
+    REQUIRE(a.z == (double) 3.1);
+    REQUIRE(a.w == (double) 0.0);
     REQUIRE(!a.isPoint());
     REQUIRE(a.isVector());
     }
@@ -102,12 +102,12 @@ TEST_CASE("Tuples, Vectors, and Points Functional", "[point, tuple, vector]"){
 
   SECTION("Computing the magnitude of vector(1, 2, 3)"){
     Tuple v = vector(1, 2, 3);
-    REQUIRE(magnitude(v) == (float) sqrt(14));
+    REQUIRE(magnitude(v) == (double) sqrt(14));
     }
 
   SECTION("Computing the magnitude of vector(1, 2, 3)"){
     Tuple v = vector(1, 2, 3);
-    REQUIRE(magnitude(v) == (float) sqrt(14));
+    REQUIRE(magnitude(v) == (double) sqrt(14));
     }
 
   SECTION("Normalizing vector(4, 0, 0) gives (1, 0, 0)"){
@@ -117,15 +117,14 @@ TEST_CASE("Tuples, Vectors, and Points Functional", "[point, tuple, vector]"){
 
   SECTION("Normalizing vector(1, 2, 3)"){
     Tuple v = vector(1, 2, 3);
-    float s14 = sqrt(14);
+    double s14 = sqrt(14);
     REQUIRE(normalize(v) == vector(s14, 2 * s14, 3 * s14));
     }
 
   SECTION("The magnitude of a normalized vector"){
     Tuple v = vector(1, 2, 3);
     Tuple norm = normalize(v);
-    //REQUIRE(norm == (float) 1);
-    REQUIRE(magnitude(norm) == (float) 1);
+    REQUIRE((double) magnitude(norm) == (double) 1);
     }
 
   SECTION("The dot product of two tuples"){

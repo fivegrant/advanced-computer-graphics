@@ -7,27 +7,27 @@ class Tuple{
 
   public:
     // Tuple Initializiation 
-    float x, y, z, w;
+    double x, y, z, w;
 
     //Constructor
     Tuple () {};
-    Tuple (float input_x = 0, float input_y = 0, float input_z = 0, float input_w = 0):
+    Tuple (double input_x = 0, double input_y = 0, double input_z = 0, double input_w = 0):
       x(input_x), y(input_y), z(input_z), w(input_w) {}
 
     //Operators
     bool operator==(const Tuple&) const;
     Tuple operator+(const Tuple& rhs) const;
     Tuple operator-(const Tuple& rhs) const;
-    Tuple operator*(float scalar) const;
-    Tuple operator/(float scalar) const;
+    Tuple operator*(double scalar) const;
+    Tuple operator/(double scalar) const;
 
     //Unary Operators
     Tuple operator-() const;
 
     //Methods
-    //float dot(const Tuple& other) const;
-    float isPoint() const;
-    float isVector() const;
+    //double dot(const Tuple& other) const;
+    double isPoint() const;
+    double isVector() const;
 
 };
 
@@ -48,15 +48,15 @@ Tuple Tuple::operator+(const Tuple& rhs) const
 
 Tuple Tuple::operator-(const Tuple& rhs) const
 {
-  return Tuple(x - rhs.x, y - rhs.y, z - rhs.z, w + rhs.w);
+  return Tuple(x - rhs.x, y - rhs.y, z - rhs.z, w - rhs.w);
 }
 
-Tuple Tuple::operator*(float scalar) const
+Tuple Tuple::operator*(double scalar) const
 {
   return Tuple(scalar * x, scalar * y, scalar * z, scalar * w);
 }
 
-Tuple Tuple::operator/(float scalar) const
+Tuple Tuple::operator/(double scalar) const
 {
   return Tuple((1/scalar) * x, (1/scalar) * y, (1/scalar) * z, (1/scalar) * w);
 }
@@ -68,21 +68,21 @@ Tuple Tuple::operator-() const
 }
 
 //Methods
-//float Tuple::dot(const Tuple& other) const
+//double Tuple::dot(const Tuple& other) const
 //{
-//  float result = this->x * other.x;
+//  double result = this->x * other.x;
 //  result += this->y * other.y;
 //  result += this->z * other.z;
 //  result += this->w * other.w;
 //  return result;
 //}
 
-float Tuple::isPoint() const
+double Tuple::isPoint() const
 {
   return this->w == 1;
 }
 
-float Tuple::isVector() const
+double Tuple::isVector() const
 {
   return this->w == 0;
 }
@@ -90,31 +90,31 @@ float Tuple::isVector() const
 //FUNCTIONS NOT IN TUPLE CLASS
 
 //Generators
-Tuple point(const float x, const float y, const float z)
+Tuple point(const double x, const double y, const double z)
 {
   return Tuple{x, y, z, 1.0};
 }
 
-Tuple vector(const float x, const float y, const float z)
+Tuple vector(const double x, const double y, const double z)
 {
   return Tuple{x, y, z, 0.0};
 }
 
 //Magnitude and Normalization
-float magnitude(const Tuple vector)
+double magnitude(const Tuple vector)
 {
   return sqrt(pow(vector.x, 2) + pow(vector.y, 2) + pow(vector.z, 2) + pow(vector.w, 2));
 }
 
 Tuple normalize(const Tuple vec)
 {
-  float mag = magnitude(vec);
-  return vector(vec.x, vec.y, vec.z);
+  double mag = magnitude(vec);
+  return vector(vec.x/mag, vec.y/mag, vec.z/mag);
 }
 
-float dot(const Tuple left, const Tuple right)
+double dot(const Tuple left, const Tuple right)
 {
-  float result = left.x * right.x;
+  double result = left.x * right.x;
   result += left.y * right.y;
   result += left.z * right.z;
   result += left.w * right.w;

@@ -9,7 +9,7 @@ class Ray{
     Ray(Tuple raw_origin, Tuple raw_direction):
       origin(raw_origin), direction(normalize(raw_direction)) {}
 
-    //Operators
+    //Methods
     Tuple pointAtT(float t) const;
 
 };

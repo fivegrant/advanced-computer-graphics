@@ -10,7 +10,7 @@ class Tuple{
     double x, y, z, w;
 
     //Constructor
-    Tuple () {};
+    Tuple () {}; //DELETE ME MAYBE?
     Tuple (double input_x = 0, double input_y = 0, double input_z = 0, double input_w = 0):
       x(input_x), y(input_y), z(input_z), w(input_w) {}
 

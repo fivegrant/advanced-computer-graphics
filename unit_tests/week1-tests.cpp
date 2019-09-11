@@ -67,7 +67,7 @@ TEST_CASE("Tuples, Vectors, and Points Functional", "[point, tuple, vector]"){
 
   SECTION("Negating a tuple"){
     Tuple a{1, -2, 3, -4};
-    REQUIRE(-a == Tuple{-1, 2, -3, -4});
+    REQUIRE(-a == Tuple{-1, 2, -3, 4});
     }
 
   SECTION("Multiplying a tuple by a scalar"){
@@ -77,12 +77,12 @@ TEST_CASE("Tuples, Vectors, and Points Functional", "[point, tuple, vector]"){
 
   SECTION("Multiplying a tuple by a fraction"){
     Tuple a{1, -2, 3, -4};
-    REQUIRE(a * .5 == Tuple{0.5, 1, 1.5, -2});
+    REQUIRE(a * .5 == Tuple{0.5, -1, 1.5, -2});
     }
 
   SECTION("Dividing a tuple by a scalar"){
     Tuple a{1, -2, 3, -4};
-    REQUIRE(a / 2 == Tuple{0.5, 1, 1.5, -2});
+    REQUIRE(a / 2 == Tuple{0.5, -1, 1.5, -2});
     }
 
   SECTION("Computing the magnitude of vector(1, 0, 0)"){
@@ -118,7 +118,7 @@ TEST_CASE("Tuples, Vectors, and Points Functional", "[point, tuple, vector]"){
   SECTION("Normalizing vector(1, 2, 3)"){
     Tuple v = vector(1, 2, 3);
     double s14 = sqrt(14);
-    REQUIRE(normalize(v) == vector(s14, 2 * s14, 3 * s14));
+    REQUIRE(normalize(v) == vector(1 / s14, 2 / s14, 3 / s14));
     }
 
   SECTION("The magnitude of a normalized vector"){
@@ -139,5 +139,35 @@ TEST_CASE("Tuples, Vectors, and Points Functional", "[point, tuple, vector]"){
     REQUIRE(cross(a, b) == vector(-1, 2, -1));
     REQUIRE(cross(b, a) == vector(1, -2, 1));
     }
+
+  SECTION("Adding colors"){
+    Tuple c1 = color(0.9, 0.6, 0.75);
+    Tuple c2 = color(0.7, .1, 0.25);
+    REQUIRE(c1 + c2 == color(1.6, 0.7, 1.0));
+    }
+
+  SECTION("Subtracting colors"){
+    Tuple c1 = color(0.9, 0.6, 0.75);
+    Tuple c2 = color(0.7, .1, 0.25);
+    REQUIRE(c1 - c2 == color(0.2, 0.5, 0.5));
+    }
+
+  SECTION("Subtracting colors"){
+    Tuple c1 = color(0.9, 0.6, 0.75);
+    Tuple c2 = color(0.7, .1, 0.25);
+    REQUIRE(c1 - c2 == color(0.2, 0.5, 0.5));
+    }
+
+  SECTION("Multiplying a color by a scalar"){
+    Tuple c = color(0.2, 0.3, 0.4);
+    REQUIRE(c * 2 == color(0.4, 0.6, 0.8));
+    }
+
+  SECTION("Multiplying colors"){
+    Tuple c1 = color(1, 0.2, 0.4);
+    Tuple c2 = color(0.9, 1, 0.1);
+    REQUIRE(c1 * c2 == color(0.9, 0.2, 0.04));
+    }
+
 
 }

@@ -7,20 +7,20 @@
 TEST_CASE("Tuples, Vectors, and Points Functional", "[point, tuple, vector]"){
   SECTION("A tuple with w=1.0 is a point"){
     Tuple a{4.3, -4.2, 3.1, 1.0};
-    REQUIRE(a.x == 4.3);
-    REQUIRE(a.y == -4.2);
-    REQUIRE(a.z == 3.1);
-    REQUIRE(a.w == 1.0);
+    REQUIRE(a.x == (float) 4.3);
+    REQUIRE(a.y == (float) -4.2);
+    REQUIRE(a.z == (float) 3.1);
+    REQUIRE(a.w == (float) 1.0);
     REQUIRE(a.isPoint());
     REQUIRE(!a.isVector());
     }
 
   SECTION("A tuple with w=0.0 is a vector"){
     Tuple a{4.3, -4.2, 3.1, 0.0};
-    REQUIRE(a.x == 4.3);
-    REQUIRE(a.y == -4.2);
-    REQUIRE(a.z == 3.1);
-    REQUIRE(a.w == 0.0);
+    REQUIRE(a.x == (float) 4.3);
+    REQUIRE(a.y == (float) -4.2);
+    REQUIRE(a.z == (float) 3.1);
+    REQUIRE(a.w == (float) 0.0);
     REQUIRE(!a.isPoint());
     REQUIRE(a.isVector());
     }
@@ -44,25 +44,25 @@ TEST_CASE("Tuples, Vectors, and Points Functional", "[point, tuple, vector]"){
   SECTION("Subtracting two points"){
     Tuple p1 = point(3, 2, 1);
     Tuple p2 = point(5, 6, 7);
-    REQUIRE(p1 - p2 == vector(-2, -4, -6)});
+    REQUIRE(p1 - p2 == vector(-2, -4, -6));
     }
 
   SECTION("Subtracting a vector from a point"){
     Tuple p = point(3, 2, 1);
     Tuple v = vector(5, 6, 7);
-    REQUIRE(p - v == point(-2, -4, -6)});
+    REQUIRE(p - v == point(-2, -4, -6));
     }
 
   SECTION("Subtracting two vectors"){
     Tuple v1 = vector(3, 2, 1);
     Tuple v2 = vector(5, 6, 7);
-    REQUIRE(v1 - v2 == vector(-2, -4, -6)});
+    REQUIRE(v1 - v2 == vector(-2, -4, -6));
     }
 
   SECTION("Subtracting a vector from the zero vector"){
     Tuple zero = vector(0, 0, 0);
     Tuple v = vector(1, -2, 3);
-    REQUIRE(zero - v == vector(-1, 2, -3)});
+    REQUIRE(zero - v == vector(-1, 2, -3));
     }
 
   SECTION("Negating a tuple"){
@@ -87,27 +87,27 @@ TEST_CASE("Tuples, Vectors, and Points Functional", "[point, tuple, vector]"){
 
   SECTION("Computing the magnitude of vector(1, 0, 0)"){
     Tuple v = vector(1, 0, 0);
-    REQUIRE(magnitude(v) == 1;
+    REQUIRE(magnitude(v) == 1);
     }
 
   SECTION("Computing the magnitude of vector(0, 1, 0)"){
     Tuple v = vector(0, 1, 0);
-    REQUIRE(magnitude(v) == 1;
+    REQUIRE(magnitude(v) == 1);
     }
 
   SECTION("Computing the magnitude of vector(0, 0, 1)"){
     Tuple v = vector(0, 0, 1);
-    REQUIRE(magnitude(v) == 1;
+    REQUIRE(magnitude(v) == 1);
     }
 
   SECTION("Computing the magnitude of vector(1, 2, 3)"){
     Tuple v = vector(1, 2, 3);
-    REQUIRE(magnitude(v) == sqrt(14);
+    REQUIRE(magnitude(v) == (float) sqrt(14));
     }
 
   SECTION("Computing the magnitude of vector(1, 2, 3)"){
     Tuple v = vector(1, 2, 3);
-    REQUIRE(magnitude(v) == sqrt(14);
+    REQUIRE(magnitude(v) == (float) sqrt(14));
     }
 
   SECTION("Normalizing vector(4, 0, 0) gives (1, 0, 0)"){
@@ -117,20 +117,21 @@ TEST_CASE("Tuples, Vectors, and Points Functional", "[point, tuple, vector]"){
 
   SECTION("Normalizing vector(1, 2, 3)"){
     Tuple v = vector(1, 2, 3);
-    float s14 = sqrt(14)
+    float s14 = sqrt(14);
     REQUIRE(normalize(v) == vector(s14, 2 * s14, 3 * s14));
     }
 
   SECTION("The magnitude of a normalized vector"){
     Tuple v = vector(1, 2, 3);
     Tuple norm = normalize(v);
-    REQUIRE(magnitude(norm) == 1));
+    //REQUIRE(norm == (float) 1);
+    REQUIRE(magnitude(norm) == (float) 1);
     }
 
   SECTION("The dot product of two tuples"){
     Tuple a = vector(1, 2, 3);
     Tuple b = vector(2, 3, 4);
-    REQUIRE(dot(a, b) == 20));
+    REQUIRE(dot(a, b) == 20);
     }
 
   SECTION("The cross product of two vectors"){

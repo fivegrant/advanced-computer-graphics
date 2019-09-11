@@ -1,4 +1,6 @@
 #include <cmath>
+#include <string>
+
 const double EPSILON = .00001;
 
 class Tuple{
@@ -124,4 +126,10 @@ Tuple cross(const Tuple left, const Tuple right)
  return Tuple{(left.y * right.z - left.z * right.y),
               (left.z * right.x - left.x * right.z),
 	      (left.x * right.y - left.y * right.x)};
+}
+
+//String Conversion
+std::ostream& operator << ( std::ostream& os, Tuple const& tuple ) {
+    os << "|" + std::to_string(tuple.x) + "," + std::to_string(tuple.y) + ","+ std::to_string(tuple.z) + "," + std::to_string(tuple.w) + "|";
+    return os;
 }

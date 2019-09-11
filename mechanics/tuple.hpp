@@ -18,6 +18,7 @@ class Tuple{
     bool operator==(const Tuple&) const;
     Tuple operator+(const Tuple& rhs) const;
     Tuple operator-(const Tuple& rhs) const;
+    Tuple operator*(const Tuple& rhs) const;
     Tuple operator*(double scalar) const;
     Tuple operator/(double scalar) const;
 
@@ -49,6 +50,11 @@ Tuple Tuple::operator+(const Tuple& rhs) const
 Tuple Tuple::operator-(const Tuple& rhs) const
 {
   return Tuple(x - rhs.x, y - rhs.y, z - rhs.z, w - rhs.w);
+}
+
+Tuple Tuple::operator*(const Tuple& rhs) const
+{
+  return Tuple(rhs.x * x, rhs.y * y, rhs.z * z, rhs.w * w);
 }
 
 Tuple Tuple::operator*(double scalar) const
@@ -96,6 +102,11 @@ Tuple point(const double x, const double y, const double z)
 }
 
 Tuple vector(const double x, const double y, const double z)
+{
+  return Tuple{x, y, z, 0.0};
+}
+
+Tuple color(const double x, const double y, const double z)
 {
   return Tuple{x, y, z, 0.0};
 }

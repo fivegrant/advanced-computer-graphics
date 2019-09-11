@@ -1,4 +1,5 @@
 #include <cmath>
+const double EPSILON = .00001;
 
 class Tuple{
 
@@ -12,6 +13,7 @@ class Tuple{
       x(input_x), y(input_y), z(input_z), w(input_w) {}
 
     //Operators
+    bool operator==(const Tuple&) const;
     Tuple operator+(const Tuple& rhs) const;
     Tuple operator-(const Tuple& rhs) const;
     Tuple operator*(float scalar) const;
@@ -28,6 +30,15 @@ class Tuple{
 };
 
 //Operators
+bool Tuple::operator==(const Tuple& rhs) const
+{
+  bool condition_x = abs(x - rhs.x) < EPSILON;
+  bool condition_y = abs(y - rhs.y) < EPSILON;
+  bool condition_z = abs(z - rhs.z) < EPSILON;
+  bool condition_w = abs(w - rhs.w) < EPSILON;
+  return condition_x && condition_y && condition_z && condition_w;
+}
+
 Tuple Tuple::operator+(const Tuple& rhs) const
 {
   return Tuple(x + rhs.x, y + rhs.y, z + rhs.z, w + rhs.w);

@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN
 #include <cmath>
 #include "../modules/catch2.hpp"
-#include "../mechanics/tuple.h"
+#include "../mechanics/tuple.hpp"
 
 
 TEST_CASE("Tuples, Vectors, and Points Functional", "[point, tuple, vector]"){
@@ -42,26 +42,26 @@ TEST_CASE("Tuples, Vectors, and Points Functional", "[point, tuple, vector]"){
     }
 
   SECTION("Subtracting two points"){
-    p1 = point(3, 2, 1);
-    p2 = point(5, 6, 7);
+    Tuple p1 = point(3, 2, 1);
+    Tuple p2 = point(5, 6, 7);
     REQUIRE(p1 - p2 == vector(-2, -4, -6)});
     }
 
   SECTION("Subtracting a vector from a point"){
-    p = point(3, 2, 1);
-    v = vector(5, 6, 7);
+    Tuple p = point(3, 2, 1);
+    Tuple v = vector(5, 6, 7);
     REQUIRE(p - v == point(-2, -4, -6)});
     }
 
   SECTION("Subtracting two vectors"){
-    v1 = vector(3, 2, 1);
-    v2 = vector(5, 6, 7);
+    Tuple v1 = vector(3, 2, 1);
+    Tuple v2 = vector(5, 6, 7);
     REQUIRE(v1 - v2 == vector(-2, -4, -6)});
     }
 
   SECTION("Subtracting a vector from the zero vector"){
-    zero = vector(0, 0, 0);
-    v = vector(1, -2, 3);
+    Tuple zero = vector(0, 0, 0);
+    Tuple v = vector(1, -2, 3);
     REQUIRE(zero - v == vector(-1, 2, -3)});
     }
 
@@ -86,56 +86,56 @@ TEST_CASE("Tuples, Vectors, and Points Functional", "[point, tuple, vector]"){
     }
 
   SECTION("Computing the magnitude of vector(1, 0, 0)"){
-    v = vector(1, 0, 0);
+    Tuple v = vector(1, 0, 0);
     REQUIRE(magnitude(v) == 1;
     }
 
   SECTION("Computing the magnitude of vector(0, 1, 0)"){
-    v = vector(0, 1, 0);
+    Tuple v = vector(0, 1, 0);
     REQUIRE(magnitude(v) == 1;
     }
 
   SECTION("Computing the magnitude of vector(0, 0, 1)"){
-    v = vector(0, 0, 1);
+    Tuple v = vector(0, 0, 1);
     REQUIRE(magnitude(v) == 1;
     }
 
   SECTION("Computing the magnitude of vector(1, 2, 3)"){
-    v = vector(1, 2, 3);
-    REQUIRE(magnitude(v) == cmath::sqrt(14);
+    Tuple v = vector(1, 2, 3);
+    REQUIRE(magnitude(v) == sqrt(14);
     }
 
   SECTION("Computing the magnitude of vector(1, 2, 3)"){
-    v = vector(1, 2, 3);
-    REQUIRE(magnitude(v) == cmath::sqrt(14);
+    Tuple v = vector(1, 2, 3);
+    REQUIRE(magnitude(v) == sqrt(14);
     }
 
   SECTION("Normalizing vector(4, 0, 0) gives (1, 0, 0)"){
-    v = vector(4, 0, 0);
+    Tuple v = vector(4, 0, 0);
     REQUIRE(normalize(v) == vector(1, 0, 0));
     }
 
   SECTION("Normalizing vector(1, 2, 3)"){
-    v = vector(1, 2, 3);
-    s14 = cmath::sqrt(14)
+    Tuple v = vector(1, 2, 3);
+    float s14 = sqrt(14)
     REQUIRE(normalize(v) == vector(s14, 2 * s14, 3 * s14));
     }
 
   SECTION("The magnitude of a normalized vector"){
-    v = vector(1, 2, 3);
-    norm = normalize(v);
+    Tuple v = vector(1, 2, 3);
+    Tuple norm = normalize(v);
     REQUIRE(magnitude(norm) == 1));
     }
 
   SECTION("The dot product of two tuples"){
-    a = vector(1, 2, 3);
-    b = vector(2, 3, 4);
+    Tuple a = vector(1, 2, 3);
+    Tuple b = vector(2, 3, 4);
     REQUIRE(dot(a, b) == 20));
     }
 
   SECTION("The cross product of two vectors"){
-    a = vector(1, 2, 3);
-    b = vector(2, 3, 4);
+    Tuple a = vector(1, 2, 3);
+    Tuple b = vector(2, 3, 4);
     REQUIRE(cross(a, b) == vector(-1, 2, -1));
     REQUIRE(cross(b, a) == vector(1, -2, 1));
     }

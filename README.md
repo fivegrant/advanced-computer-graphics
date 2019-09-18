@@ -6,8 +6,6 @@
 - Catch2: https://github.com/catchorg/Catch2/blob/master/docs/tutorial.md#top
 
 # [[TODO]]
-- Add Print Statement to Ray Class
-- Add Print Statement to Sphere Class
 - Write Canvas Class
 - Render PPM
 - Fix 'Feature: Canvas' Unit Tests

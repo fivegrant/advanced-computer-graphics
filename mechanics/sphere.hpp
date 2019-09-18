@@ -1,4 +1,4 @@
-#include <list>
+#include <vector>
 #include "./ray.hpp"
 
 class Sphere{
@@ -11,12 +11,12 @@ class Sphere{
     Sphere() {}
 
     //Operators
-    std::list<double> pointAtT(Ray ray) const;
+    std::vector<double> pointAtT(Ray ray) const;
 
 };
 
 //Methods
-std::list<double> Sphere::pointAtT(Ray ray) const
+std::vector<double> Sphere::pointAtT(Ray ray) const
 {
   Tuple o = ray.origin - point(0, 0, 0);
   double a = 1;
@@ -25,12 +25,13 @@ std::list<double> Sphere::pointAtT(Ray ray) const
   double discriminant = pow(b, 2) - (4 * c);
 
   if (discriminant < 0){
-    return std::list<double> {};
+    return std::vector<double> {};
 } else if (discriminant == 0){
     double t = -b/(2 * a);
-    return std::list<double> {t, t};
+    return std::vector<double> {t, t};
 } else {
-    return std::list<double> {(-b - discriminant)/(2 * a), (-b + discriminant)/(2 * a)};
+    discriminant = sqrt(discriminant);
+    return std::vector<double> {(-b - discriminant)/(2 * a), (-b + discriminant)/(2 * a)};
 }
 }
 

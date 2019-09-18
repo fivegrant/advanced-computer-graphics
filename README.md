@@ -9,11 +9,9 @@
 - Compile Sphere Class
 - Add Print Statement to Ray Class
 - Add Print Statement to Sphere Class
-- Create 'Feature: Rays' Unit Tests
-- Create 'Feature: Sphere' Unit Tests
 - Write Canvas Class
-- Create 'Feature: Canvas' Unit Tests
 - Render PPM
+- Fix 'Feature: Canvas' Unit Tests
 - Add `red`, `green`, and `blue` to Tuple
 - Write Makefile
 - Implement `double magsquare(Tuple vector)`

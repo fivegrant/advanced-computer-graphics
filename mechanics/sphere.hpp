@@ -11,24 +11,25 @@ class Sphere{
     Sphere() {}
 
     //Operators
-    std::list<double> intersectionsWith(Ray ray) const;
+    std::list<double> pointAtT(Ray ray) const;
 
 };
 
 //Methods
 std::list<double> Sphere::pointAtT(Ray ray) const
 {
-  o = ray.origin - point(0, 0, 0);
-  a = 1;
-  b = dot(ray.direction, o) * 2;
-  c = dot(o, o) - 1;
-  discriminant = pow(b, 2) - (4 * c);
+  Tuple o = ray.origin - point(0, 0, 0);
+  double a = 1;
+  double b = dot(ray.direction, o) * 2;
+  double c = dot(o, o) - 1;
+  double discriminant = pow(b, 2) - (4 * c);
 
   if (discriminant < 0){
-    return [];
+    return std::list<double> {};
 } else if (discriminant == 0){
-    t = -b/(2 * a)
-    return [t, t]
+    double t = -b/(2 * a);
+    return std::list<double> {t, t};
 } else {
-    return [(-b - discriminant)/(2 * a), (-b + discriminant)/(2 * a)]
+    return std::list<double> {(-b - discriminant)/(2 * a), (-b + discriminant)/(2 * a)};
+}
 }

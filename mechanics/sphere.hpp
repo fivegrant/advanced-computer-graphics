@@ -33,3 +33,9 @@ std::list<double> Sphere::pointAtT(Ray ray) const
     return std::list<double> {(-b - discriminant)/(2 * a), (-b + discriminant)/(2 * a)};
 }
 }
+
+//String Conversion
+std::ostream& operator << (std::ostream& os, Sphere const& sphere) {
+    os << "(0)radius =" + std::to_string(sphere.radius) + "(0)";
+    return os;
+}

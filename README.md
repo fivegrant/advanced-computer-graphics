@@ -6,7 +6,6 @@
 - Catch2: https://github.com/catchorg/Catch2/blob/master/docs/tutorial.md#top
 
 # [[TODO]]
-- Compile Sphere Class
 - Add Print Statement to Ray Class
 - Add Print Statement to Sphere Class
 - Write Canvas Class

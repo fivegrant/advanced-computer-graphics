@@ -140,7 +140,8 @@ Tuple cross(const Tuple left, const Tuple right)
 }
 
 //String Conversion
-std::ostream& operator << ( std::ostream& os, Tuple const& tuple ) {
+std::ostream& operator << (std::ostream& os, Tuple const& tuple) {
     os << "|" + std::to_string(tuple.x) + "," + std::to_string(tuple.y) + ","+ std::to_string(tuple.z) + "," + std::to_string(tuple.w) + "|";
     return os;
 }
+

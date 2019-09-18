@@ -8,7 +8,7 @@
 #include "../../modules/catch2.hpp"
 #include "../../components/canvas.hpp"
 //Sample File
-const string SAMPLE_PPM = "sample_sphere.ppm"
+const string SAMPLE_PPM = "feature_canvas.ppm"
 
 TEST_CASE("Creating a canvas"){
   Canvas c ← Canvas(10, 20);
@@ -19,14 +19,15 @@ TEST_CASE("Creating a canvas"){
 }
 
 TEST_CASE("Writing pixels to a canvas"){
-  Canvas c = Canvas(10, 20)
-  Tuple red = color(1, 0, 0)
-  write_pixel(c, 2, 3, red) = pixel_at(c, 2, 3) = red
+  Canvas c = Canvas(10, 20);
+  Tuple red = color(1, 0, 0);
+  c.write_pixel(2, 3, red); 
+  REQUIRE(c.pixel_at(2, 3) == red);
 }
 
 TEST_CASE("Constructing the PPM header"){
   Canvas c = Canvas(5, 3)
-  std::string ppm = canvas_to_ppm(c)
+  std::string ppm = c.toPPM()
   std::ifstream infile(SAMPLE_PPM);
   std::getLine(infile, life)
   //TODO:Fix
@@ -45,7 +46,7 @@ TEST_CASE("Constructing the PPM pixel data"){
   write_pixel(c, 0, 0, c1);
   write_pixel(c, 2, 1, c2);
   write_pixel(c, 4, 2, c3);
-  std:string ppm = canvas_to_ppm(c)
+  std:string ppm = c.toPPM()
   Then lines 4-6 of ppm are
     """
     255 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -57,7 +58,7 @@ TEST_CASE("Constructing the PPM pixel data"){
 TEST_CASE("Splitting long lines in PPM files"){
   Canvas c = Canvas(10, 2);
   When every pixel of c is set to color(1, 0.8, 0.6)
-    And ppm ← canvas_to_ppm(c)
+    And ppm ← c.toPPM()
   Then lines 4-7 of ppm are
     """
     255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204
@@ -69,6 +70,6 @@ TEST_CASE("Splitting long lines in PPM files"){
 
 TEST_CASE("PPM files are terminated by a newline character"){
   Canvas c = Canvas(5, 3);
-  std:string ppm = canvas_to_ppm(c);
+  std:string ppm = c.toPPM();
   Then ppm ends with a newline character
 }

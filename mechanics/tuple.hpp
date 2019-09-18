@@ -111,6 +111,14 @@ Tuple color(const double x, const double y, const double z)
   return Tuple{x, y, z, 0.0};
 }
 
+Tuple color(const double x, const double y, const double z, bool is255)
+{
+  if(is255){
+    return Tuple{x, y, z, 1.0};
+  }else{
+   return Tuple{x, y, z, 0.0};
+  }
+}
 //Magnitude and Normalization
 double magnitude(const Tuple vector)
 {

@@ -1,5 +1,6 @@
 #include <cmath>
 #include <string>
+#pragma once 
 
 const double EPSILON = .00001;
 

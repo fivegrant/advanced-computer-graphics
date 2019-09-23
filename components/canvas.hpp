@@ -6,16 +6,28 @@
 class Canvas{
 
   public:
-  double w, h;
+  int w, h;
   std::vector<std::vector<Tuple>> pixels;
 
-  Canvas (double input_w, double input_h, std::vector<std::vector<Tuple>> input_pixels):
+  Canvas (int input_w, int input_h, std::vector<std::vector<Tuple>> input_pixels):
     w(input_w), h(input_h), pixels(input_pixels) {}
-  
+
+  Canvas (int input_w, int input_h):
+    w(input_w), h(input_h) {
+    for(int width = 0; width < input_w; width++){
+      std::vector<Tuple> column = {};
+      for(int height = 0; height < input_h; height++){
+        column.push_back(color(0,0,0));
+      }
+      pixels.push_back(column);
+    }
+    
+    } 
+
   Tuple colorTo255(Tuple color) const; 
   Tuple pixel_at(int x_pos, int y_pos) const;
   void write_pixel(int x_pos, int y_pos, Tuple);
-  std::string toPPM() const;
+  void toPPM(std::string filename) const;
 };
 
 Tuple Canvas::colorTo255(Tuple raw_color) const{
@@ -48,7 +60,7 @@ void Canvas::write_pixel(int x_pos, int y_pos, Tuple pixel) {
   this->pixels[x_pos][y_pos] = colorTo255(pixel);
 }
 
-std::string Canvas::toPPM() const
+void Canvas::toPPM(std::string filename) const
 {
   std::string output = "P3\n";
   output+= std::to_string(this->w) + ' ' + std::to_string(this->h) + '\n';
@@ -59,7 +71,9 @@ std::string Canvas::toPPM() const
     output+= '\n';
       }
     }
-  return output;
+  std::ofstream ppm(filename);
+  ppm << output;
+  ppm.close();
 }
 
 //String Conversion

@@ -2,4 +2,5 @@ modules/
 build/
 .DS_Store
 *.gch
+*.ppm
 a.out

@@ -6,11 +6,11 @@
 const std::string filename = "first_sphere.ppm";
 
 int main(){
-Canvas canv = Canvas(100, 100, {});
+Canvas canv = Canvas(100, 100);
 
-for(int index_j = 0; index_j < canv.w, index_j++;){
+for(int index_j = 0; index_j < canv.w; index_j++){
   double y = 2 - index_j / 25.0;
-  for(int index_i = 0; index_i < canv.h, index_i++;){
+  for(int index_i = 0; index_i < canv.h; index_i++){
     int x = -2 + index_i / 25.0 ; 
     Tuple origin = point(x, y, -5);
     Tuple direction = vector(0, 0, 1);
@@ -23,13 +23,13 @@ for(int index_j = 0; index_j < canv.w, index_j++;){
 	}
       }
       if (wasHit){
-        canv.write_pixel(index_j, index_i,color(0,0,255));
+        canv.write_pixel(index_j, index_i,color(255,0,0));
       }else{
         canv.write_pixel(index_j, index_i,color(0,0,0));
       }
   }
 }
-canv.toPPM("first_sphere.txt");
+canv.toPPM("first_sphere.ppm");
 return 0;
 }
 

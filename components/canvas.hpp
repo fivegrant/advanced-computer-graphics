@@ -1,5 +1,6 @@
 #include <vector>
 #include <string>
+#include <fstream>
 #include <cmath>
 #include "../mechanics/tuple.hpp"
 
@@ -57,7 +58,8 @@ Tuple Canvas::pixel_at(int x_pos, int y_pos) const{
 }
 
 void Canvas::write_pixel(int x_pos, int y_pos, Tuple pixel) {
-  this->pixels[x_pos][y_pos] = colorTo255(pixel);
+  //this->pixels[x_pos][y_pos] = colorTo255(pixel);
+  this->pixels[x_pos][y_pos] = pixel;
 }
 
 void Canvas::toPPM(std::string filename) const
@@ -67,7 +69,10 @@ void Canvas::toPPM(std::string filename) const
   output+= "255\n";
   for(std::vector<Tuple> width: this->pixels){
     for(Tuple pixel: width){
-      output+= std::to_string(int (pixel.x)) + " " + std::to_string(int (pixel.y)) + " " + std::to_string(int (pixel.z)) + " ";
+      Tuple show = colorTo255(pixel);
+      output+= std::to_string((int)show.x) + " " + 
+       std::to_string((int)show.y) + " " + 
+       std::to_string((int)show.z) + " ";
     output+= '\n';
       }
     }
@@ -81,4 +86,17 @@ std::ostream& operator << (std::ostream& os, Canvas const& canvas) {
     os << "CANVAS:: w: " +std::to_string(canvas.w) + ", h: " +
      std::to_string(canvas.h);
     return os;
+}
+
+//File Conversion
+std::vector<std::string> ppmByLine(std::string filename)
+{
+  std::vector<std::string> output = {};
+  std::string capture;
+  std::ifstream ppm(filename);
+  while (std::getline(ppm, capture)){
+    output.push_back(capture);
+  }
+  ppm.close();
+  return output;
 }

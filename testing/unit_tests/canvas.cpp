@@ -53,12 +53,15 @@ TEST_CASE("Constructing the PPM pixel data"){
 
 TEST_CASE("Splitting long lines in PPM files"){
   Tuple standard_color = color(1, 0.8, 0.6);
-  std::vector<Tuple> row = {standard_color, standard_color};
-  Canvas c = Canvas(10, 2, {row, row, row, row, row, row, row, row, row, row});
-  c.toPPM(SAMPLE_PPM);
-  std::vector<std::string> ppm = ppmByLine(SAMPLE_PPM);
-  REQUIRE(ppm[3] == "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204 153");
-  REQUIRE(ppm[4] == "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204 153");
+  Canvas c = Canvas(10, 2, standard_color);
+  //c.toPPM(SAMPLE_PPM);
+  //std::vector<std::string> ppm = ppmByLine(SAMPLE_PPM);
+  c.toPPM("wait");
+  std::vector<std::string> ppm = ppmByLine("wait");
+  REQUIRE(ppm[3] == "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204");
+  REQUIRE(ppm[4] == "153 255 204 153 255 204 153 255 204 153 255 204 153");
+  REQUIRE(ppm[5] == "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204");
+  REQUIRE(ppm[6] == "153 255 204 153 255 204 153 255 204 153 255 204 153");
 }
 
 TEST_CASE("PPM files are terminated by a newline character"){

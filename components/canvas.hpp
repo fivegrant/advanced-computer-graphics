@@ -79,13 +79,24 @@ void Canvas::toPPM(std::string filename) const
   output+= std::to_string(this->w) + ' ' + std::to_string(this->h) + '\n';
   output+= "255\n";
   for(std::vector<Tuple> row: this->pixels){
-    for(Tuple pixel: row){
-      Tuple show = colorTo255(pixel);
-      output+= std::to_string((int)show.x) + " " + 
-       std::to_string((int)show.y) + " " + 
-       std::to_string((int)show.z) + " ";
+    std::string line = "";
+    for(Tuple color_values: row){
+      Tuple show = colorTo255(color_values);
+      std::string pixel [3] = {std::to_string((int)show.x), 
+                               std::to_string((int)show.y), 
+                               std::to_string((int)show.z)};
+      
+      for(auto rgb_value: pixel){
+	      std::string hold = (line.length() == 0) ? rgb_value : line + " " + rgb_value; 
+	      if(hold.length() <= 70){
+		line = hold;
+	      }else{
+		output += line + "\n";
+		line = rgb_value; 
       }
-    output+= "\n";
+      }
+      }
+    output+= line + "\n";
     }
   output+= "\n";
   std::ofstream ppm(filename);
@@ -109,6 +120,6 @@ std::vector<std::string> ppmByLine(std::string filename)
   while (std::getline(ppm, capture)){
     output.push_back(capture);
   }
-  ppm.close();
+  ppm.close(); 
   return output;
 }

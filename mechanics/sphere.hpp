@@ -1,11 +1,13 @@
 #include <vector>
 #include "./ray.hpp"
+#include "./material.hpp"
 
 class Sphere{
   public:
     //Sphere Initialization
     double radius = 1; 
     Tuple center = point(0,0,0);
+    Material material = Material();
     ///Assume Sphere is centered out origin
     
     //Constructor

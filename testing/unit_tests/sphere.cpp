@@ -51,36 +51,41 @@ TEST_CASE("A sphere is behind a ray"){
 }
 
 //TestCasesWeek1.txt
-Scenario: The normal on a sphere at a point on the x axis
-  Given s ← sphere()
-  When n ← normal_at(s, point(1, 0, 0))
-  Then n = vector(1, 0, 0)
+TEST_CASE("The normal on a sphere at a point on the x axis"){
+  Sphere s = Sphere();
+  Tuple n = s.normalAtPoint(point(1, 0, 0));
+  REQUIRE(n == vector(1, 0, 0));
+}
 
-Scenario: The normal on a sphere at a point on the y axis
-  Given s ← sphere()
-  When n ← normal_at(s, point(0, 1, 0))
-  Then n = vector(0, 1, 0)
+TEST_CASE("The normal on a sphere at a point on the y axis"){
+  Sphere s = Sphere();
+  Tuple n = s.normalAtPoint(point(0, 1, 0));
+  REQUIRE(n == vector(0, 1, 0));
+}
 
-Scenario: The normal on a sphere at a point on the z axis
-  Given s ← sphere()
-  When n ← normal_at(s, point(0, 0, 1))
-  Then n = vector(0, 0, 1)
+TEST_CASE("The normal on a sphere at a point on the z axis"){
+  Sphere s = Sphere();
+  Tuple n = s.normalAtPoint(point(0, 0, 1));
+  REQUIRE(n == vector(0, 0, 1));
+}
 
-Scenario: The normal on a sphere at a nonaxial point
-  Given s ← sphere()
-  When n ← normal_at(s, point(√3/3, √3/3, √3/3))
-  Then n = vector(√3/3, √3/3, √3/3)
+TEST_CASE("The normal on a sphere at a nonaxial point"){
+  Sphere s = Sphere();
+  Tuple n = s.normalAtPoint(point(sqrt(3)/3, sqrt(3)/3, sqrt(3)/3));
+  REQUIRE(n == vector(sqrt(3)/3, sqrt(3)/3, sqrt(3)/3));
+}
 
-Scenario: The normal is a normalized vector
-  Given s ← sphere()
-  When n ← normal_at(s, point(√3/3, √3/3, √3/3))
-  Then n = normalize(n)
+TEST_CASE("The normal is a normalized vector"){
+  Sphere s = Sphere();
+  Tuple n = s.normalAtPoint(point(sqrt(3)/3, sqrt(3)/3, sqrt(3)/3));
+  REQUIRE(n == normalize(n));
+}
 
-Scenario: A sphere may be assigned a material //** NOTE: Some differences from textbook!
-  Given s ← sphere()
-    And m ← material()
-    And m.color ← color(0, 0, 1)
-  When s.material ← m
-  Then s.material = m
-
+TEST_CASE("A sphere may be assigned a material //** NOTE: Some differences from textbook!"){
+  Sphere s = Sphere();
+  Material m = Material();
+  m.surface_color = color(0, 0, 1);
+  s.material = m;
+  REQUIRE(s.material == m);
+}
 

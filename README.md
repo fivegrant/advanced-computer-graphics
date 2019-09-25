@@ -7,7 +7,21 @@
 
 # [[TODO]]
 - Implement Matrix Class
+- Update Ray Tests
+- Update Sphere Tests
+- Update Materials Class
+  - Include Ambient
+  - Include Shininess
+- Update Tuple
+  - Include Reflection
+- Implement Camera class
+  - Include Orthographic
+  - Include Perspective
 - Add `red`, `green`, and `blue` to Tuple
+- Break up Header Files
+- Restructure mechanics/ and components/
 - Write Makefile
-- Implement `double magsquare(Tuple vector)`
-  - Return a vector dotted with itself
+
+
+# Questions
+-`double magsquare(Tuple vector)`: Return a vector dotted with itself

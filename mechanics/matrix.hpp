@@ -4,9 +4,7 @@
 class Matrix{
 
   public:
-    // Tuple Initializiation 
-    int size;
-    std::vector<double> body;
+    double body [];
     double det = 0;
     Matrix inverse_matrix, transposed_matrix = Matrix();
     bool invertible = false;
@@ -16,23 +14,22 @@ class Matrix{
     
     //Constructor
      Matrix (std::vector<double> content):
-      body(content) {
-        size = sqrt(body);
-      }
+      body(content) {}
      Matrix ():
       {
-        size = 2;
-	body = {1, 0,
-	        0, 1,}
+	body = {1, 0, 0, 0,
+	        0, 1, 0, 0,
+		0, 0, 1, 0,
+		0, 0, 0, 1}
       }
 
     //Operators
     bool operator==(const Matrix&) const;
     Matrix operator*(const Matrix& rhs) const;
     Tuple operator*(const Tuple& rhs) const;
-
-    //Unary Operators
-    //Tuple operator-() const;
+    //source for bracket overloading: https://stackoverflow.com/questions/11066564/overload-bracket-operators-to-get-and-set
+    double operator [](int location) const {};
+    double & operator [](int location) const {};
 
     //Methods
     Matrix inverse();
@@ -61,6 +58,11 @@ Matrix Matrix::operator*(const Matrix& rhs) const
 
 
 //Methods
+int Matrix::size() const
+{
+  return sqrt(this->body.size());
+}
+
 double Matrix::det()
 {
   return //
@@ -81,64 +83,15 @@ Matrix Matrix::inverse()
   return //
 }
 
-
-//FUNCTIONS NOT IN TUPLE CLASS
-
-//Generators
-Tuple point(const double x, const double y, const double z)
-{
-  return Tuple{x, y, z, 1.0};
-}
-
-Tuple vector(const double x, const double y, const double z)
-{
-  return Tuple{x, y, z, 0.0};
-}
-
-Tuple color(const double x, const double y, const double z)
-{
-  return Tuple{x, y, z, 0.0};
-}
-
-Tuple color(const double x, const double y, const double z, bool is255)
-{
-  if(is255){
-    return Tuple{x, y, z, 1.0};
-  }else{
-   return Tuple{x, y, z, 0.0};
-  }
-}
-//Magnitude and Normalization
-double magnitude(const Tuple vector)
-{
-  return sqrt(pow(vector.x, 2) + pow(vector.y, 2) + pow(vector.z, 2) + pow(vector.w, 2));
-}
-
-Tuple normalize(const Tuple vec)
-{
-  double mag = magnitude(vec);
-  return vector(vec.x/mag, vec.y/mag, vec.z/mag);
-}
-
-double dot(const Tuple left, const Tuple right)
-{
-  double result = left.x * right.x;
-  result += left.y * right.y;
-  result += left.z * right.z;
-  result += left.w * right.w;
-  return result;
-}
-
-Tuple cross(const Tuple left, const Tuple right)
-{
- return Tuple{(left.y * right.z - left.z * right.y),
-              (left.z * right.x - left.x * right.z),
-	      (left.x * right.y - left.y * right.x)};
-}
-
 //String Conversion
-std::ostream& operator << (std::ostream& os, Tuple const& tuple) {
-    os << "|" + std::to_string(tuple.x) + "," + std::to_string(tuple.y) + ","+ std::to_string(tuple.z) + "," + std::to_string(tuple.w) + "|";
+std::ostream& operator << (std::ostream& os, Matrix const& matrix) {
+    std::string output = "";
+    output = "|" + matrix.body[0] +  matrix.body[1] + matrix.body[2] + matrix.body[3] + "\n"
+		+ matrix.body[4] +  matrix.body[5] + matrix.body[6] + matrix.body[7] + "\n"
+		+ matrix.body[8] +  matrix.body[9] + matrix.body[10] + matrix.body[11] + "\n"
+		+ matrix.body[12] +  matrix.body[13] + matrix.body[14] + matrix.body[15] + "\n"
+                + "|";
+    os << output;
     return os;
 }
 

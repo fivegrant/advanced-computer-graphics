@@ -29,7 +29,7 @@ class Matrix{
     Tuple operator*(const Tuple& rhs) const;
     //source for bracket overloading: https://stackoverflow.com/questions/11066564/overload-bracket-operators-to-get-and-set
     double operator [](int location) const {};
-    double & operator [](int location) const {};
+    void & operator [](int location) const {};
 
     //Methods
     Matrix inverse();
@@ -56,7 +56,33 @@ Matrix Matrix::operator*(const Matrix& rhs) const
   return //finish
 }
 
+double Matrix::operator [](int location) const 
+{
+  switch(location)
+  {
+    case 11: return body[0] ;
+    case 12: return body[0] ;
+    case 13: return body[0] ;
+    case 11: return body[0] ;
+    case 11: return body[0] ;
+    case 11: return body[0] ;
+    case 11: return body[0] ;
+    case 11: return body[0] ;
+    case 11: return body[0] ;
+    case 11: return body[0] ;
+    case 11: return body[0] ;
+    case 11: return body[0] ;
+    case 11: return body[0] ;
+    case 11: return body[0] ;
+    case 11: return body[0] ;
+    case 11: return body[0] ;
+  }
+}
 
+void Matrix::operator [](int location) const 
+{
+  
+}
 //Methods
 int Matrix::size() const
 {

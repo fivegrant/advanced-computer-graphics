@@ -1,11 +1,11 @@
 #include <vector>
 #include <cmath>
 #include "../../mechanics/tuple.hpp"
-class Matrix{
+class Matrix4x4{
 
   public:
     double body [];
-    double det = 0;
+    double determinant = 0;
     Matrix inverse_matrix, transposed_matrix = Matrix();
     bool invertible = false;
     //check to see if calculation has already been performed
@@ -28,8 +28,9 @@ class Matrix{
     Matrix operator*(const Matrix& rhs) const;
     Tuple operator*(const Tuple& rhs) const;
     //source for bracket overloading: https://stackoverflow.com/questions/11066564/overload-bracket-operators-to-get-and-set
-    double operator [](int location) const {};
-    void & operator [](int location) const {};
+    //index min: 1 & index max:4
+    double operator [](int location [2]) const {};
+    double & operator [](int location [2]) {};
 
     //Methods
     Matrix inverse();
@@ -56,33 +57,16 @@ Matrix Matrix::operator*(const Matrix& rhs) const
   return //finish
 }
 
-double Matrix::operator [](int location) const 
+double Matrix::operator [](int location [2]) const 
 {
-  switch(location)
-  {
-    case 11: return body[0] ;
-    case 12: return body[0] ;
-    case 13: return body[0] ;
-    case 11: return body[0] ;
-    case 11: return body[0] ;
-    case 11: return body[0] ;
-    case 11: return body[0] ;
-    case 11: return body[0] ;
-    case 11: return body[0] ;
-    case 11: return body[0] ;
-    case 11: return body[0] ;
-    case 11: return body[0] ;
-    case 11: return body[0] ;
-    case 11: return body[0] ;
-    case 11: return body[0] ;
-    case 11: return body[0] ;
-  }
+  return body[(location[0] - 1) * 4 + location[1] - 1]
 }
 
-void Matrix::operator [](int location) const 
+double & operator [](int location [2]) 
 {
-  
+  return body[(location[0] - 1) * 4 + location[1] - 1]
 }
+
 //Methods
 int Matrix::size() const
 {
@@ -91,7 +75,27 @@ int Matrix::size() const
 
 double Matrix::det()
 {
-  return //
+  //check if det is stored
+  if(this->check[0])
+  {
+    return this->determinant;
+  }
+  else{
+  double determinant = 0;
+  //item in 3rd column * (ac - bd)
+  sub_a = this[{3, 1}] * (this[{1, 2}] * this[{2, 3}] - this[{1, 3}] * this[{2, 2}]);
+  sub_b = -(this[{3, 2}] * (this[{1, 1}] * this[{2, 3}] - this[{1, 3}] * this[{2, 1}]));
+  sub_c = this[{3, 3}] * (this[{1, 1}] * this[{2, 2}] - this[{1, 2}] * this[{2, 1}]);
+  result = this[{4,4}] * (sub_a + sub_b + sub_c);
+  this->check[0] = true;
+  this->determinant = result;
+  if(result ==0)
+  {
+    check[1] = true;
+    check[3] = true;
+  }
+  return result;
+  }
 }
 
 bool Matrix::invertible()

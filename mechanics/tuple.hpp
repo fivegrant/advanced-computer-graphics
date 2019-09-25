@@ -11,7 +11,6 @@ class Tuple{
     double x, y, z, w;
 
     //Constructor
-    Tuple () {}; //DELETE ME MAYBE?
     Tuple (double input_x = 0, double input_y = 0, double input_z = 0, double input_w = 0):
       x(input_x), y(input_y), z(input_z), w(input_w) {}
 
@@ -27,7 +26,7 @@ class Tuple{
     Tuple operator-() const;
 
     //Methods
-    //double dot(const Tuple& other) const;
+    double dot(const Tuple& other) const;
     double isPoint() const;
     double isVector() const;
 
@@ -75,14 +74,14 @@ Tuple Tuple::operator-() const
 }
 
 //Methods
-//double Tuple::dot(const Tuple& other) const
-//{
-//  double result = this->x * other.x;
-//  result += this->y * other.y;
-//  result += this->z * other.z;
-//  result += this->w * other.w;
-//  return result;
-//}
+double Tuple::dot(const Tuple& other) const
+{
+  double result = this->x * other.x;
+  result += this->y * other.y;
+  result += this->z * other.z;
+  result += this->w * other.w;
+  return result;
+}
 
 double Tuple::isPoint() const
 {

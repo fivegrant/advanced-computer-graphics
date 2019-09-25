@@ -5,6 +5,7 @@ class Sphere{
   public:
     //Sphere Initialization
     double radius = 1; 
+    Tuple center = point(0,0,0);
     ///Assume Sphere is centered out origin
     
     //Constructor
@@ -12,6 +13,7 @@ class Sphere{
 
     //Operators
     std::vector<double> pointAtT(Ray ray) const;
+    Tuple normalAtPoint(Tuple position) const;
 
 };
 
@@ -33,6 +35,11 @@ std::vector<double> Sphere::pointAtT(Ray ray) const
     discriminant = sqrt(discriminant);
     return std::vector<double> {(-b - discriminant)/(2 * a), (-b + discriminant)/(2 * a)};
 }
+}
+
+Tuple Sphere::normalAtPoint(Tuple position) const
+{
+  return position - this->center;
 }
 
 //String Conversion

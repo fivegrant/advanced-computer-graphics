@@ -4,7 +4,7 @@
 
 //`-=>` indicates implement in matrix storage update
 
-const double ERROR = 0.000001;
+const double ERROR = 0.001;
 
 class Matrix{
 
@@ -116,6 +116,7 @@ Matrix Matrix::scale(double rhs) const
 }
 double Matrix::retrieve(int i, int j) const 
 {
+  //TODO:Comment
   return body[i * this->size() + j];
 }
 
@@ -252,7 +253,7 @@ Matrix Matrix::inverse()
   }
   return *this->inverse_matrix
   */
-  return this->cofactor_matrix().transpose().scale((double) 1.0/this->det());
+  return this->cofactor_matrix().transpose().scale(1.0/this->det());
 }
 
 //String Conversion

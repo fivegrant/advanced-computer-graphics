@@ -1,4 +1,3 @@
-//TestCasesWeek1.txt
 //Feature: Rays
 
 #define CATCH_CONFIG_MAIN
@@ -6,6 +5,7 @@
 #include "../../modules/catch2.hpp"
 #include "../../mechanics/ray.hpp"
 
+//TestCasesWeek1.txt
 TEST_CASE("Scenario: Creating and querying a ray"){
   Tuple origin = point(1, 2, 3);
   Tuple direction = vector(4, 5, 6);
@@ -23,19 +23,20 @@ TEST_CASE("Computing a point from a distance"){
     REQUIRE(r.pointAtT(2.5) == point(4.5, 3, 4));
 }
 
+
 //TestCasesWeek3.txt
-/*TODO
-Scenario: Translating a ray
-  Given r ← ray(point(1, 2, 3), vector(0, 1, 0))
-    And m ← translation(3, 4, 5)
+TEST_CASE("Translating a ray"){
+  Ray r = Ray(point(1, 2, 3), vector(0, 1, 0))
+  M m ← translation(3, 4, 5)
   When r2 ← transform(r, m)
   Then r2.origin = point(4, 6, 8)
     And r2.direction = vector(0, 1, 0)
+}
 
-Scenario: Scaling a ray
+TEST_CASE("Scaling a ray"){
   Given r ← ray(point(1, 2, 3), vector(0, 1, 0))
     And m ← scaling(2, 3, 4)
   When r2 ← transform(r, m)
   Then r2.origin = point(2, 6, 12)
     And r2.direction = vector(0, 3, 0)
-*/
+}

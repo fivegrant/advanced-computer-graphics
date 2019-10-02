@@ -192,7 +192,7 @@ TEST_CASE("Calculating the inverse of a matrix"){
 	                    0.07975 , -0.07362 ,  0.06748 ,  1.69939 ,
 	                    0.25767 ,  0.30061 ,  0.14110 ,  0.64417 ,
 	                    0.0     ,  0.0     ,  0.0     ,  1.0     });
-  REQUIRE(B == check_B);
+  REQUIRE(B.approx(check_B));
 }
 
 TEST_CASE("Multiplying a product by its inverse"){
@@ -206,5 +206,5 @@ TEST_CASE("Multiplying a product by its inverse"){
                        7 ,  0 ,  5 ,  4 ,
                        0 ,  0 ,  0 ,  1 });
   Matrix C = A * B;
-  REQUIRE(C * B.inverse() == A);
+  REQUIRE((C * B.inverse()).approx(A));
 }

@@ -3,10 +3,8 @@
   - Unit Testing: Catch2
 
 # Dependencies
-- Catch2: https://github.com/catchorg/Catch2/blob/master/docs/tutorial.md#top
-
+- Catch2: https://github.com/catchorg/Catch2/blob/master/docs/tutorial.md#top 
 # TODO
-- Implement Matrix Class
 - Update Ray Tests
 - Update Sphere Tests
 - Update Materials Class
@@ -17,6 +15,12 @@
 - Implement Camera class
   - Include Orthographic
   - Include Perspective
+- Implement Object Class
+  - `scale()`
+  - `translate()`
+  - `Matrix transform()`
+  - `Material material`
+  - Virtual intersectionsWidth
 - Add `red`, `green`, and `blue` to Tuple
 - Break up Header Files
 - Restructure mechanics/ and components/

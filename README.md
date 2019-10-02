@@ -21,6 +21,7 @@
 - Break up Header Files
 - Restructure mechanics/ and components/
 - Write Makefile
+- Implement Matrix Storage for `matrix.hpp`
 
 
 # Questions

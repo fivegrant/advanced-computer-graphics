@@ -1,41 +1,58 @@
 #include <vector>
 #include <cmath>
-#include "../../mechanics/tuple.hpp"
-class Matrix4x4{
+#include "./tuple.hpp"
+
+//`-=>` indicates implement in matrix storage update
+
+const double ERROR = 0.000001;
+
+class Matrix{
 
   public:
-    double body [];
+    std::vector<double> body;
     double determinant = 0;
-    Matrix inverse_matrix, transposed_matrix = Matrix();
-    bool invertible = false;
+    //-=>int dimension; //Size of Matrix
+    //-=>Matrix* inverse_matrix, transposed_matrix;
+    bool can_invert = false;
     //check to see if calculation has already been performed
-    //determinant | inverse | transposed | invertible
-    bool check [] = {false, false, false, false};
+    //determinant | -=>inverse | -=>transposed | invertible | -=>size
+    //     0             1              2            3         4
+    bool check [5] = {false, false, false, false, false};
     
     //Constructor
      Matrix (std::vector<double> content):
       body(content) {}
-     Matrix ():
+     Matrix ()
       {
 	body = {1, 0, 0, 0,
 	        0, 1, 0, 0,
 		0, 0, 1, 0,
-		0, 0, 0, 1}
+		0, 0, 0, 1};
       }
 
     //Operators
     bool operator==(const Matrix&) const;
+    bool operator!=(const Matrix&) const;
     Matrix operator*(const Matrix& rhs) const;
     Tuple operator*(const Tuple& rhs) const;
-    //source for bracket overloading: https://stackoverflow.com/questions/11066564/overload-bracket-operators-to-get-and-set
-    //index min: 1 & index max:4
-    double operator [](int location [2]) const {};
-    double & operator [](int location [2]) {};
 
-    //Methods
+    //Accessing individual Elements
+    //index min: 1 & index max:size()
+    double retrieve(int i, int j) const;
+    void write(int i, int j, double content);
+
+    int size() const;
+    bool approx(Matrix) const;
+
+    //Linear Algebra
+    Matrix scale(double rhs) const;
+    Matrix submatrix(int i, int j) const;
+    Matrix cofactor_matrix() const;
     Matrix inverse();
+    Matrix transpose() const;
     double det(); //determinant
-    Matrix transpose();
+    double minor(int i, int j) const;
+    double cofactor(int i, int j) const;
     bool invertible();
 
 
@@ -44,33 +61,121 @@ class Matrix4x4{
 //Operators
 bool Matrix::operator==(const Matrix& rhs) const
 {
-  return this->body && rhs.body ;
+  return this->body == rhs.body;
 }
 
+bool Matrix::operator!=(const Matrix& rhs) const
+{
+  return !(this->body == rhs.body);
+}
+
+//Exclusively for 4x4 Matrices
 Tuple Matrix::operator*(const Tuple& rhs) const
 {
-  return //finish
+  if(this->size() != 4){
+    return rhs;
+    }
+  return Tuple(
+      //Simplifiy with for loop later
+	this->retrieve(0,0) * rhs.x + this->retrieve(0,1) * rhs.y + 
+	 this->retrieve(0,2) * rhs.z + this->retrieve(0, 3) * rhs.w,
+	this->retrieve(1,0) * rhs.x + this->retrieve(1,1) * rhs.y + 
+	 this->retrieve(1,2) * rhs.z + this->retrieve(1, 3) * rhs.w,
+	this->retrieve(2,0) * rhs.x + this->retrieve(2,1) * rhs.y + 
+	 this->retrieve(2,2) * rhs.z + this->retrieve(2, 3) * rhs.w,
+	this->retrieve(3,0) * rhs.x + this->retrieve(3,1) * rhs.y + 
+	 this->retrieve(3,2) * rhs.z + this->retrieve(3, 3) * rhs.w
+
+ 	      );
 }
 
 Matrix Matrix::operator*(const Matrix& rhs) const
 {
-  return //finish
+  std::vector<double> body = {};
+  for(int row = 0; row < this->size(); row++){
+    for(int right_j = 0; right_j < this->size(); right_j++){
+      double cell = 0;
+      for(int left_j = 0; left_j < this->size(); left_j++){
+          cell += this->retrieve(row, left_j) * rhs.retrieve(left_j, right_j);
+        }
+      body.push_back(cell);
+      }
+     }
+
+  return Matrix(body);
 }
 
-double Matrix::operator [](int location [2]) const 
+Matrix Matrix::scale(double rhs) const
 {
-  return body[(location[0] - 1) * 4 + location[1] - 1]
+  std::vector<double> body = this->body;
+  for(int index = 0; index < body.size(); index++){
+    body[index] *= rhs;
+   }
+  return Matrix(body);
+}
+double Matrix::retrieve(int i, int j) const 
+{
+  return body[i * this->size() + j];
 }
 
-double & operator [](int location [2]) 
+void Matrix::write(int i, int j, double content) 
 {
-  return body[(location[0] - 1) * 4 + location[1] - 1]
+  body[i * this->size() + j] = content;
 }
 
 //Methods
 int Matrix::size() const
 {
+  /*
+  if (!this->check[4]){
+    this->dimension = sqrt(this->body.size());
+    check[4] = true;
+  }
+    return this->dimension;
+  */
   return sqrt(this->body.size());
+}
+
+bool Matrix::approx(Matrix other) const
+{
+  for(int index = 0; index < body.size(); index++){
+    if(abs(this->body[index] -other.body[index]) > ERROR){
+      return false;
+    }
+  }
+  return true;
+}
+
+Matrix Matrix::submatrix(int i, int j) const
+{
+  std::vector<double> body = {};
+  for(int i_index = 0; i_index < this->size(); i_index++){
+    for(int j_index = 0; j_index < this->size(); j_index++){
+      if(i != i_index && j_index != j){
+	body.push_back(this->retrieve(i, j));
+	}
+    }
+  }
+
+  return Matrix(body);
+}
+
+double Matrix::cofactor(int i, int j) const
+{
+  //indexing swaps usual parity of cofactors
+  return  (((i + j) % 2 != 0) ? 1 : -1) * this->minor(i, j); 
+}
+
+Matrix Matrix::cofactor_matrix() const
+{
+  std::vector<double> body = {};
+  for(int i_index = 0; i_index < this->size(); i_index++){
+    for(int j_index = 0; j_index < this->size(); j_index++){
+	body.push_back(this->cofactor(i_index, j_index));
+    }
+  }
+
+  return Matrix(body);
 }
 
 double Matrix::det()
@@ -81,46 +186,82 @@ double Matrix::det()
     return this->determinant;
   }
   else{
-  double determinant = 0;
-  //item in 3rd column * (ac - bd)
-  sub_a = this[{3, 1}] * (this[{1, 2}] * this[{2, 3}] - this[{1, 3}] * this[{2, 2}]);
-  sub_b = -(this[{3, 2}] * (this[{1, 1}] * this[{2, 3}] - this[{1, 3}] * this[{2, 1}]));
-  sub_c = this[{3, 3}] * (this[{1, 1}] * this[{2, 2}] - this[{1, 2}] * this[{2, 1}]);
-  result = this[{4,4}] * (sub_a + sub_b + sub_c);
+  double result = 0;
+  switch(this->size()){
+    //1 x 1 Matrix
+    case 1: result = this->retrieve(0,0);
+      	    break;
+    //2 x 2 Matrix
+    case 2: result = this->retrieve(0,0) * this->retrieve(1,1) - 
+     		     this->retrieve(1,0) * this->retrieve(0,1);
+	    break;
+    //n x n Matrix
+    default: for(int i_index = 0; i_index < this->size(); i_index++){
+    		//since matrix is 0 indexed, odd parity indicates positive
+	        int sign = (i_index % 2 != 0) ? 1 : -1; 
+		result += sign * submatrix(i_index, 0).det();
+             } 
+  }
+
   this->check[0] = true;
   this->determinant = result;
-  if(result ==0)
+
+  if(result == 0)
   {
-    check[1] = true;
-    check[3] = true;
+    this->check[1] = true;
+    this->check[3] = true;
   }
   return result;
   }
 }
 
-bool Matrix::invertible()
+double Matrix::minor(int i, int j) const
 {
-  return //
+  return this->submatrix(i, j).det();
 }
 
-Matrix Matrix::transpose()
+bool Matrix::invertible()
 {
-  return //
+  if(!this->check[3]){
+    this->det();
+   }
+  return this->can_invert;
+}
+
+Matrix Matrix::transpose() const
+{
+  //-=>if(!this->check[2]){
+  std::vector<double> body ={};
+  for(int j_index = 0; j_index < this->size(); j_index++){
+    for(int i_index = 0; i_index < this->size(); i_index++){
+      body.push_back(this->retrieve(i_index, j_index));
+      }
+    }
+  //-=>   this->transposed_matrix = &Matrix(body);
+  //-=>}
+  //-=>return *this->transposed_matrix;
+  return Matrix(body);
 }
 
 Matrix Matrix::inverse()
 {
-  return //
+  /*-=>
+  if(!check[0]){
+    this->inverse_matrix = &(this * (1/this->transpose().cofactor().det()));
+  }
+  return *this->inverse_matrix
+  */
+  return this->scale(1/this->cofactor_matrix().transpose().det());
 }
 
 //String Conversion
 std::ostream& operator << (std::ostream& os, Matrix const& matrix) {
-    std::string output = "";
-    output = "|" + matrix.body[0] +  matrix.body[1] + matrix.body[2] + matrix.body[3] + "\n"
-		+ matrix.body[4] +  matrix.body[5] + matrix.body[6] + matrix.body[7] + "\n"
-		+ matrix.body[8] +  matrix.body[9] + matrix.body[10] + matrix.body[11] + "\n"
-		+ matrix.body[12] +  matrix.body[13] + matrix.body[14] + matrix.body[15] + "\n"
-                + "|";
+    std::string output = "Matrix:\n";
+    for(int counter = 0; counter < matrix.body.size(); counter++){
+   	output += std::to_string(matrix.body[counter]);
+	output += (((counter + 1) % matrix.size()) == 0) ? "\n" : "\t";
+      }
+    output += "\n";
     os << output;
     return os;
 }

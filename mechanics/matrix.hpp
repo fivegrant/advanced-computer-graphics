@@ -62,11 +62,12 @@ class Matrix{
 bool Matrix::operator==(const Matrix& rhs) const
 {
   return this->body == rhs.body;
+
 }
 
 bool Matrix::operator!=(const Matrix& rhs) const
 {
-  return !(this->body == rhs.body);
+  return !(*this == rhs);
 }
 
 //Exclusively for 4x4 Matrices
@@ -139,7 +140,7 @@ int Matrix::size() const
 bool Matrix::approx(Matrix other) const
 {
   for(int index = 0; index < body.size(); index++){
-    if(abs(this->body[index] -other.body[index]) > ERROR){
+    if(abs(abs(this->body[index]) - abs(other.body[index])) > ERROR){
       return false;
     }
   }
@@ -152,7 +153,7 @@ Matrix Matrix::submatrix(int i, int j) const
   for(int i_index = 0; i_index < this->size(); i_index++){
     for(int j_index = 0; j_index < this->size(); j_index++){
       if(i != i_index && j_index != j){
-	body.push_back(this->retrieve(i, j));
+	body.push_back(this->retrieve(i_index, j_index));
 	}
     }
   }
@@ -162,8 +163,7 @@ Matrix Matrix::submatrix(int i, int j) const
 
 double Matrix::cofactor(int i, int j) const
 {
-  //indexing swaps usual parity of cofactors
-  return  (((i + j) % 2 != 0) ? 1 : -1) * this->minor(i, j); 
+  return  (((i + j) % 2 == 0) ? 1 : -1) * this->minor(i, j); 
 }
 
 Matrix Matrix::cofactor_matrix() const
@@ -196,17 +196,15 @@ double Matrix::det()
      		     this->retrieve(1,0) * this->retrieve(0,1);
 	    break;
     //n x n Matrix
-    default: for(int i_index = 0; i_index < this->size(); i_index++){
-    		//since matrix is 0 indexed, odd parity indicates positive
-	        int sign = (i_index % 2 != 0) ? 1 : -1; 
-		result += sign * submatrix(i_index, 0).det();
-             } 
+    default: for(int j_index = 0; j_index < this->size(); j_index++){
+		result += this->retrieve(0, j_index) * cofactor(0, j_index);
+	     }
   }
 
   this->check[0] = true;
   this->determinant = result;
 
-  if(result == 0)
+  if(result != 0)
   {
     this->check[1] = true;
     this->check[3] = true;
@@ -222,10 +220,13 @@ double Matrix::minor(int i, int j) const
 
 bool Matrix::invertible()
 {
-  if(!this->check[3]){
+  /* -=>
+  if(this->check[3]){
     this->det();
    }
   return this->can_invert;
+  */
+  return this->det() != 0;
 }
 
 Matrix Matrix::transpose() const
@@ -251,7 +252,7 @@ Matrix Matrix::inverse()
   }
   return *this->inverse_matrix
   */
-  return this->scale(1/this->cofactor_matrix().transpose().det());
+  return this->cofactor_matrix().transpose().scale((double) 1.0/this->det());
 }
 
 //String Conversion

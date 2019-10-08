@@ -1,25 +1,17 @@
 #include <vector>
 #include "./ray.hpp"
 #include "./material.hpp"
+#include "./shape.hpp"
 
-class Sphere{
+class Sphere: public Object{
   public:
-    //Sphere Initialization
-    double radius = 1; 
-    Tuple center = point(0,0,0);
-    Material material = Material();
-    ///Assume Sphere is centered out origin
-    
-    //Constructor
-    Sphere() {}
+    Sphere() {this->object_type = "Sphere"}
 
-    //Operators
     std::vector<double> pointAtT(Ray ray) const;
     Tuple normalAtPoint(Tuple position) const;
 
 };
 
-//Methods
 std::vector<double> Sphere::pointAtT(Ray ray) const
 {
   Tuple o = ray.origin - point(0, 0, 0);
@@ -39,13 +31,3 @@ std::vector<double> Sphere::pointAtT(Ray ray) const
 }
 }
 
-Tuple Sphere::normalAtPoint(Tuple position) const
-{
-  return position - this->center;
-}
-
-//String Conversion
-std::ostream& operator << (std::ostream& os, Sphere const& sphere) {
-    os << "(0)radius =" + std::to_string(sphere.radius) + "(0)";
-    return os;
-}

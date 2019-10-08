@@ -4,7 +4,7 @@
 #include <cmath>
 #include <vector>
 #include "../../modules/catch2.hpp"
-#include "../../mechanics/sphere.hpp"
+#include "../../objects/src/sphere.cpp"
 
 //TestCasesWeek1.txt
 TEST_CASE("A ray intersects a sphere at two points"){

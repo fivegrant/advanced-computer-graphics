@@ -1,4 +1,4 @@
-#include "../src/shape.cpp"
+#include "../include/shape.hpp"
 
 class Plane: public Shape {
   public:

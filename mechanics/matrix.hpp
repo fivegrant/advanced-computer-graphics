@@ -2,10 +2,9 @@
 #include <vector>
 #include <cmath>
 #include "./tuple.hpp"
+#include "../utilities/include/epsilon.hpp"
 
 //`-=>` indicates implement in matrix storage update
-
-const double ERROR = 0.001;
 
 class Matrix{
 
@@ -142,7 +141,7 @@ int Matrix::size() const
 bool Matrix::approx(Matrix other) const
 {
   for(int index = 0; index < body.size(); index++){
-    if(abs(abs(this->body[index]) - abs(other.body[index])) > ERROR){
+    if(abs(abs(this->body[index]) - abs(other.body[index])) > EPSILON){
       return false;
     }
   }

@@ -5,7 +5,6 @@
 # Dependencies
 - Catch2: https://github.com/catchorg/Catch2/blob/master/docs/tutorial.md#top 
 # TODO
-- Implement HitRecord Struct
 - Implement World class
   - `intersectionWith(Ray)`
   - `addObject(Object)`
@@ -16,6 +15,7 @@
   - `Ray` 
   - `Object`
   - `generateHitRecord()`
+    - dont forget to calculate: overpoint = hitPoint + (normal * epsilon)
 - Implement `inShadow()`
 - Update Matrix to include `rotation()`
 - Update Tuple
@@ -56,18 +56,18 @@
     0      0         0       1
     ```
 - rotate around y:
-```
- cos(theta)	  0	-sin(theta)  0
-    0 	          1          0       0 
- sin(theta) 	  0      cos(theta)  0
-    0             0         0        1
+    ```
+    cos(theta)	  0	-sin(theta)  0
+        0 	  1          0       0 
+    sin(theta) 	  0      cos(theta)  0
+        0         0         0        1
     ```
 - rotate around z:
-```
-  cos(theta) sin(theta)	    0       0
- -sin(theta) cos(theta)     0      0 
-    0             0         1       0
-    0             0         0       1
+   ```
+    cos(theta)  sin(theta)     0      0
+    -sin(theta) cos(theta)     0      0 
+         0          0          1      0
+         0          0          0      1
     ```
 ## Shadows
 - Steps for each pixel:
@@ -81,9 +81,10 @@
 		- diffuse
 		- specular
 - inShadow()
-	- `Ray ShadowRay = Ray(intersectionPoint/hitPoint, normalize(light.position - hitpoint));`
+	- `Ray ShadowRay = Ray(overpoint, normalize(light.position - hitpoint));`
 	- `world.intersectionsWith(ShadowRay);`
 	- 0 < error < magnitude(light.position-hitPoint) or distance from hitpoint to light
 
 # Questions
--`double magsquare(Tuple vector)`: Return a vector dotted with itself
+- `double magsquare(Tuple vector)`: Return a vector dotted with itself
+- Handling error constant in multiple file

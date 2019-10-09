@@ -1,8 +1,7 @@
+#pragma once 
 #include <cmath>
 #include <string>
-#pragma once 
-
-const double EPSILON = .00001;
+#include "../utilities/epsilon.hpp"
 
 class Tuple{
 

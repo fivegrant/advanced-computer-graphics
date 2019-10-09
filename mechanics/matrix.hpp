@@ -1,3 +1,4 @@
+#pragma once
 #include <vector>
 #include <cmath>
 #include "./tuple.hpp"
@@ -10,7 +11,7 @@ class Matrix{
 
   public:
     std::vector<double> body;
-    double determinant = 0;
+    //-=>double determinant = 0;
     //-=>int dimension; //Size of Matrix
     //-=>Matrix* inverse_matrix, transposed_matrix;
     bool can_invert = false;
@@ -48,9 +49,9 @@ class Matrix{
     Matrix scale(double rhs) const;
     Matrix submatrix(int i, int j) const;
     Matrix cofactor_matrix() const;
-    Matrix inverse();
+    Matrix inverse() const;
     Matrix transpose() const;
-    double det(); //determinant
+    double det() const; //determinant
     double minor(int i, int j) const;
     double cofactor(int i, int j) const;
     bool invertible();
@@ -179,14 +180,14 @@ Matrix Matrix::cofactor_matrix() const
   return Matrix(body);
 }
 
-double Matrix::det()
+double Matrix::det() const
 {
   //check if det is stored
-  if(this->check[0])
-  {
-    return this->determinant;
-  }
-  else{
+  //-=>if(this->check[0])
+  //-=>{
+   //-=> return this->determinant;
+  //-=>}
+  //-=>else{
   double result = 0;
   switch(this->size()){
     //1 x 1 Matrix
@@ -202,16 +203,16 @@ double Matrix::det()
 	     }
   }
 
-  this->check[0] = true;
-  this->determinant = result;
+  //-=>this->check[0] = true;
+  //-=>this->determinant = result;
 
-  if(result != 0)
-  {
-    this->check[1] = true;
-    this->check[3] = true;
-  }
+  //-=>if(result != 0)
+  //-=>{
+   //-=> this->check[1] = true;
+   //-=> this->check[3] = true;
+  //-=>}
   return result;
-  }
+  //-=>}
 }
 
 double Matrix::minor(int i, int j) const
@@ -245,7 +246,7 @@ Matrix Matrix::transpose() const
   return Matrix(body);
 }
 
-Matrix Matrix::inverse()
+Matrix Matrix::inverse() const
 {
   /*-=>
   if(!check[0]){
@@ -254,6 +255,28 @@ Matrix Matrix::inverse()
   return *this->inverse_matrix
   */
   return this->cofactor_matrix().transpose().scale(1.0/this->det());
+}
+
+//Generate types of matrices
+
+Matrix translation(double x, double y, double z)
+{
+  std::vector<double> content = { 1, 0, 0, x,
+  			          0, 1, 0, y,
+			          0, 0, 1, z,
+			          0, 0, 0, 1};
+  Matrix result = Matrix(content); 
+  return result;
+}
+
+Matrix scaling(double x, double y, double z)
+{
+  std::vector<double> content = { x, 0, 0, 0,
+  			          0, y, 0, 0,
+			          0, 0, z, 0,
+			          0, 0, 0, 1};
+  Matrix result = Matrix(content); 
+  return result;
 }
 
 //String Conversion

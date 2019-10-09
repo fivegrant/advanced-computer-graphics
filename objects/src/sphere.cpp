@@ -1,7 +1,8 @@
 #include "../include/sphere.hpp"
 
-std::vector<double> Sphere::pointAtT(Ray ray) const
+std::vector<double> Sphere::pointAtT(Ray raw_ray) const
 {
+  Ray ray = transform(raw_ray, this->transform_matrix.inverse());
   Tuple o = ray.origin - point(0, 0, 0);
   double a = 1;
   double b = dot(ray.direction, o) * 2;

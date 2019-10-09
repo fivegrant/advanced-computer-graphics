@@ -4,6 +4,7 @@
 #include <cmath>
 #include "../../modules/catch2.hpp"
 #include "../../mechanics/ray.hpp"
+#include "../../mechanics/matrix.hpp"
 
 //TestCasesWeek1.txt
 TEST_CASE("Scenario: Creating and querying a ray"){
@@ -26,17 +27,17 @@ TEST_CASE("Computing a point from a distance"){
 
 //TestCasesWeek3.txt
 TEST_CASE("Translating a ray"){
-  Ray r = Ray(point(1, 2, 3), vector(0, 1, 0))
-  M m ← translation(3, 4, 5)
-  When r2 ← transform(r, m)
-  Then r2.origin = point(4, 6, 8)
-    And r2.direction = vector(0, 1, 0)
+  Ray r = Ray(point(1, 2, 3), vector(0, 1, 0));
+  Matrix m = translation(3, 4, 5);
+  Ray r2 = transform(r, m);
+  REQUIRE(r2.origin == point(4, 6, 8));
+  REQUIRE(r2.direction == vector(0, 1, 0));
 }
 
 TEST_CASE("Scaling a ray"){
-  Given r ← ray(point(1, 2, 3), vector(0, 1, 0))
-    And m ← scaling(2, 3, 4)
-  When r2 ← transform(r, m)
-  Then r2.origin = point(2, 6, 12)
-    And r2.direction = vector(0, 3, 0)
+  Ray r = Ray(point(1, 2, 3), vector(0, 1, 0));
+  Matrix m = scaling(2, 3, 4);
+  Ray r2 = transform(r, m);
+  REQUIRE(r2.origin == point(2, 6, 12));
+  REQUIRE(r2.direction == vector(0, 3, 0));
 }

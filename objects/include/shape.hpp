@@ -14,11 +14,11 @@ class Shape{
     Shape() {}
 
     bool operator==(const Shape&) const;
-    Tuple normalAtPoint(Tuple position) const;
     void set_transform(Matrix);
     
-    virtual std::vector<double> pointAtT(Ray ray) const = 0;
+    virtual std::vector<double> intersectionWith(Ray ray) const = 0;
 
+    virtual Tuple normalAtPoint(Tuple position) const = 0;
 };
 
 

@@ -106,7 +106,7 @@ TEST_CASE("Intersecting a scaled sphere with a ray"){
   Ray r = Ray(point(0, 0, -5), vector(0, 0, 1));
   Sphere s = Sphere();
   s.set_transform(scaling(2, 2, 2));
-  std::vector<double> xs = s.pointAtT(r);
+  std::vector<double> xs = s.intersectionWith(r);
   REQUIRE(xs == std::vector<double> {3, 7});
   REQUIRE(xs.size() == 2);
   REQUIRE(xs[0] == 3);
@@ -117,6 +117,6 @@ TEST_CASE("Intersecting a translated sphere with a ray"){
   Ray r = Ray(point(0, 0, -5), vector(0, 0, 1));
   Sphere s = Sphere();
   s.set_transform(translation(5, 0, 0));
-  std::vector<double> xs = s.pointAtT(r);
+  std::vector<double> xs = s.intersectionWith(r);
   REQUIRE(xs.size() == 0);
 }

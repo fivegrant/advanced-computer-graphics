@@ -5,14 +5,10 @@ bool Shape::operator==(const Shape& rhs) const
   bool condition_type = this->shape_type == rhs.shape_type;
   bool condition_center = this->center == rhs.center;
   bool condition_material = this->material == rhs.material;
+  bool condition_transform = this->transform_matrix == rhs.transform_matrix;
   return condition_type && condition_center && condition_material;
 }
 
-
-Tuple Shape::normalAtPoint(Tuple position) const
-{
-  return position - this->center;
-}
 
 void Shape::set_transform(Matrix operation_matrix)
 {

@@ -5,28 +5,83 @@
 # Dependencies
 - Catch2: https://github.com/catchorg/Catch2/blob/master/docs/tutorial.md#top 
 # TODO
-- Update Ray Tests
-- Update Sphere Tests
-- Update Materials Class
-  - Include Ambient
-  - Include Shininess
-- Update Tuple
-  - Include Reflection
 - Implement Camera class
   - Include Orthographic
   - Include Perspective
-- Implement Object Class
-  - `scale()`
-  - `translate()`
-  - `Matrix transform()`
-  - `Material material`
-  - Virtual intersectionsWidth
-- Add `red`, `green`, and `blue` to Tuple
+- Implement World class
+  - `intersectionWith(Ray)`
+  - `addObject(Object)`
+  - `addLight(Light)`
+  - `colorAtIntersection(Intersection)`
+- Implement Intersection Class
+  - `double t`
+  - `Ray` 
+  - `Object`
+  - `generateHitRecord()`
+- Implement `inShadow()`
+- Update Tuple
+  - Include Reflection
 - Break up Header Files
 - Restructure mechanics/ and components/
 - Write Makefile
+- Add `red`, `green`, and `blue` to Tuple
 - Implement Matrix Storage for `matrix.hpp`
 
+# Notes
+## Object
+- material
+- transform
+### Sphere
+- intersectionWith(Ray)
+  - `world_ray -> object_ray`
+  - `object_ray = transform.inverse() * world_ray`
+- normalAt(Point)
+  - `object_normal = objPoint - point(0, 0, 0)`
+  - `world_normal= transform.inverse().transpose() object_normal`
+  - `return normalized(object_normal)`;
+### Plane
+- y = 0
+- intersectionsWith(Ray)
+- normalAt(Point)
+  - `objectNormal = Vec(0, 1, 0)`
+  - `return worldNormal = transform.inverse().transpose() * objectNormal`
+## Rotation
+- rotate around x:
+  ```
+    1	  0	     0       0
+    0 cos(theta)  sin(theta) 0 
+    0 -sin(theta) cos(theta) 0
+    0      0         0       1
+    ```
+- rotate around y:
+	```
+ cos(theta)	  0	-sin(theta)  0
+    0 	          1          0       0 
+ sin(theta) 	  0      cos(theta)  0
+    0             0         0        1
+	```
+- rotate around z:
+  ```
+  cos(theta) sin(theta)	    0       0
+ -sin(theta) cos(theta)     0      0 
+    0             0         1       0
+    0             0         0       1
+   ```
+## Shadows
+- Steps for each pixel:
+	- Make a ray
+	- Find intersections w/World
+	- Asking the Objects(Material)
+		- What color is it at the point of intersection
+	- ColorAtPoint(HitRecord, World) for light in World.lights
+		- ambient
+		- inShadow() = true, if true, skip diffuse and specular
+		- diffuse
+		- specular
+- inShadow()
+	- `Ray ShadowRay = Ray(intersectionPoint/hitPoint, normalize(light.position - hitpoint));`
+	- `world.intersectionsWith(ShadowRay);`
+	- 0 < error < magnitude(light.position-hitPoint) or distance from hitpoint to light
 
 # Questions
 -`double magsquare(Tuple vector)`: Return a vector dotted with itself

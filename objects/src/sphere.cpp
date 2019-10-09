@@ -1,6 +1,6 @@
 #include "../include/sphere.hpp"
 
-std::vector<double> Sphere::pointAtT(Ray raw_ray) const
+std::vector<double> Sphere::intersectionWith(Ray raw_ray) const
 {
   Ray ray = transform(raw_ray, this->transform_matrix.inverse());
   Tuple o = ray.origin - point(0, 0, 0);
@@ -19,4 +19,11 @@ std::vector<double> Sphere::pointAtT(Ray raw_ray) const
     return std::vector<double> {(-b - discriminant)/(2 * a), (-b + discriminant)/(2 * a)};
 }
 }
+
+Tuple Sphere::normalAtPoint(Tuple position) const
+{
+  return position - this->center;
+}
+
+
 

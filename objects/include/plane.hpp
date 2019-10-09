@@ -1,11 +1,12 @@
 #include "../src/shape.cpp"
 
-class Sphere: public Shape {
+class Plane: public Shape {
   public:
-    Sphere() {this->shape_type = "Sphere";}
+    Plane() {this->shape_type = "Plane";}
 
     std::vector<double> intersectionWith(Ray ray) const;
     Tuple normalAtPoint(Tuple position) const;
+
 };
 
 

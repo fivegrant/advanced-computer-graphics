@@ -5,6 +5,7 @@
 # Dependencies
 - Catch2: https://github.com/catchorg/Catch2/blob/master/docs/tutorial.md#top 
 # TODO
+- Implement HitRecord Struct
 - Implement World class
   - `intersectionWith(Ray)`
   - `addObject(Object)`
@@ -16,11 +17,12 @@
   - `Object`
   - `generateHitRecord()`
 - Implement `inShadow()`
+- Update Matrix to include `rotation()`
+- Update Tuple
+  - Include Reflection
 - Implement Camera class
   - Include Orthographic
   - Include Perspective
-- Update Tuple
-  - Include Reflection
 - Break up Header Files
 - Restructure mechanics/ and components/
 - Write Makefile
@@ -54,19 +56,19 @@
     0      0         0       1
     ```
 - rotate around y:
-	```
+```
  cos(theta)	  0	-sin(theta)  0
     0 	          1          0       0 
  sin(theta) 	  0      cos(theta)  0
     0             0         0        1
-	```
+    ```
 - rotate around z:
-  ```
+```
   cos(theta) sin(theta)	    0       0
  -sin(theta) cos(theta)     0      0 
     0             0         1       0
     0             0         0       1
-   ```
+    ```
 ## Shadows
 - Steps for each pixel:
 	- Make a ray

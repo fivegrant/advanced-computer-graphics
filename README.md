@@ -5,9 +5,6 @@
 # Dependencies
 - Catch2: https://github.com/catchorg/Catch2/blob/master/docs/tutorial.md#top 
 # TODO
-- Implement Camera class
-  - Include Orthographic
-  - Include Perspective
 - Implement World class
   - `intersectionWith(Ray)`
   - `addObject(Object)`
@@ -19,6 +16,9 @@
   - `Object`
   - `generateHitRecord()`
 - Implement `inShadow()`
+- Implement Camera class
+  - Include Orthographic
+  - Include Perspective
 - Update Tuple
   - Include Reflection
 - Break up Header Files

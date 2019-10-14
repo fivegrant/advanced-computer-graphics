@@ -1,6 +1,6 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
-#include "./tuple.hpp"
+#include "../mechanics/include/tuple.hpp"
 
 class Material{
   public:

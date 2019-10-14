@@ -1,6 +1,6 @@
 #ifndef LIGHT_H
 #define LIGHT_H
-#include "./tuple.hpp"
+#include "../mechanics/include/tuple.hpp"
 
 class Light{
   public:

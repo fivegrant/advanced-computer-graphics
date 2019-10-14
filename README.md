@@ -8,7 +8,7 @@
 - Implement World class
   - `intersectionWith(Ray)`
   - `addObject(Object)`
-  - `addLight(Light)`
+ - `addLight(Light)`
   - `colorAtIntersection(Intersection)`
 - Implement Intersection Class
   - `double t`
@@ -23,8 +23,6 @@
 - Implement Camera class
   - Include Orthographic
   - Include Perspective
-- Break up Header Files
-- Restructure mechanics/ and components/
 - Write Makefile
 
 # Notes

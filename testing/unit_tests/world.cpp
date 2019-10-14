@@ -6,7 +6,7 @@
 #include "../../modules/catch2.hpp"
 
 
-//TestCasesWeek4.txt
+//TestCasesWeek5.txt
 TEST_CASE("Creating a world"){
   World w = World();
   REQUIRE(w.objects.size() == 0;);

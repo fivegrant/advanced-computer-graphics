@@ -1,62 +1,4 @@
-#pragma once
-#include <vector>
-#include <cmath>
-#include "./tuple.hpp"
-#include "../utilities/include/epsilon.hpp"
-
-//`-=>` indicates implement in matrix storage update
-
-class Matrix{
-
-  public:
-    std::vector<double> body;
-    //-=>double determinant = 0;
-    //-=>int dimension; //Size of Matrix
-    //-=>Matrix* inverse_matrix, transposed_matrix;
-    bool can_invert = false;
-    //check to see if calculation has already been performed
-    //determinant | -=>inverse | -=>transposed | invertible | -=>size
-    //     0             1              2            3         4
-    bool check [5] = {false, false, false, false, false};
-    
-    //Constructor
-     Matrix (std::vector<double> content):
-      body(content) {}
-     Matrix ()
-      {
-	body = {1, 0, 0, 0,
-	        0, 1, 0, 0,
-		0, 0, 1, 0,
-		0, 0, 0, 1};
-      }
-
-    //Operators
-    bool operator==(const Matrix&) const;
-    bool operator!=(const Matrix&) const;
-    Matrix operator*(const Matrix& rhs) const;
-    Tuple operator*(const Tuple& rhs) const;
-
-    //Accessing individual Elements
-    //index min: 1 & index max:size()
-    double retrieve(int i, int j) const;
-    void write(int i, int j, double content);
-
-    int size() const;
-    bool approx(Matrix) const;
-
-    //Linear Algebra
-    Matrix scale(double rhs) const;
-    Matrix submatrix(int i, int j) const;
-    Matrix cofactor_matrix() const;
-    Matrix inverse() const;
-    Matrix transpose() const;
-    double det() const; //determinant
-    double minor(int i, int j) const;
-    double cofactor(int i, int j) const;
-    bool invertible();
-
-
-};
+#include "../include/matrix.hpp"
 
 //Operators
 bool Matrix::operator==(const Matrix& rhs) const
@@ -116,7 +58,6 @@ Matrix Matrix::scale(double rhs) const
 }
 double Matrix::retrieve(int i, int j) const 
 {
-  //TODO:Comment
   return body[i * this->size() + j];
 }
 
@@ -128,13 +69,6 @@ void Matrix::write(int i, int j, double content)
 //Methods
 int Matrix::size() const
 {
-  /*
-  if (!this->check[4]){
-    this->dimension = sqrt(this->body.size());
-    check[4] = true;
-  }
-    return this->dimension;
-  */
   return sqrt(this->body.size());
 }
 
@@ -181,12 +115,6 @@ Matrix Matrix::cofactor_matrix() const
 
 double Matrix::det() const
 {
-  //check if det is stored
-  //-=>if(this->check[0])
-  //-=>{
-   //-=> return this->determinant;
-  //-=>}
-  //-=>else{
   double result = 0;
   switch(this->size()){
     //1 x 1 Matrix
@@ -201,17 +129,7 @@ double Matrix::det() const
 		result += this->retrieve(0, j_index) * cofactor(0, j_index);
 	     }
   }
-
-  //-=>this->check[0] = true;
-  //-=>this->determinant = result;
-
-  //-=>if(result != 0)
-  //-=>{
-   //-=> this->check[1] = true;
-   //-=> this->check[3] = true;
-  //-=>}
   return result;
-  //-=>}
 }
 
 double Matrix::minor(int i, int j) const
@@ -221,41 +139,35 @@ double Matrix::minor(int i, int j) const
 
 bool Matrix::invertible()
 {
-  /* -=>
-  if(this->check[3]){
-    this->det();
-   }
-  return this->can_invert;
-  */
   return this->det() != 0;
 }
 
 Matrix Matrix::transpose() const
 {
-  //-=>if(!this->check[2]){
   std::vector<double> body ={};
   for(int j_index = 0; j_index < this->size(); j_index++){
     for(int i_index = 0; i_index < this->size(); i_index++){
       body.push_back(this->retrieve(i_index, j_index));
       }
     }
-  //-=>   this->transposed_matrix = &Matrix(body);
-  //-=>}
-  //-=>return *this->transposed_matrix;
   return Matrix(body);
 }
 
-Matrix Matrix::inverse() const
+Matrix Matrix::inverse()
 {
-  /*-=>
-  if(!check[0]){
-    this->inverse_matrix = &(this * (1/this->transpose().cofactor().det()));
+  if(this->inverse_matrix.size() == 0){
+    Matrix result = this->cofactor_matrix().transpose().scale(1.0/this->det());
+    this->inverse_matrix = result.body;
+    return result;
+  }else{
+    return Matrix(this->inverse_matrix);
   }
-  return *this->inverse_matrix
-  */
-  return this->cofactor_matrix().transpose().scale(1.0/this->det());
 }
 
+Matrix Matrix::get_inverse() const
+{
+  return this->inverse_matrix;
+}
 //Generate types of matrices
 
 Matrix translation(double x, double y, double z)
@@ -289,4 +201,3 @@ std::ostream& operator << (std::ostream& os, Matrix const& matrix) {
     os << output;
     return os;
 }
-

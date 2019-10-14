@@ -1,20 +1,4 @@
-#include <string>
-#include "./tuple.hpp"
-#include "./matrix.hpp"
-
-class Ray{
-  public:
-    //Ray Initialization
-    Tuple origin, direction;
-
-    //Constructor
-    Ray(Tuple raw_origin, Tuple raw_direction):
-      origin(raw_origin), direction(normalize(raw_direction)) {}
-
-    //Methods
-    Tuple pointAtT(float t) const;
-
-};
+#include "../include/ray.hpp"
 
 //Methods
 Tuple Ray::pointAtT(float t) const

@@ -1,7 +1,8 @@
+#ifndef SHAPE_H
+#define SHAPE_H
 #include <vector>
 #include "../../mechanics/ray.hpp"
 #include "../../mechanics/material.hpp"
-#include "../../mechanics/matrix.hpp"
 
 class Shape{
   public:
@@ -21,4 +22,4 @@ class Shape{
     virtual Tuple normalAtPoint(Tuple position) const = 0;
 };
 
-
+#endif

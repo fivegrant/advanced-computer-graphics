@@ -26,8 +26,6 @@
 - Break up Header Files
 - Restructure mechanics/ and components/
 - Write Makefile
-- Add `red`, `green`, and `blue` to Tuple
-- Implement Matrix Storage for `matrix.hpp`
 
 # Notes
 ## Object
@@ -60,7 +58,7 @@
     cos(theta)	  0	-sin(theta)  0
         0 	  1          0       0 
     sin(theta) 	  0      cos(theta)  0
-        0         0         0        1
+        0         0          0       1
     ```
 - rotate around z:
    ```
@@ -87,4 +85,3 @@
 
 # Questions
 - `double magsquare(Tuple vector)`: Return a vector dotted with itself
-- Handling error constant in multiple file

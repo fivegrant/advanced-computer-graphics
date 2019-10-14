@@ -1,4 +1,6 @@
-#include "../src/shape.cpp"
+#ifndef SPHERE_H
+#define SPHERE_H
+#include "../include/shape.hpp"
 
 class Sphere: public Shape {
   public:
@@ -8,4 +10,4 @@ class Sphere: public Shape {
     Tuple normalAtPoint(Tuple position) const;
 };
 
-
+#endif

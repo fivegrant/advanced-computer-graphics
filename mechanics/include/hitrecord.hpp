@@ -1,3 +1,5 @@
+#ifndef HITRECORD_H
+#define HITRECORD_H
 struct HitRecord {
   Tuple hitPoint;
   Tuple normal;
@@ -5,3 +7,5 @@ struct HitRecord {
   Tuple overpoint;
   bool isInside;
 }
+
+#endif

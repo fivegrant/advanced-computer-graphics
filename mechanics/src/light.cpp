@@ -1,21 +1,4 @@
-#include "./tuple.hpp"
-
-class Light{
-  public:
-    Tuple position, intensity;
-
-    Light(Tuple raw_position, Tuple raw_intensity):
-      position(raw_position), intensity(raw_intensity) {}
-
-    Light() {
-      position = Tuple(0, 0, 0, 1);
-      intensity = Tuple(0, 0, 0, 0);
-    }
-
-    void point_light(Tuple, Tuple);
-    Tuple colorAtPoint(Material material, Tuple position, Tuple normalv);
-
-};
+#include "../include/light.hpp"
 
 void Light::point_light(Tuple new_position, Tuple new_intensity)
 {
@@ -52,3 +35,5 @@ std::ostream& operator << (std::ostream& os, Light const& light) {
      std::to_string(light.position.w);
     return os;
 }
+
+

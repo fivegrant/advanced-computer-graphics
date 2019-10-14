@@ -1,3 +1,5 @@
+#ifndef PLANE_H
+#define PLANE_H
 #include "../include/shape.hpp"
 
 class Plane: public Shape {
@@ -9,4 +11,4 @@ class Plane: public Shape {
 
 };
 
-
+#endif

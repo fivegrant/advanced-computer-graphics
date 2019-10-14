@@ -2,12 +2,12 @@
 
 std::vector<double> Sphere::intersectionWith(Ray raw_ray) const
 {
-  Ray ray = transform(raw_ray, this->transform_matrix.inverse());
+  Ray ray = transform(raw_ray, this->transform_matrix.get_inverse());
   Tuple o = ray.origin - point(0, 0, 0);
-  double a = 1;
+  double a = dot(ray.direction, ray.direction);
   double b = dot(ray.direction, o) * 2;
   double c = dot(o, o) - 1;
-  double discriminant = pow(b, 2) - (4 * c);
+  double discriminant = pow(b, 2) - (4 * a * c);
 
   if (discriminant < 0){
     return std::vector<double> {};

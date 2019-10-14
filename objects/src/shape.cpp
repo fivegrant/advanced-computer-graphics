@@ -13,6 +13,7 @@ bool Shape::operator==(const Shape& rhs) const
 void Shape::set_transform(Matrix operation_matrix)
 {
   this->transform_matrix = operation_matrix * this->transform_matrix;
+  this->transform_matrix.inverse();
 }
 //String Conversion
 std::ostream& operator << (std::ostream& os, Shape const& shape) {

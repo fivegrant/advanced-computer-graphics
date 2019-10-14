@@ -141,14 +141,6 @@ TEST_CASE("The cross product of two vectors"){
   REQUIRE(cross(b, a) == vector(1, -2, 1));
 }
 
-/* TODO
-Scenario: Colors are (red, green, blue) tuples
-  Given c ← color(-0.5, 0.4, 1.7)
-  Then c.red = -0.5
-    And c.green = 0.4
-    And c.blue = 1.7
-*/
-
 TEST_CASE("Adding colors"){
   Tuple c1 = color(0.9, 0.6, 0.75);
   Tuple c2 = color(0.7, .1, 0.25);

@@ -5,17 +5,11 @@
 # Dependencies
 - Catch2: https://github.com/catchorg/Catch2/blob/master/docs/tutorial.md#top 
 # TODO
-- Implement World class
-  - `intersectionWith(Ray)`
-  - `addObject(Object)`
- - `addLight(Light)`
-  - `colorAtIntersection(Intersection)`
-- Implement Intersection Class
-  - `double t`
-  - `Ray` 
-  - `Object`
-  - `generateHitRecord()`
-    - dont forget to calculate: overpoint = hitPoint + (normal * epsilon)
+- Test Intersection
+    - dont forget to calculate for generateHitRecord: overpoint = hitPoint + (normal * epsilon)
+- Test World
+- Test Object Transformations 
+- Test Planes
 - Implement `inShadow()`
 - Update Matrix to include `rotation()`
 - Update Tuple

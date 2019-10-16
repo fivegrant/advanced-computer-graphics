@@ -6,29 +6,30 @@
 
 //TestCasesWeek5.txt
 TEST_CASE("An intersection encapsulates t and object"){
-  Given r ← ray(point(0, 0, -5), vector(0, 0, 1))
-	And s ← sphere()
-  When i ← intersection(3.5, s, r)
-  Then i.t = 3.5
-    And i.object = s
+  Ray r = Ray(point(0, 0, -5), vector(0, 0, 1));
+  Sphere s = Sphere();
+  Intersection i = Intersection(3.5, r, s);
+  REQUIRE(i.t == 3.5);
+  REQUIRE(i.object == s);
+  REQUIRE(i.ray == r);
 }
 
 TEST_CASE("Precomputing the state of an intersection"){
-  Given r ← ray(point(0, 0, -5), vector(0, 0, 1))
-    And shape ← sphere()
-    And i ← intersection(4, shape)
-  When hitRecord ← i.calculateHitRecord()
-  Then hitRecord.point = point(0, 0, -1)
-    And hitRecord.eye = vector(0, 0, -1)
-    And hitRecord.normal = vector(0, 0, -1)             
+  Ray r = Ray(point(0, 0, -5), vector(0, 0, 1));
+  Sphere s = Sphere();
+  Intersection i = intersection(4, s);
+  HitRecord hitRecord = i.generateHitRecord();
+  REQUIRE(hitRecord.point = point(0, 0, -1));
+  REQUIRE(hitRecord.eye = vector(0, 0, -1));
+  REQUIRE(hitRecord.normal = vector(0, 0, -1));
 }
 
 TEST_CASE("The hit, when an intersection occurs on the outside"){
-  Given r ← ray(point(0, 0, -5), vector(0, 0, 1))
-    And shape ← sphere()
-    And i ← intersection(4, shape, r)
-  When hitRecord ← calculateHitRecord(i, r)
-  Then hitRecord.isInside = false
+  Ray r = Ray(point(0, 0, -5), vector(0, 0, 1));
+  Sphere s = Sphere();
+  Intersection i = Intersection(4, r, s);
+  HitRecord hitRecord = generateHitRecord(i, r);
+  REQUIRE(hitRecord.isInside = false);
 }
 
 TEST_CASE("The hit, when an intersection occurs on the inside"){
@@ -42,3 +43,15 @@ TEST_CASE("The hit, when an intersection occurs on the inside"){
       # normal would have been (0, 0, 1), but is inverted!
     And hitRecord.normal = vector(0, 0, -1)
 }
+
+//TestCasesWeek6.txt
+TEST_CASE("The hit should offset the point"){
+  Ray r = Ray(point(0, 0, -5), vector(0, 0, 1));
+  Sphere s = Sphere();
+  s.transform(translation(0, 0, 1));
+  Intersection i = intersection(5, shape)
+  When comps ← prepare_computations(i, r)
+  Then comps.over_point.z < -EPSILON/2
+    And comps.point.z > comps.over_point.z
+}
+

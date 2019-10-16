@@ -1,9 +1,8 @@
 //TestCasesWeek2.txt
 //Feature: Materials
-#define CATCH_CONFIG_MAIN
-#include "../../modules/catch2.hpp"
-#include "../../mechanics/material.cpp"
-#include "../../mechanics/light.hpp"
+#include "modules/catch2.hpp"
+#include "mechanics/material.cpp"
+#include "mechanics/light.hpp"
 #include <cmath>
 
 Material m = Material();

@@ -3,7 +3,7 @@
 #define CATCH_CONFIG_MAIN
 #include <cmath>
 #include <vector>
-#include "../../modules/catch2.hpp"
+#include "modules/catch2.hpp"
 
 
 //TestCasesWeek5.txt

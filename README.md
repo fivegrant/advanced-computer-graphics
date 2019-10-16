@@ -74,6 +74,57 @@
 	- `Ray ShadowRay = Ray(overpoint, normalize(light.position - hitpoint));`
 	- `world.intersectionsWith(ShadowRay);`
 	- 0 < error < magnitude(light.position-hitPoint) or distance from hitpoint to light
+## Flow
+- Main
+- World
+- Camera.render(World, MAX_RECURSION) 
+- World.colorWithRay(Ray, MAX_RECURSION)
+  - world.intersectionsWithRay(Ray)
+  - firstIntersectionT > 0
+  - colorAtPoint(interception.generateHitRecord, world, mr)
+ 
+## Reflections
+- loop for all lights
+- `ambientColor = this->color * light.color * this->ambient`
+- if not in shadow
+- `lightIntensity = normal.dot(unitVectorToLight)`
+- `diffuseColor = this->color * light.color + self.diffuse * lightIntensity`
+- `specularIntensity = eye.dot(reflectedVectorToLight)`
+- `specularColor = light.color * specularIntensity * specular`
+- end of not in shadow
+- `reflectedRay = Ray(overPoint, eye.reflectedOverNormal())`
+- `reflectedColor = world.colorWithRay(reflectedRay, MAX_RECURSION - 1)`
+- add the following to collected_colors `reflectedColor * this->reflectivity to colors + `ambientColor` + `diffuseColor` + `specularColor`
+- end loop
+- return sum(collect_colors)
+
+## Refraction
+- index of refraction (n)
+- n1 * sin(theta1) = n2 * sin(theta2)
+- total internal reflection is true when sin(theta_n) > 1 or < -1
+- add this to the loop of all lights:
+  - refractedColor = world.colorWithRay(refractedRay, MAX_RECURSION - 1) * self.transparency
+- containers = List<Intersections>
+```for intersection in intersection
+	if intersection is self
+	  if containers is empty
+	    ior_incoming = 1```
+	  else
+	    ior_incoming = contains[-1].obj.material.ior
+	if containers contains an intersection with same obj as self obj
+	  remove that intersection
+	else
+	  add to containers
+	if intersections is self
+	  if containers is empty
+	    ior_transmitted = 1
+	  else
+	    ior_transmitted
+	    contains[01].obj.material.ior
+	
 
 # Questions
-- `double magsquare(Tuple vector)`: Return a vector dotted with itself
+- Review Refraction
+
+# Acknowledgements
+- Thanks Satchel Baldwin for helping with the `makefile`

@@ -17,6 +17,4 @@ class Ray{
     Tuple pointAtT(float t) const;
 
 };
-
-
 #endif

@@ -42,6 +42,11 @@ Tuple Tuple::operator-() const
 }
 
 //Methods
+Tuple Tuple::dot(Tuple over) const
+{
+  return -this + 2 * (this * over) * over;
+}
+
 double Tuple::dot(const Tuple& other) const
 {
   double result = this->x * other.x;

@@ -1,8 +1,8 @@
 //TestCasesWeek2.txt
 //Feature: Lights
 #define CATCH_CONFIG_MAIN
-#include "../../modules/catch2.hpp"
-#include "../../mechanics/light.hpp"
+#include "modules/catch2.hpp"
+#include "mechanics/light.hpp"
 
 TEST_CASE("A point light has a position and intensity"){
   Tuple intensity = color(1, 1, 1);

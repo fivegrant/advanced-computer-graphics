@@ -1,11 +1,10 @@
 //TestCasesWeek1.txt
 //Feature: Canvas
 
-#define CATCH_CONFIG_MAIN
 #include <cmath>
 #include <string>
-#include "../../modules/catch2.hpp"
-#include "../../components/canvas.hpp"
+#include "modules/catch2.hpp"
+#include "components/canvas.hpp"
 //Sample File
 const std::string SAMPLE_PPM = "feature_canvas.ppm";
 

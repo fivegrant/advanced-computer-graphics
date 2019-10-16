@@ -14,6 +14,7 @@ TEST_CASE("An intersection encapsulates t and object"){
   REQUIRE(i.ray == r);
 }
 
+/*
 TEST_CASE("Precomputing the state of an intersection"){
   Ray r = Ray(point(0, 0, -5), vector(0, 0, 1));
   Sphere s = Sphere();
@@ -23,6 +24,7 @@ TEST_CASE("Precomputing the state of an intersection"){
   REQUIRE(hitRecord.eye = vector(0, 0, -1));
   REQUIRE(hitRecord.normal = vector(0, 0, -1));
 }
+*/
 
 TEST_CASE("The hit, when an intersection occurs on the outside"){
   Ray r = Ray(point(0, 0, -5), vector(0, 0, 1));

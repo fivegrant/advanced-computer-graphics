@@ -1,7 +1,7 @@
 #include <fstream>
 #include <string>
-#include "../../mechanics/sphere.hpp"
-#include "../../components/canvas.hpp"
+#include "objects/include/sphere.hpp"
+#include "components/include/canvas.hpp"
 
 const std::string filename = "first_sphere.ppm";
 

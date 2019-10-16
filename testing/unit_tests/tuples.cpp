@@ -3,8 +3,8 @@
 
 #define CATCH_CONFIG_MAIN
 #include <cmath>
-#include "../../modules/catch2.hpp"
-#include "../../mechanics/tuple.hpp"
+#include "modules/catch2.hpp"
+#include "mechanics/tuple.hpp"
 
 TEST_CASE("A tuple with w=1.0 is a point"){
   Tuple a{4.3, -4.2, 3.1, 1.0};

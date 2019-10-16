@@ -3,8 +3,8 @@
 #define CATCH_CONFIG_MAIN
 #include <cmath>
 #include <vector>
-#include "../../modules/catch2.hpp"
-#include "../../objects/include/sphere.hpp"
+#include "modules/catch2.hpp"
+#include "objects/include/sphere.hpp"
 
 //TestCasesWeek1.txt
 TEST_CASE("A ray intersects a sphere at two points"){

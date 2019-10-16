@@ -3,8 +3,8 @@
 #define CATCH_CONFIG_MAIN
 #include <cmath>
 #include <vector>
-#include "../../modules/catch2.hpp"
-#include "../../objects/include/plane.hpp"
+#include "modules/catch2.hpp"
+#include "objects/include/plane.hpp"
 
 //TestCasesWeek6.txt
 /*

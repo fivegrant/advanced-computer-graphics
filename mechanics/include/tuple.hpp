@@ -33,4 +33,62 @@ class Tuple{
     double isVector() const;
 
 };
+
+//Generators
+Tuple point(const double x, const double y, const double z)
+{
+  return Tuple{x, y, z, 1.0};
+}
+
+Tuple vector(const double x, const double y, const double z)
+{
+  return Tuple{x, y, z, 0.0};
+}
+
+Tuple color(const double x, const double y, const double z)
+{
+  return Tuple{x, y, z, 0.0};
+}
+
+Tuple color(const double x, const double y, const double z, bool is255)
+{
+  if(is255){
+    return Tuple{x, y, z, 1.0};
+  }else{
+   return Tuple{x, y, z, 0.0};
+  }
+}
+//Magnitude and Normalization
+double magnitude(const Tuple vector)
+{
+  return sqrt(pow(vector.x, 2) + pow(vector.y, 2) + pow(vector.z, 2) + pow(vector.w, 2));
+}
+
+Tuple normalize(const Tuple vec)
+{
+  double mag = magnitude(vec);
+  return vector(vec.x/mag, vec.y/mag, vec.z/mag);
+}
+
+double dot(const Tuple left, const Tuple right)
+{
+  double result = left.x * right.x;
+  result += left.y * right.y;
+  result += left.z * right.z;
+  result += left.w * right.w;
+  return result;
+}
+
+Tuple cross(const Tuple left, const Tuple right)
+{
+ return Tuple{(left.y * right.z - left.z * right.y),
+              (left.z * right.x - left.x * right.z),
+	      (left.x * right.y - left.y * right.x)};
+}
+
+//String Conversion
+std::ostream& operator << (std::ostream& os, Tuple const& tuple) {
+    os << "|" + std::to_string(tuple.x) + "," + std::to_string(tuple.y) + ","+ std::to_string(tuple.z) + "," + std::to_string(tuple.w) + "|";
+    return os;
+}
 #endif

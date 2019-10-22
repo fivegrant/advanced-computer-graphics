@@ -1,6 +1,6 @@
 #ifndef LIGHT_H
 #define LIGHT_H
-#include "../mechanics/include/tuple.hpp"
+#include "mechanics/include/tuple.hpp"
 
 class Light{
   public:
@@ -18,5 +18,21 @@ class Light{
     Tuple colorAtPoint(Material material, Tuple position, Tuple normalv);
 
 };
+
+//String Conversion
+std::ostream& operator << (std::ostream& os, Light const& light) {
+    os << "L[intensity: " + 
+     std::to_string(light.intensity.x) + 
+     std::to_string(light.intensity.y) +
+     std::to_string(light.intensity.z) +
+     std::to_string(light.intensity.w) +
+     ", position: " + 
+     std::to_string(light.position.x) + 
+     std::to_string(light.position.y) +
+     std::to_string(light.position.z) +
+     std::to_string(light.position.w);
+    return os;
+}
+
 
 #endif

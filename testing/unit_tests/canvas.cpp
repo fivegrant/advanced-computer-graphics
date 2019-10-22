@@ -4,9 +4,10 @@
 #include <cmath>
 #include <string>
 #include "modules/catch2.hpp"
-#include "components/canvas.hpp"
+#include "components/include/canvas.hpp"
+#include "utilities/include/ppmname.hpp"
+
 //Sample File
-const std::string SAMPLE_PPM = "feature_canvas.ppm";
 
 TEST_CASE("Creating a canvas"){
   Canvas c = Canvas(10, 20);

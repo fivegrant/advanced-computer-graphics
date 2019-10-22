@@ -2,7 +2,9 @@
 #define CATCH_CONFIG_MAIN
 #include <cmath>
 #include <vector>
-#include "../../modules/catch2.hpp"
+#include "modules/catch2.hpp"
+
+#include "objects/include/intersection.hpp"
 
 //TestCasesWeek5.txt
 TEST_CASE("An intersection encapsulates t and object"){

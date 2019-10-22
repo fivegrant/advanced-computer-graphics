@@ -1,6 +1,6 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
-#include "../mechanics/include/tuple.hpp"
+#include "mechanics/include/tuple.hpp"
 
 class Material{
   public:
@@ -25,5 +25,16 @@ class Material{
 
 };
 
+//String Conversion
+std::ostream& operator << (std::ostream& os, Material const& material) {
+    os << "M[surface_color: " + 
+     std::to_string(material.surface_color.x) + 
+     std::to_string(material.surface_color.y) +
+     std::to_string(material.surface_color.z) +
+     std::to_string(material.surface_color.w) +
 
+          ", diffuse" +
+     std::to_string(material.diffuse);
+    return os;
+}
 #endif

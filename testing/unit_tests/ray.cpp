@@ -3,8 +3,8 @@
 #define CATCH_CONFIG_MAIN
 #include <cmath>
 #include "modules/catch2.hpp"
-#include "mechanics/ray.hpp"
-#include "mechanics/matrix.hpp"
+#include "mechanics/include/ray.hpp"
+#include "mechanics/include/matrix.hpp"
 
 //TestCasesWeek1.txt
 TEST_CASE("Scenario: Creating and querying a ray"){

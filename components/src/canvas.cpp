@@ -1,4 +1,4 @@
-#include "../include/canvas.hpp"
+#include "components/include/canvas.hpp"
 
 Tuple Canvas::colorTo255(Tuple raw_color) const{
   if (raw_color.w != 1.0){
@@ -62,22 +62,3 @@ void Canvas::toPPM(std::string filename) const
   ppm.close();
 }
 
-//String Conversion
-std::ostream& operator << (std::ostream& os, Canvas const& canvas) {
-    os << "CANVAS:: w: " +std::to_string(canvas.w) + ", h: " +
-     std::to_string(canvas.h);
-    return os;
-}
-
-//File Conversion
-std::vector<std::string> ppmByLine(std::string filename)
-{
-  std::vector<std::string> output = {};
-  std::string capture;
-  std::ifstream ppm(filename);
-  while (std::getline(ppm, capture)){
-    output.push_back(capture);
-  }
-  ppm.close(); 
-  return output;
-}

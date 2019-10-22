@@ -1,8 +1,8 @@
 #ifndef SHAPE_H
 #define SHAPE_H
 #include <vector>
-#include "../../mechanics/ray.hpp"
-#include "../../mechanics/material.hpp"
+#include "mechanics/include/ray.hpp"
+#include "mechanics/include/material.hpp"
 
 class Shape{
   public:

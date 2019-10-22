@@ -1,4 +1,4 @@
-#include "../include/plane.hpp"
+#include "objects/include/plane.hpp"
 
 std::vector<double> Plane::intersectionWith(Ray ray) const
 {

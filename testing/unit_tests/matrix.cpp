@@ -4,7 +4,7 @@
 #define CATCH_CONFIG_MAIN
 #include <cmath>
 #include "modules/catch2.hpp"
-#include "mechanics/matrix.hpp"
+#include "mechanics/include/matrix.hpp"
 
 TEST_CASE("Constructing and inspecting a 4x4 matrix"){
   Matrix M = Matrix({ 1   ,  2   ,  3   ,  4   ,

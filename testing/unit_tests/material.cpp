@@ -1,8 +1,8 @@
 //TestCasesWeek2.txt
 //Feature: Materials
 #include "modules/catch2.hpp"
-#include "mechanics/material.cpp"
-#include "mechanics/light.hpp"
+#include "mechanics/include/material.cpp"
+#include "mechanics/include/light.hpp"
 #include <cmath>
 
 Material m = Material();

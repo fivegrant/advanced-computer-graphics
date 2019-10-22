@@ -1,6 +1,6 @@
 #ifndef PLANE_H
 #define PLANE_H
-#include "../include/shape.hpp"
+#include "objects/include/shape.hpp"
 
 class Plane: public Shape {
   public:

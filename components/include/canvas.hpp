@@ -5,7 +5,7 @@
 #include <string>
 #include <fstream>
 #include <cmath>
-#include "../mechanics/tuple.hpp"
+#include "mechanics/include/tuple.hpp"
 
 class Canvas{
 
@@ -45,5 +45,24 @@ class Canvas{
   void toPPM(std::string filename) const;
 };
 
+//String Conversion
+std::ostream& operator << (std::ostream& os, Canvas const& canvas) {
+    os << "CANVAS:: w: " +std::to_string(canvas.w) + ", h: " +
+     std::to_string(canvas.h);
+    return os;
+}
+
+//File Conversion
+std::vector<std::string> ppmByLine(std::string filename)
+{
+  std::vector<std::string> output = {};
+  std::string capture;
+  std::ifstream ppm(filename);
+  while (std::getline(ppm, capture)){
+    output.push_back(capture);
+  }
+  ppm.close(); 
+  return output;
+}
 #endif
 

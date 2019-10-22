@@ -1,4 +1,4 @@
-#include "../include/shape.hpp"
+#include "objects/include/shape.hpp"
 
 bool Shape::operator==(const Shape& rhs) const
 {

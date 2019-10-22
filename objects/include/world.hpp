@@ -1,9 +1,9 @@
 #ifndef WORLD_H
 #define WORLD_H
 #include <vector> 
-#include "./intersection.hpp"
-#include "./light.hpp"
-#include "./shape.hpp"
+#include "objects/include/intersection.hpp"
+#include "objects/include/light.hpp"
+#include "objects/include/shape.hpp"
 
 class World{
   public:

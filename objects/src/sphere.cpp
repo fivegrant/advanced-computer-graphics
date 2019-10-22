@@ -1,4 +1,4 @@
-#include "../include/sphere.hpp"
+#include "objects/include/sphere.hpp"
 
 std::vector<double> Sphere::intersectionWith(Ray raw_ray) const
 {

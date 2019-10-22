@@ -1,6 +1,6 @@
 #ifndef SPHERE_H
 #define SPHERE_H
-#include "../include/shape.hpp"
+#include "objects/include/shape.hpp"
 
 class Sphere: public Shape {
   public:

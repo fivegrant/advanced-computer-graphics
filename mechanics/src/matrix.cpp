@@ -168,36 +168,4 @@ Matrix Matrix::get_inverse() const
 {
   return this->inverse_matrix;
 }
-//Generate types of matrices
 
-Matrix translation(double x, double y, double z)
-{
-  std::vector<double> content = { 1, 0, 0, x,
-  			          0, 1, 0, y,
-			          0, 0, 1, z,
-			          0, 0, 0, 1};
-  Matrix result = Matrix(content); 
-  return result;
-}
-
-Matrix scaling(double x, double y, double z)
-{
-  std::vector<double> content = { x, 0, 0, 0,
-  			          0, y, 0, 0,
-			          0, 0, z, 0,
-			          0, 0, 0, 1};
-  Matrix result = Matrix(content); 
-  return result;
-}
-
-//String Conversion
-std::ostream& operator << (std::ostream& os, Matrix const& matrix) {
-    std::string output = "Matrix:\n";
-    for(int counter = 0; counter < matrix.body.size(); counter++){
-   	output += std::to_string(matrix.body[counter]);
-	output += (((counter + 1) % matrix.size()) == 0) ? "\n" : "\t";
-      }
-    output += "\n";
-    os << output;
-    return os;
-}

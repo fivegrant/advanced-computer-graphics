@@ -18,10 +18,10 @@ $(BUILD_DIRECTORY)/bin/test: testing/unit_tests/main.cpp $(OBJ) $(TEST_OBJ) $(CX
 	mkdir -p $(@D)
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
-first-sphere: $(BUILD_DIRECTORY)/bin/first-sphere
-$(BUILD_DIRECTORY)/bin/first-sphere: testing/samples/first_sphere.o $(OBJ) $(CXXFLAGS)
-	mkdir -p $(@D)
-	$(CXX) $(CXXFLAGS) $^ -o $@
+#first-sphere: $(BUILD_DIRECTORY)/bin/first-sphere
+#$(BUILD_DIRECTORY)/bin/first-sphere: testing/samples/first_sphere.o $(OBJ) $(CXXFLAGS)
+#	mkdir -p $(@D)
+#	$(CXX) $(CXXFLAGS) $^ -o $@
 
 $(BUILD_DIRECTORY)/%.o: %.cpp
 	mkdir -p $(@D)

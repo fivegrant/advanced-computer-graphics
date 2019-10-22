@@ -1,5 +1,6 @@
 #ifndef HITRECORD_H
 #define HITRECORD_H
+#include "mechanics/include/tuple.hpp"
 struct HitRecord {
   Tuple hitPoint;
   Tuple normal;
@@ -9,6 +10,6 @@ struct HitRecord {
   Tuple underpoint;
   //double ior_i
   //double ior_t
-}
+};
 
 #endif

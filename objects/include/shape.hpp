@@ -2,7 +2,7 @@
 #define SHAPE_H
 #include <vector>
 #include "mechanics/include/ray.hpp"
-#include "mechanics/include/material.hpp"
+#include "objects/include/material.hpp"
 
 class Shape{
   public:

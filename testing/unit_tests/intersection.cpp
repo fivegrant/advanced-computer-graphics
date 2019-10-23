@@ -3,8 +3,8 @@
 #include <cmath>
 #include <vector>
 #include "modules/catch2.hpp"
-
 #include "objects/include/intersection.hpp"
+#include "objects/include/sphere.hpp"
 
 //TestCasesWeek5.txt
 TEST_CASE("An intersection encapsulates t and object"){
@@ -12,7 +12,7 @@ TEST_CASE("An intersection encapsulates t and object"){
   Sphere s = Sphere();
   Intersection i = Intersection(3.5, r, s);
   REQUIRE(i.t == 3.5);
-  REQUIRE(i.object == s);
+  REQUIRE(i.sphere == s);
   REQUIRE(i.ray == r);
 }
 
@@ -26,21 +26,20 @@ TEST_CASE("Precomputing the state of an intersection"){
   REQUIRE(hitRecord.eye = vector(0, 0, -1));
   REQUIRE(hitRecord.normal = vector(0, 0, -1));
 }
-*/
 
 TEST_CASE("The hit, when an intersection occurs on the outside"){
   Ray r = Ray(point(0, 0, -5), vector(0, 0, 1));
   Sphere s = Sphere();
   Intersection i = Intersection(4, r, s);
   HitRecord hitRecord = generateHitRecord(i, r);
-  REQUIRE(hitRecord.isInside = false);
+  REQUIRE(hitRecord.isInside == false);
 }
 
 TEST_CASE("The hit, when an intersection occurs on the inside"){
-  Given r ← ray(point(0, 0, 0), vector(0, 0, 1))
-    And shape ← sphere()
-    And i ← intersection(1, shape)
-  When hitRecord ← calculateHitRecord(i, r)
+  Ray r - Ray(point(0, 0, 0), vector(0, 0, 1));
+  Shape s = Sphere()
+  Intersection i = Intersection(1, shape);
+  HitRecord hitRecord = calculateHitRecord(i, r);
   Then hitRecord.point = point(0, 0, 1)
     And hitRecord.eye = vector(0, 0, -1)
     And hitRecord.isInside = true
@@ -58,4 +57,4 @@ TEST_CASE("The hit should offset the point"){
   Then comps.over_point.z < -EPSILON/2
     And comps.point.z > comps.over_point.z
 }
-
+*/

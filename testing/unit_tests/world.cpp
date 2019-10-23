@@ -6,6 +6,7 @@
 
 
 //TestCasesWeek5.txt
+/*
 TEST_CASE("Creating a world"){
   World w = World();
   REQUIRE(w.objects.size() == 0;);
@@ -84,7 +85,7 @@ TEST_CASE("The color with an intersection behind the ray"){
 }
 
 //TestCasesWeek6.txt
-/*
+
 Scenario: There is no shadow when nothing is collinear with point and light
   Given w ← default_world()
     And p ← point(0, 10, 0)

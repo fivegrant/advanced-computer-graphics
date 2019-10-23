@@ -73,11 +73,12 @@ Matrix scaling(double x, double y, double z)
 //String Conversion
 std::ostream& operator << (std::ostream& os, Matrix const& matrix) {
     std::string output = "Matrix:\n";
-    for(int counter = 0; counter < matrix.body.size(); counter++){
+    for(unsigned long int counter = 0; counter < matrix.body.size(); counter++){
    	output += std::to_string(matrix.body[counter]);
 	output += (((counter + 1) % matrix.size()) == 0) ? "\n" : "\t";
       }
     output += "\n";
     os << output;
     return os;
-}#endif
+}
+#endif

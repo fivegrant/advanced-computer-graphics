@@ -13,6 +13,7 @@ class Ray{
     Ray(Tuple raw_origin, Tuple raw_direction):
       origin(raw_origin), direction(normalize(raw_direction)) {}
 
+    bool operator==(const Ray& rhs) const;
     //Methods
     Tuple pointAtT(float t) const;
 
@@ -40,4 +41,5 @@ std::ostream& operator << (std::ostream& os, Ray const& ray) {
      std::to_string(ray.direction.z) +
      std::to_string(ray.direction.w);
     return os;
-}#endif
+}
+#endif

@@ -42,7 +42,7 @@ Tuple Tuple::operator-() const
 }
 
 //Methods
-Tuple Tuple::dot(Tuple over) const
+Tuple Tuple::reflect(Tuple over) const
 {
   return -this + 2 * (this * over) * over;
 }

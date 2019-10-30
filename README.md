@@ -10,13 +10,12 @@
 - Test World
 - Test Object Transformations 
 - Test Planes
+- Test Reflection
 - Implement `inShadow()`
-- Update Matrix to include `rotation()`
-- Update Tuple
-  - Include Reflection
 - Implement Camera class
   - Include Orthographic
   - Include Perspective
+- Finish Triangles
 - Write Makefile
 
 # Notes

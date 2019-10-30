@@ -70,6 +70,36 @@ Matrix scaling(double x, double y, double z)
   return result;
 }
 
+Matrix rotationx(double theta)
+{
+  std::vector<double> content = { 1,     0,           0,      0,
+  			          0, cos(theta),  sin(theta), 0,
+			          0, -sin(theta), cos(theta), 0,
+			          0,     0,           0,      1};
+  Matrix result = Matrix(content); 
+  return result;
+}
+
+Matrix rotationy(double theta)
+{
+  std::vector<double> content = { cos(theta),   0,  -sin(theta),   0,
+  			              0,        1,       0,        0,
+			          sin(theta),   0,   cos(theta),   0,
+			              0,        0,       0,        1};
+  Matrix result = Matrix(content); 
+  return result;
+}
+
+Matrix rotationz(double theta)
+{
+  std::vector<double> content = { cos(theta),  sin(theta),  0, 0,
+  			          -sin(theta), cos(theta),  0, 0,
+			              0,           0,       1, 0,
+			              0,           0,       0, 1};
+  Matrix result = Matrix(content); 
+  return result;
+}
+
 //String Conversion
 std::ostream& operator << (std::ostream& os, Matrix const& matrix) {
     std::string output = "Matrix:\n";

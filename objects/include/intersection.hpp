@@ -16,7 +16,7 @@ class Intersection{
     Intersection (double raw_t, Ray raw_ray, Sphere raw_sphere):
       t(raw_t), ray(raw_ray), sphere(raw_sphere) {}
 
-    Intersection (double raw_t, Ray raw_ray, Plane raw_plane):
+    std::vector<Intersection> (double raw_t, Ray raw_ray, Plane raw_plane):
       t(raw_t), ray(raw_ray), plane(raw_plane) {}
 
     bool operator==(const Intersection& rhs) const;

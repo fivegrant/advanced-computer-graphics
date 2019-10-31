@@ -1,6 +1,5 @@
 //Feature: Rays
 
-#define CATCH_CONFIG_MAIN
 #include <cmath>
 #include "modules/catch2.hpp"
 #include "mechanics/include/ray.hpp"

@@ -1,6 +1,6 @@
 #include "objects/include/plane.hpp"
 
-std::vector<double> Plane::intersectionWith(Ray ray) const
+std::vector<Intersection> Plane::intersectionWith(Ray ray) //const
 {
   if(ray.direction.y == 0){
     return {};
@@ -12,7 +12,7 @@ std::vector<double> Plane::intersectionWith(Ray ray) const
 		  .ray = ray
 		  return intersection
      */
-    return {t};
+    return {Intersection(t, ray, this)};
   }
 
 }

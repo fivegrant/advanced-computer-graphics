@@ -1,5 +1,4 @@
 //Feature: Intersections
-#define CATCH_CONFIG_MAIN
 #include <cmath>
 #include <vector>
 #include "modules/catch2.hpp"
@@ -10,9 +9,9 @@
 TEST_CASE("An intersection encapsulates t and object"){
   Ray r = Ray(point(0, 0, -5), vector(0, 0, 1));
   Sphere s = Sphere();
-  Intersection i = Intersection(3.5, r, s);
+  Intersection i = Intersection(3.5, r, &s);
   REQUIRE(i.t == 3.5);
-  REQUIRE(i.sphere == s);
+  REQUIRE(i.subject == &s);
   REQUIRE(i.ray == r);
 }
 

@@ -1,6 +1,5 @@
 //Feature: Objection Transformation
 
-#define CATCH_CONFIG_MAIN
 #include <cmath>
 #include <vector>
 #include "modules/catch2.hpp"

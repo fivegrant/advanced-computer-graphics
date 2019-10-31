@@ -1,6 +1,5 @@
 //TestCasesWeek2.txt
 //Feature: Lights
-#define CATCH_CONFIG_MAIN
 #include "modules/catch2.hpp"
 #include "objects/include/light.hpp"
 

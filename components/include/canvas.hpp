@@ -13,7 +13,7 @@ class Canvas{
   int w, h;
   std::vector<std::vector<Tuple>> pixels;
 
-  Canvas (int input_w, int input_h, std::vector<std::vector<Tuple>> input_pixels):
+  Canvas (int input_w, int input_h, td::vector<std::vector<Tuple>> input_pixels):
     w(input_w), h(input_h), pixels(input_pixels) {}
 
   Canvas (int input_w, int input_h):
@@ -46,23 +46,10 @@ class Canvas{
 };
 
 //String Conversion
-std::ostream& operator << (std::ostream& os, Canvas const& canvas) {
-    os << "CANVAS:: w: " +std::to_string(canvas.w) + ", h: " +
-     std::to_string(canvas.h);
-    return os;
-}
+std::ostream& operator << (std::ostream& os, Canvas const& canvas);
 
 //File Conversion
-std::vector<std::string> ppmByLine(std::string filename)
-{
-  std::vector<std::string> output = {};
-  std::string capture;
-  std::ifstream ppm(filename);
-  while (std::getline(ppm, capture)){
-    output.push_back(capture);
-  }
-  ppm.close(); 
-  return output;
-}
+std::vector<std::string> ppmByLine(std::string filename);
+
 #endif
 

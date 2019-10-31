@@ -7,7 +7,7 @@ class Sphere: public Shape {
   public:
     Sphere() {this->shape_type = "Sphere";}
 
-    Intersection intersectionWith(Ray ray) const;
+    std::vector<Intersection> intersectionWith(Ray ray); //const;
     Tuple normalAtPoint(Tuple position) const;
 };
 

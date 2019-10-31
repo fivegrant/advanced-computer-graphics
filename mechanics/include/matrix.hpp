@@ -50,65 +50,15 @@ class Matrix{
 };
 
 //Generate types of matrices
-Matrix translation(double x, double y, double z)
-{
-  std::vector<double> content = { 1, 0, 0, x,
-  			          0, 1, 0, y,
-			          0, 0, 1, z,
-			          0, 0, 0, 1};
-  Matrix result = Matrix(content); 
-  return result;
-}
+Matrix translation(double x, double y, double z);
 
-Matrix scaling(double x, double y, double z)
-{
-  std::vector<double> content = { x, 0, 0, 0,
-  			          0, y, 0, 0,
-			          0, 0, z, 0,
-			          0, 0, 0, 1};
-  Matrix result = Matrix(content); 
-  return result;
-}
+Matrix scaling(double x, double y, double z);
 
-Matrix rotationx(double theta)
-{
-  std::vector<double> content = { 1,     0,           0,      0,
-  			          0, cos(theta),  sin(theta), 0,
-			          0, -sin(theta), cos(theta), 0,
-			          0,     0,           0,      1};
-  Matrix result = Matrix(content); 
-  return result;
-}
+Matrix rotationx(double theta);
 
-Matrix rotationy(double theta)
-{
-  std::vector<double> content = { cos(theta),   0,  -sin(theta),   0,
-  			              0,        1,       0,        0,
-			          sin(theta),   0,   cos(theta),   0,
-			              0,        0,       0,        1};
-  Matrix result = Matrix(content); 
-  return result;
-}
+Matrix rotationy(double theta);
 
-Matrix rotationz(double theta)
-{
-  std::vector<double> content = { cos(theta),  sin(theta),  0, 0,
-  			          -sin(theta), cos(theta),  0, 0,
-			              0,           0,       1, 0,
-			              0,           0,       0, 1};
-  Matrix result = Matrix(content); 
-  return result;
-}
+Matrix rotationz(double theta);
 
-//String Conversion
-std::ostream& operator << (std::ostream& os, Matrix const& matrix) {
-    std::string output = "Matrix:\n";
-    for(unsigned long int counter = 0; counter < matrix.body.size(); counter++){
-   	output += std::to_string(matrix.body[counter]);
-	output += (((counter + 1) % matrix.size()) == 0) ? "\n" : "\t";
-      }
-    output += "\n";
-    os << output;
-    return os;
-}
+std::ostream& operator << (std::ostream& os, Matrix const& matrix);
 #endif

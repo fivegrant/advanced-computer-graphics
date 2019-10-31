@@ -1,2 +1,2 @@
 #pragma once
-std::string SAMPLE_PPM = "feature_canvas.pp";
+std::string SAMPLE_PPM = "feature_canvas.ppm";

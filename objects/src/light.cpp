@@ -20,4 +20,19 @@ Tuple Light::colorAtPoint(Material material, Tuple position, Tuple normalv)
   return result;
 }
 
+//String Conversion
+std::ostream& operator << (std::ostream& os, Light const& light) {
+    os << "L[intensity: " + 
+     std::to_string(light.intensity.x) + 
+     std::to_string(light.intensity.y) +
+     std::to_string(light.intensity.z) +
+     std::to_string(light.intensity.w) +
+     ", position: " + 
+     std::to_string(light.position.x) + 
+     std::to_string(light.position.y) +
+     std::to_string(light.position.z) +
+     std::to_string(light.position.w);
+    return os;
+}
+
 

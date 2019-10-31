@@ -1,7 +1,6 @@
 //TestCasesWeek1.txt
 //Feature: Tuples, Vectors, and Points
 
-#define CATCH_CONFIG_MAIN
 #include <cmath>
 #include "modules/catch2.hpp"
 #include "mechanics/include/tuple.hpp"

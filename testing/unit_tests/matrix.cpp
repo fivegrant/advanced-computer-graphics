@@ -1,7 +1,6 @@
 //TestCasesWeek3.txt
 //Feature: Matrices
 
-#define CATCH_CONFIG_MAIN
 #include <cmath>
 #include "modules/catch2.hpp"
 #include "mechanics/include/matrix.hpp"

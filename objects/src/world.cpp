@@ -1,5 +1,6 @@
 #include "objects/include/world.hpp"
 
+/*
 void World::addShape(Shape shape){
   objects.push_back(shape);
 }
@@ -15,3 +16,4 @@ vector<Intersection> intersectionWith(Ray) const{
 Tuple colorAtIntersection(Intersection){
   #Code Needed
 }
+*/

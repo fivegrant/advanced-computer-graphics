@@ -3,6 +3,7 @@
 #include <vector>
 #include "mechanics/include/ray.hpp"
 #include "objects/include/material.hpp"
+#include "objects/include/intersection.hpp"
 
 class Shape{
   public:
@@ -17,7 +18,7 @@ class Shape{
     bool operator==(const Shape&) const;
     void set_transform(Matrix);
     
-    virtual std::vector<double> intersectionWith(Ray ray) const = 0;
+    virtual std::vector<Intersection> intersectionWith(Ray ray) = 0;
 
     virtual Tuple normalAtPoint(Tuple position) const = 0;
 };

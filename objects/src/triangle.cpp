@@ -1,6 +1,7 @@
 #include "objects/include/triangle.hpp"
 
-std::vector<double> Triangle::intersectionWith(Ray raw_ray) const
+/*
+std::vector<Intersection> Triangle::intersectionWith(Ray raw_ray) const
 {
   double beta, gamma, t;
   Matrix answer = a - raw_ray;
@@ -37,5 +38,5 @@ Tuple Triangle::normalAtPoint(Tuple position) const
 {
   return (b - a) * (c - a);
 }
-
+*/
 

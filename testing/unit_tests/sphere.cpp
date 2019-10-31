@@ -1,12 +1,12 @@
 //Feature: Spheres
 
-#define CATCH_CONFIG_MAIN
 #include <cmath>
 #include <vector>
 #include "modules/catch2.hpp"
 #include "objects/include/sphere.hpp"
 
 //TestCasesWeek1.txt
+/*
 TEST_CASE("A ray intersects a sphere at two points"){
   Ray r = Ray(point(0, 0, -5), vector(0, 0, 1));
   Sphere s = Sphere();
@@ -120,3 +120,4 @@ TEST_CASE("Intersecting a translated sphere with a ray"){
   std::vector<double> xs = s.intersectionWith(r);
   REQUIRE(xs.size() == 0);
 }
+*/

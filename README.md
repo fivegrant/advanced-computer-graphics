@@ -1,22 +1,21 @@
 # Advanced Computer Graphics
-- Languge: C++
+- Language: C++
   - Unit Testing: Catch2
 
 # Dependencies
 - Catch2: https://github.com/catchorg/Catch2/blob/master/docs/tutorial.md#top 
+
 # TODO
 - Test Intersection
-    - dont forget to calculate for generateHitRecord: overpoint = hitPoint + (normal * epsilon)
 - Test World
 - Test Object Transformations 
 - Test Planes
 - Test Reflection
 - Implement `inShadow()`
-- Implement Camera class
+- Implement Camera class in `components`
   - Include Orthographic
   - Include Perspective
 - Finish Triangles
-- Write Makefile
 
 # Notes
 ## Object
@@ -36,28 +35,7 @@
 - normalAt(Point)
   - `objectNormal = Vec(0, 1, 0)`
   - `return worldNormal = transform.inverse().transpose() * objectNormal`
-## Rotation
-- rotate around x:
-  ```
-    1	  0	     0       0
-    0 cos(theta)  sin(theta) 0 
-    0 -sin(theta) cos(theta) 0
-    0      0         0       1
-    ```
-- rotate around y:
-    ```
-    cos(theta)	  0	-sin(theta)  0
-        0 	  1          0       0 
-    sin(theta) 	  0      cos(theta)  0
-        0         0          0       1
-    ```
-- rotate around z:
-   ```
-    cos(theta)  sin(theta)     0      0
-    -sin(theta) cos(theta)     0      0 
-         0          0          1      0
-         0          0          0      1
-    ```
+
 ## Shadows
 - Steps for each pixel:
 	- Make a ray

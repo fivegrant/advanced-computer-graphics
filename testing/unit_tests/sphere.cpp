@@ -6,48 +6,48 @@
 #include "objects/include/sphere.hpp"
 
 //TestCasesWeek1.txt
-/*
+
 TEST_CASE("A ray intersects a sphere at two points"){
   Ray r = Ray(point(0, 0, -5), vector(0, 0, 1));
   Sphere s = Sphere();
-  std::vector<double> xs = s.intersectionWith(r);
+  std::vector<Intersection> xs = s.intersectionWith(r);
   REQUIRE(xs.size() == 2);
-  REQUIRE(xs[0] == 4.0);
-  REQUIRE(xs[1] == 6.0);
+  REQUIRE(xs[0].t == 4.0);
+  REQUIRE(xs[1].t == 6.0);
 }
 
 TEST_CASE("A ray intersects a sphere at a tangent"){
   Ray r = Ray(point(0, 1, -5), vector(0, 0, 1));
   Sphere s = Sphere();
-  std::vector<double> xs = s.intersectionWith(r);
+  std::vector<Intersection> xs = s.intersectionWith(r);
   REQUIRE(xs.size() == 2);
-  REQUIRE(xs[0] == 5.0);
-  REQUIRE(xs[1] == 5.0);
+  REQUIRE(xs[0].t == 5.0);
+  REQUIRE(xs[1].t == 5.0);
 }
 
 TEST_CASE("A ray misses a sphere"){
   Ray r = Ray(point(0, 2, -5), vector(0, 0, 1));
   Sphere s = Sphere();
-  std::vector<double> xs = s.intersectionWith(r);
+  std::vector<Intersection> xs = s.intersectionWith(r);
   REQUIRE(xs.size() == 0);
 }
 
 TEST_CASE("A ray originates inside a sphere"){
   Ray r = Ray(point(0, 0, 0), vector(0, 0, 1));
   Sphere s = Sphere();
-  std::vector<double> xs = s.intersectionWith(r);
+  std::vector<Intersection> xs = s.intersectionWith(r);
   REQUIRE(xs.size() == 2);
-  REQUIRE(xs[0] == -1.0);
-  REQUIRE(xs[1] == 1.0);
+  REQUIRE(xs[0].t == -1.0);
+  REQUIRE(xs[1].t == 1.0);
 }
 
 TEST_CASE("A sphere is behind a ray"){
   Ray r = Ray(point(0, 0, 5), vector(0, 0, 1));
   Sphere s = Sphere();
-  std::vector<double> xs = s.intersectionWith(r);
+  std::vector<Intersection> xs = s.intersectionWith(r);
   REQUIRE(xs.size() == 2);
-  REQUIRE(xs[0] == -6.0);
-  REQUIRE(xs[1] == -4.0);
+  REQUIRE(xs[0].t == -6.0);
+  REQUIRE(xs[1].t == -4.0);
 }
 
 //TestCasesWeek1.txt
@@ -106,18 +106,17 @@ TEST_CASE("Intersecting a scaled sphere with a ray"){
   Ray r = Ray(point(0, 0, -5), vector(0, 0, 1));
   Sphere s = Sphere();
   s.set_transform(scaling(2, 2, 2));
-  std::vector<double> xs = s.intersectionWith(r);
-  REQUIRE(xs == std::vector<double> {3, 7});
+  std::vector<Intersection> xs = s.intersectionWith(r);
   REQUIRE(xs.size() == 2);
-  REQUIRE(xs[0] == 3);
-  REQUIRE(xs[1] == 7);
+  REQUIRE(xs[0].t == 3);
+  REQUIRE(xs[1].t == 7);
 }
 
 TEST_CASE("Intersecting a translated sphere with a ray"){
   Ray r = Ray(point(0, 0, -5), vector(0, 0, 1));
   Sphere s = Sphere();
   s.set_transform(translation(5, 0, 0));
-  std::vector<double> xs = s.intersectionWith(r);
+  std::vector<Intersection> xs = s.intersectionWith(r);
   REQUIRE(xs.size() == 0);
 }
-*/
+

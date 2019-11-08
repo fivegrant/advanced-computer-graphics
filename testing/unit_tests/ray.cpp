@@ -23,7 +23,6 @@ TEST_CASE("Computing a point from a distance"){
     REQUIRE(r.pointAtT(2.5) == point(4.5, 3, 4));
 }
 
-
 //TestCasesWeek3.txt
 TEST_CASE("Translating a ray"){
   Ray r = Ray(point(1, 2, 3), vector(0, 1, 0));

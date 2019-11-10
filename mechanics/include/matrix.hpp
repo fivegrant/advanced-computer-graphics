@@ -11,7 +11,6 @@ class Matrix{
     std::vector<double> body;
     std::vector<double> inverse_matrix = {};
     
-    //Constructor
      Matrix (std::vector<double> content):
       body(content) {}
      Matrix ()
@@ -22,7 +21,6 @@ class Matrix{
 		0, 0, 0, 1};
       }
 
-    //Operators
     bool operator==(const Matrix&) const;
     bool operator!=(const Matrix&) const;
     Matrix operator*(const Matrix&) const;

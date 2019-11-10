@@ -25,3 +25,7 @@ $(BUILD_DIRECTORY)/bin/test: testing/main.cpp $(OBJ) $(TEST_OBJ)
 .PHONY: clean
 clean:
 	rm -rf $(BUILD_DIRECTORY)/ $(OBJ)
+
+.PHONY: try
+try:
+	./build/bin/test

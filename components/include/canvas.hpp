@@ -13,7 +13,7 @@ class Canvas{
   int w, h;
   std::vector<std::vector<Tuple>> pixels;
 
-  Canvas (int input_w, int input_h, td::vector<std::vector<Tuple>> input_pixels):
+  Canvas (int input_w, int input_h, std::vector<std::vector<Tuple>> input_pixels):
     w(input_w), h(input_h), pixels(input_pixels) {}
 
   Canvas (int input_w, int input_h):

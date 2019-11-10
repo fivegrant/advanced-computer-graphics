@@ -36,9 +36,7 @@ class Tuple{
 
 //Generators
 Tuple point(const double x, const double y, const double z);
-
 Tuple vector(const double x, const double y, const double z);
-
 Tuple color(const double x, const double y, const double z);
 Tuple color(const double x, const double y, const double z, bool is255);
 

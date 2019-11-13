@@ -6,9 +6,7 @@
 - Catch2: https://github.com/catchorg/Catch2/blob/master/docs/tutorial.md#top 
 
 # TODO
-- Test Intersection
 - Test World
-- Test Object Transformations 
 - Test Planes
 - Test Reflection
 - Implement `inShadow()`

@@ -49,6 +49,7 @@ class Canvas{
 std::ostream& operator << (std::ostream& os, Canvas const& canvas);
 
 //File Conversion
+//TODO: .ppm default at end of file.
 std::vector<std::string> ppmByLine(std::string filename);
 
 #endif

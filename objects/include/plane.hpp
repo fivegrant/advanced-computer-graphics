@@ -6,7 +6,7 @@ class Plane: public Shape {
   public:
     Plane() {this->shape_type = "Plane";}
 
-    std::vector<Intersection> intersectionWith(Ray ray) ;//const;
+    std::vector<Intersection> intersectionWith(Ray ray);
     Tuple normalAtPoint(Tuple position) const;
 
 };

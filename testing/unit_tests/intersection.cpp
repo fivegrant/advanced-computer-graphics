@@ -15,45 +15,43 @@ TEST_CASE("An intersection encapsulates t and object"){
   REQUIRE(i.ray == r);
 }
 
-/*
 TEST_CASE("Precomputing the state of an intersection"){
   Ray r = Ray(point(0, 0, -5), vector(0, 0, 1));
   Sphere s = Sphere();
-  Intersection i = intersection(4, s);
+  Intersection i = Intersection(4, r, &s);
   HitRecord hitRecord = i.generateHitRecord();
-  REQUIRE(hitRecord.point = point(0, 0, -1));
-  REQUIRE(hitRecord.eye = vector(0, 0, -1));
-  REQUIRE(hitRecord.normal = vector(0, 0, -1));
+  REQUIRE(hitRecord.hitPoint == point(0, 0, -1));
+  REQUIRE(hitRecord.eye == vector(0, 0, -1));
+  REQUIRE(hitRecord.normal == vector(0, 0, -1));
 }
 
 TEST_CASE("The hit, when an intersection occurs on the outside"){
   Ray r = Ray(point(0, 0, -5), vector(0, 0, 1));
   Sphere s = Sphere();
-  Intersection i = Intersection(4, r, s);
-  HitRecord hitRecord = generateHitRecord(i, r);
+  Intersection i = Intersection(4, r, &s);
+  HitRecord hitRecord = i.generateHitRecord();
   REQUIRE(hitRecord.isInside == false);
 }
 
 TEST_CASE("The hit, when an intersection occurs on the inside"){
-  Ray r - Ray(point(0, 0, 0), vector(0, 0, 1));
-  Shape s = Sphere()
-  Intersection i = Intersection(1, shape);
-  HitRecord hitRecord = calculateHitRecord(i, r);
-  Then hitRecord.point = point(0, 0, 1)
-    And hitRecord.eye = vector(0, 0, -1)
-    And hitRecord.isInside = true
-      # normal would have been (0, 0, 1), but is inverted!
-    And hitRecord.normal = vector(0, 0, -1)
+  Ray r = Ray(point(0, 0, 0), vector(0, 0, 1));
+  Sphere s = Sphere();
+  Intersection i = Intersection(1, r, &s);
+  HitRecord hitRecord = i.generateHitRecord();
+  REQUIRE(hitRecord.hitPoint == point(0, 0, 1));
+  REQUIRE(hitRecord.eye == vector(0, 0, -1));
+  REQUIRE(hitRecord.isInside == true);
+      //normal would have been (0, 0, 1), but is inverted!
+  REQUIRE(hitRecord.normal == vector(0, 0, -1));
 }
 
 //TestCasesWeek6.txt
 TEST_CASE("The hit should offset the point"){
   Ray r = Ray(point(0, 0, -5), vector(0, 0, 1));
   Sphere s = Sphere();
-  s.transform(translation(0, 0, 1));
-  Intersection i = intersection(5, shape)
-  When comps ← prepare_computations(i, r)
-  Then comps.over_point.z < -EPSILON/2
-    And comps.point.z > comps.over_point.z
+  s.set_transform(translation(0, 0, 1));
+  Intersection i = Intersection(5, r, &s);
+  HitRecord comps = i.generateHitRecord();
+  REQUIRE(comps.overpoint.z < -EPSILON/2);
+  REQUIRE(comps.hitPoint.z > comps.overpoint.z);
 }
-*/

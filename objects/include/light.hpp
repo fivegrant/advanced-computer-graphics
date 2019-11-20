@@ -1,7 +1,6 @@
 #ifndef LIGHT_H
 #define LIGHT_H
 #include "mechanics/include/tuple.hpp"
-#include "objects/include/material.hpp"
 
 class Light{
   public:
@@ -15,9 +14,11 @@ class Light{
       intensity = Tuple(0, 0, 0, 0);
     }
 
-    void point_light(Tuple, Tuple);
-    Tuple colorAtPoint(Material material, Tuple position, Tuple normalv);
+    bool operator==(const Light& rhs) const;
 
+    void point_light(Tuple, Tuple);
+
+    Tuple colorAtPoint(Light light, Tuple position, Tuple normalv);
 };
 
 //String Conversion

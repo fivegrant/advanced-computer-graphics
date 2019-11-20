@@ -14,6 +14,7 @@ class Intersection{
       t(raw_t), ray(raw_ray), subject(shape) {}
 
     bool operator==(const Intersection& rhs) const;
+    bool operator<(const Intersection& rhs) const;
     HitRecord generateHitRecord() const;
 };
 

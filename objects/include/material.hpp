@@ -1,6 +1,7 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
 #include "mechanics/include/tuple.hpp"
+#include "objects/include/light.hpp"
 
 class Material{
   public:
@@ -8,7 +9,7 @@ class Material{
     double diffuse, ambient, shininess, specular, reflectivity, ior, transparency;
 
     Material(Tuple r_color, double r_diffuse):
-      surface_color(r_color), diffuse(r_diffuse) {}
+      surface_color(r_color), diffuse(r_diffuse){}
 
     Material() {
       surface_color = Tuple(1, 1, 1, 0);
@@ -22,7 +23,7 @@ class Material{
     }
 
     bool operator==(const Material&) const;
-
+    Tuple colorAtPoint(Light light, Tuple position, Tuple normalv);
 };
 
 //String Conversion

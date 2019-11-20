@@ -2,63 +2,87 @@
 
 #include <cmath>
 #include <vector>
+#include <algorithm>
 #include "modules/catch2.hpp"
+#include "objects/include/world.hpp"
+#include "objects/include/sphere.hpp"
+#include "objects/include/plane.hpp"
 
 
 //TestCasesWeek5.txt
-/*
 TEST_CASE("Creating a world"){
   World w = World();
-  REQUIRE(w.objects.size() == 0;);
-  REQUIRE(w.lights.size() == 0;);
+  REQUIRE(w.objects.size() == 0);
+  REQUIRE(w.lights.size() == 0);
 }
 
 TEST_CASE("The default world"){
-  Light light = point_light(point(-10, 10, -10), color(1, 1, 1));
+  Light light = Light(point(-10, 10, -10), color(1, 1, 1));
   Sphere s1 = Sphere();
-      | material.color     | (0.8, 1.0, 0.6)        |
-      | material.diffuse   | 0.7                    |
-      | material.specular  | 0.2                    |
-    And s2 ← sphere() with:
-      | transform | scaling(0.5, 0.5, 0.5) |
-  When w ← default_world()
-  Then w.light = light
-    And w contains s1
-    And w contains s2
+  Material m = Material(color(0.8, 1.0, 0.6), 0.7);
+  m.specular = 0.2;
+  s1.material = m;
+  Sphere s2 = Sphere();
+  s2.set_transform(scaling(0.5, 0.5, 0.5));
+  World w = World();
+  w.addShape(&s1);
+  w.addShape(&s2);
+  w.addLight(light);
+  REQUIRE(w.lights[0] == light);
+  REQUIRE(w.objects[0] == &s1);
+  REQUIRE(w.objects[1] == &s2);
 }
 
 TEST_CASE("Intersect a world with a ray"){
-  Given w ← default_world()
-    And r ← ray(point(0, 0, -5), vector(0, 0, 1))
-  When xs ← intersect_world(w, r)
-  Then xs.count = 4
-    And xs[0].t = 4
-    And xs[1].t = 4.5
-    And xs[2].t = 5.5
-    And xs[3].t = 6
+  World w = World();
+  Ray r = Ray(point(0, 0, -5), vector(0, 0, 1));
+
+  //Populate World
+  Light light = Light(point(-10, 10, -10), color(1, 1, 1));
+  Sphere s1 = Sphere();
+  Material m = Material(color(0.8, 1.0, 0.6), 0.7);
+  m.specular = 0.2;
+  s1.material = m;
+  Sphere s2 = Sphere();
+  s2.set_transform(scaling(0.5, 0.5, 0.5));
+  w.addShape(&s1);
+  w.addShape(&s2);
+  w.addLight(light);
+
+  std::vector<Intersection> xs = w.intersectionWith(r);
+  REQUIRE(xs.size() == 4);
+  REQUIRE(xs[0].t == 4);
+  REQUIRE(xs[1].t == 4.5);
+  REQUIRE(xs[2].t == 5.5);
+  REQUIRE(xs[3].t == 6);
 }
 
 TEST_CASE("Shading an intersection"){
-  Given w ← default_world()
-    And r ← ray(point(0, 0, -5), vector(0, 0, 1))
-    And shape ← the first object in w
-    And i ← intersection(4, shape)
-  When comps ← prepare_computations(i, r)
-    And c ← shade_hit(w, comps)
-  Then c = color(0.38066, 0.47583, 0.2855)
+  World w = World();
+  Sphere shape = Sphere();
+  Material m = Material(color(0.8, 1.0, 0.6), 0.7);
+  m.specular = 0.2;
+  shape.material = m;
+  w.addShape(&shape);
+  Ray r = Ray(point(0, 0, -5), vector(0, 0, 1));
+  Intersection i = Intersection(4, r, &shape);
+  Tuple c = w.colorAtIntersection(i);
+  REQUIRE(c == color(0.38066, 0.47583, 0.2855));
 }
 
 TEST_CASE("Shading an intersection from the inside"){
-  Given w ← default_world()
-    And w.light ← point_light(point(0, 0.25, 0), color(1, 1, 1))
-    And r ← ray(point(0, 0, 0), vector(0, 0, 1))
-    And shape ← the second object in w
-    And i ← intersection(0.5, shape)
-  When comps ← prepare_computations(i, r)
-    And c ← shade_hit(w, comps)
-  Then c = color(0.90498, 0.90498, 0.90498)
+  World w = World();
+  w.addLight(Light(point(0, 0.25, 0), color(1, 1, 1)));
+  Sphere shape = Sphere();
+  shape.set_transform(scaling(0.5, 0.5, 0.5));
+  w.addShape(&shape);
+  Ray r = Ray(point(0, 0, 0), vector(0, 0, 1));
+  Intersection i = Intersection(0.5, r, &shape);
+  Tuple c = w.colorAtIntersection(i);
+  REQUIRE(c == color(0.90498, 0.90498, 0.90498));
 }
 
+/*
 TEST_CASE("The color when a ray misses"){
   Given w ← default_world()
     And r ← ray(point(0, 0, -5), vector(0, 1, 0))

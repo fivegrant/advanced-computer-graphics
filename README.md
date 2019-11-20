@@ -7,7 +7,6 @@
 
 # TODO
 - Test World
-- Test Planes
 - Test Reflection
 - Implement `inShadow()`
 - Implement Camera class in `components`
@@ -98,9 +97,44 @@
 	    contains[01].obj.material.ior
 ```	
 ## More Lighting
+```class LightRecord:
+  directionToLight
+  distanceFromLight
+  normalOfTheLight?
+
+in PointLight
+  generateLightRecord(hitRecord)
+  vectorToLight = position - hitPoint
+  direction = vectorToLight.normalized
+  distance = vectorToLight.magnitude
+
+in DirectionalLight
+  direction = direction
+  distance = ##infinite##
+in Shape
+  castsShadows = False
+
+in colorAtPoint()
+  colorsofar = black
+  for light in lights
+    light.generateLightRecord(HitRecord)
+  color t = calculate diffuse
+        t =           specular
+	t =           ambient
+  lightDirectionDotNormal = lightRecord.direction.dot(hitRecord.normal)
+  inShadow()?
+    shadowRay = Ray(hitRecord.overpoint, light.direction)
+    castTheRay
+    intersection.pointer(t > 0 and t < LightRecord.distance)
+in AreaLight
+  generateLightRecord(hitRecord)
+  vectorToLight = getNextSample() - hitPoint
+  
+```
 
 # Questions
 - Review Refraction
+- Review Monte Carlo Integration/Sampling
 
 # Acknowledgements
 - Thanks Satchel Baldwin for helping with the `makefile`

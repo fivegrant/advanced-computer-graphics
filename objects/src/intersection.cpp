@@ -5,6 +5,10 @@ bool Intersection::operator==(const Intersection& rhs) const{
   return t == rhs.t && ray == rhs.ray && subject == rhs.subject;
 }
 
+bool Intersection::operator<(const Intersection& rhs) const{
+  return t < rhs.t;
+}
+
 HitRecord Intersection::generateHitRecord() const
 {
   HitRecord generated;

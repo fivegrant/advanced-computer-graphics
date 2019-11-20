@@ -7,12 +7,12 @@
 
 class World{
   public:
-     std::vector<Shape> objects; 
+     std::vector<Shape*> objects; 
      std::vector<Light> lights;
 
     std::vector<Intersection> intersectionWith(Ray) const;
     Tuple colorAtIntersection(Intersection);
-    void addShape(Shape);
+    void addShape(Shape*);
     void addLight(Light);
 
 };

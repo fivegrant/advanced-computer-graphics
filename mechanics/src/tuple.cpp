@@ -93,7 +93,8 @@ Tuple color(const double x, const double y, const double z, bool is255)
 //Magnitude and Normalization
 double magnitude(const Tuple vector)
 {
-  return sqrt(pow(vector.x, 2) + pow(vector.y, 2) + pow(vector.z, 2) + pow(vector.w, 2));
+ // return sqrt(pow(vector.x, 2) + pow(vector.y, 2) + pow(vector.z, 2) + pow(vector.w, 2));
+  return sqrt(pow(vector.x, 2) + pow(vector.y, 2) + pow(vector.z, 2));
 }
 
 Tuple normalize(const Tuple vec)

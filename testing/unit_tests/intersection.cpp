@@ -55,3 +55,4 @@ TEST_CASE("The hit should offset the point"){
   REQUIRE(comps.overpoint.z < -EPSILON/2);
   REQUIRE(comps.hitPoint.z > comps.overpoint.z);
 }
+

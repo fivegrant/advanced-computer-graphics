@@ -84,10 +84,10 @@ TEST_CASE("Shading an intersection from the inside"){
 
 /*
 TEST_CASE("The color when a ray misses"){
-  Given w ← default_world()
-    And r ← ray(point(0, 0, -5), vector(0, 1, 0))
-  When c ← color_at(w, r)
-  Then c = color(0, 0, 0)
+  World w = World();
+  Ray r = Ray(point(0, 0, -5), vector(0, 1, 0));
+  Tuple c = color_at(w, r);
+  REQUIRE(c == color(0, 0, 0));
 }
 
 TEST_CASE("The color when a ray hits"){

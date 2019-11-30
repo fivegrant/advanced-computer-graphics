@@ -7,7 +7,7 @@ class Plane: public Shape {
     Plane() {this->shape_type = "Plane";}
 
     std::vector<Intersection> intersectionWith(Ray ray);
-    Tuple normalAtPoint(Tuple position) const;
+    Tuple localNormal(Tuple position) const;
 
 };
 

@@ -18,9 +18,10 @@ class Shape{
     bool operator==(const Shape&) const;
     void set_transform(Matrix);
     
-    virtual std::vector<Intersection> intersectionWith(Ray ray) = 0;
+    virtual Tuple normalAtPoint(Tuple position);
 
-    virtual Tuple normalAtPoint(Tuple position) const = 0;
+    virtual std::vector<Intersection> intersectionWith(Ray ray) = 0;
+    virtual Tuple localNormal(Tuple position) const = 0;
 };
 
 #endif

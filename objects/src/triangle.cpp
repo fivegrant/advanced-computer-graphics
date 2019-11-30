@@ -34,7 +34,7 @@ std::vector<Intersection> Triangle::intersectionWith(Ray raw_ray) const
 
 }
 
-Tuple Triangle::normalAtPoint(Tuple position) const
+Tuple Triangle::localNormal(Tuple position) const
 {
   return (b - a) * (c - a);
 }

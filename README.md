@@ -131,6 +131,21 @@ in AreaLight
   vectorToLight = getNextSample() - hitPoint
   
 ```
+## Textures
+
+Texture is an abstract class
+
+### 3D
+SolidColor
+  getTextureColor(local -> Point){base color}
+    if sin(point.x) < 0
+      color 1
+    else:
+      color2
+  FuzzyStripes:
+    t = (sin(point.x) + 1)/2
+    return color1*t+color2(1-t)
+### 2D
 
 # Questions
 - Review Refraction

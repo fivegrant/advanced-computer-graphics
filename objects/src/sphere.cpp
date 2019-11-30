@@ -22,9 +22,9 @@ std::vector<Intersection> Sphere::intersectionWith(Ray raw_ray)
 }
 }
 
-Tuple Sphere::normalAtPoint(Tuple position) const
+Tuple Sphere::localNormal(Tuple position) const
 {
-  return position - this->center;
+  return normalize(position - center);
 }
 
 

@@ -28,3 +28,9 @@ Tuple World::colorAtIntersection(Intersection intersection){
 }
   return final_color;
 }
+
+/*
+Tuple World::colorAt(){
+
+}
+*/

@@ -20,15 +20,14 @@ Tuple Matrix::operator*(const Tuple& rhs) const
     }
   return Tuple(
       //Simplifiy with for loop later
-	this->retrieve(0,0) * rhs.x + this->retrieve(0,1) * rhs.y + 
-	 this->retrieve(0,2) * rhs.z + this->retrieve(0, 3) * rhs.w,
-	this->retrieve(1,0) * rhs.x + this->retrieve(1,1) * rhs.y + 
-	 this->retrieve(1,2) * rhs.z + this->retrieve(1, 3) * rhs.w,
-	this->retrieve(2,0) * rhs.x + this->retrieve(2,1) * rhs.y + 
-	 this->retrieve(2,2) * rhs.z + this->retrieve(2, 3) * rhs.w,
-	this->retrieve(3,0) * rhs.x + this->retrieve(3,1) * rhs.y + 
-	 this->retrieve(3,2) * rhs.z + this->retrieve(3, 3) * rhs.w
-
+	retrieve(0,0) * rhs.x + retrieve(0,1)  * rhs.y + 
+	retrieve(0,2) * rhs.z + retrieve(0, 3) * rhs.w,
+	retrieve(1,0) * rhs.x + retrieve(1,1)  * rhs.y + 
+	retrieve(1,2) * rhs.z + retrieve(1, 3) * rhs.w,
+	retrieve(2,0) * rhs.x + retrieve(2,1)  * rhs.y + 
+	retrieve(2,2) * rhs.z + retrieve(2, 3) * rhs.w,
+	retrieve(3,0) * rhs.x + retrieve(3,1)  * rhs.y + 
+	retrieve(3,2) * rhs.z + retrieve(3, 3) * rhs.w
  	      );
 }
 
@@ -192,19 +191,19 @@ Matrix scaling(double x, double y, double z)
 
 Matrix rotationx(double theta)
 {
-  std::vector<double> content = { 1,     0,           0,      0,
+  std::vector<double> content = { 1,     0,           0,       0,
   			          0, cos(theta),  -sin(theta), 0,
-			          0, sin(theta), cos(theta), 0,
-			          0,     0,           0,      1};
+			          0, sin(theta),   cos(theta), 0,
+			          0,     0,           0,       1};
   Matrix result = Matrix(content); 
   return result;
 }
 
 Matrix rotationy(double theta)
 {
-  std::vector<double> content = { cos(theta),   0,  sin(theta),   0,
+  std::vector<double> content = { cos(theta),   0,  sin(theta),    0,
   			              0,        1,       0,        0,
-			          -sin(theta),   0,   cos(theta),   0,
+			          -sin(theta),  0,   cos(theta),   0,
 			              0,        0,       0,        1};
   Matrix result = Matrix(content); 
   return result;

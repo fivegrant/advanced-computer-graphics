@@ -17,7 +17,7 @@ class Triangle: public Shape {
       }
 
     std::vector<double> intersectionWith(Ray ray) const;
-    Tuple normalAtPoint(Tuple position) const;
+    Tuple localNormal(Tuple position) const;
 };
 
 #endif

@@ -10,7 +10,7 @@ std::vector<Intersection> Plane::intersectionWith(Ray ray)
   }
 }
 
-Tuple Plane::normalAtPoint(Tuple position) const
+Tuple Plane::localNormal(Tuple position) const
 {
   return vector(0, 1, 0);
 }

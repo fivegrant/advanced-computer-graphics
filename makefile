@@ -3,10 +3,13 @@ CXX=clang++
 CXXFLAGS=-I. -std=c++11 -Wall -Wextra -g -ggdb -O0
 
 BUILD_DIRECTORY = ./build
+
+DIRECTORIES = components mechanics objects utilities
 CPP = $(wildcard components/src/*.cpp) \
 	$(wildcard mechanics/src/*.cpp) \
 	$(wildcard objects/src/*.cpp) \
 	$(wildcard utilities/src/*.cpp)
+
 
 OBJ = $(CPP:%.cpp=$(BUILD_DIRECTORY)/%.o)
 
@@ -17,15 +20,29 @@ $(BUILD_DIRECTORY)/%.o: %.cpp
 	mkdir -p $(@D)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
+
 test: $(BUILD_DIRECTORY)/bin/test
 $(BUILD_DIRECTORY)/bin/test: testing/main.cpp $(OBJ) $(TEST_OBJ)
 	mkdir -p $(@D)
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
-.PHONY: clean
+main: $(BUILD_DIRECTORY)/bin/main
+$(BUILD_DIRECTORY)/bin/main: main.cpp $(OBJ)
+	rm -f $(BUILD_DIRECTORY)/raytracer.hpp
+	echo $(HEADERS) >> $(BUILD_DIRECTORY)/raytracer.hpp
+	$(foreach d, $(DIRECTORIES), find $(d) -name *.hpp -exec echo "#include \"{}\"" >> $(BUILD_DIRECTORY)/raytracer.hpp \;;)
+	$(CXX) $(CXXFLAGS) $^ -o $@
+
+.PHONY: clean entire try run refresh
 clean:
 	rm -rf $(BUILD_DIRECTORY)/ $(OBJ)
 
-.PHONY: try
+entire: test main
+
 try:
-	./build/bin/test
+	@./build/bin/test
+run:
+	@./build/bin/main
+
+refresh: clean entire
+

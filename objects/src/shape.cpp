@@ -1,7 +1,3 @@
-#include <iostream>
-#include <limits>
-#include <numeric>
-
 #include "objects/include/shape.hpp"
 
 bool Shape::operator==(const Shape& rhs) const
@@ -26,6 +22,7 @@ void Shape::set_transform(Matrix operation_matrix)
 // Computes the normal to this shape at the point p_W in the world frame, W.
 Tuple Shape::normalAtPoint(Tuple point_WorldFrame)
 {
+  // position = point_WorldFrame
   // localNormal() requires the point to be in the body frame (B). So transform
   // the point from Frame W to Frame B.
   Tuple point_BodyFrame = transform_matrix.inverse() * point_WorldFrame;  
@@ -50,6 +47,9 @@ std::ostream& operator << (std::ostream& os, Shape const& shape) {
 }
 
 /*
+#include <iostream>
+#include <limits>
+#include <numeric>
 // Computes the normal to this shape at the point p_W in the world frame, W.
 Tuple Shape::normalAtPoint(Tuple p_W)
 {

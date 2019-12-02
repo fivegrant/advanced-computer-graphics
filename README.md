@@ -153,3 +153,4 @@ SolidColor
 
 # Acknowledgements
 - Thanks Satchel Baldwin for helping with the `makefile`
+- Thanks Evan Drumwright for introducing me to monograph notation

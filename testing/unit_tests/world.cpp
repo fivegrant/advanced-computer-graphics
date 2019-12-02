@@ -58,12 +58,14 @@ TEST_CASE("Intersect a world with a ray"){
 }
 
 TEST_CASE("Shading an intersection"){
+  Light light = Light(point(-10, 10, -10), color(1, 1, 1));
   World w = World();
   Sphere shape = Sphere();
   Material m = Material(color(0.8, 1.0, 0.6), 0.7);
   m.specular = 0.2;
   shape.material = m;
   w.addShape(&shape);
+  w.addLight(light);
   Ray r = Ray(point(0, 0, -5), vector(0, 0, 1));
   Intersection i = Intersection(4, r, &shape);
   Tuple c = w.colorAtIntersection(i);

@@ -12,6 +12,7 @@ class World{
 
     std::vector<Intersection> intersectionWith(Ray) const;
     Tuple colorAtIntersection(Intersection);
+    Tuple colorAtRay(Ray ray);
     void addShape(Shape*);
     void addLight(Light);
 

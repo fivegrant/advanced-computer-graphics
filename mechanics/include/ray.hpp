@@ -12,7 +12,8 @@ class Ray{
     //Constructor
     Ray(Tuple raw_origin, Tuple raw_direction):
       origin(raw_origin), direction(normalize(raw_direction)) {}
-
+    Ray(): origin(point(0, 0, 0)), direction(vector(0, 0, 0)){}
+      
     bool operator==(const Ray& rhs) const;
     //Methods
     Tuple pointAtT(float t) const;

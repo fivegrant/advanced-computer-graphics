@@ -13,7 +13,6 @@ bool Shape::operator==(const Shape& rhs) const
 void Shape::set_transform(Matrix operation_matrix)
 {
   transform_matrix = operation_matrix * transform_matrix;
-  //transform_matrix = transform_matrix * operation_matrix; //delete
   transform_matrix.inverse();
 }
 

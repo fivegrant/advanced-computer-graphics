@@ -1,10 +1,9 @@
 #include "objects/include/triangle.hpp"
 
-/*
-std::vector<Intersection> Triangle::intersectionWith(Ray raw_ray) const
+std::vector<Intersection> Triangle::intersectionWith(Ray raw_ray)
 {
   double beta, gamma, t;
-  Matrix answer = a - raw_ray;
+  //Matrix answer = a - raw_ray; <- Tuple and Ray TODO: FIX THIS
   //Cramer's Rule
   Matrix denominator_matrix = Matrix({a.x - b.x, a.x - c.x, raw_ray.direction.x,
     				      a.y - b.y, a.y - c.y, raw_ray.direction.y,
@@ -29,14 +28,11 @@ std::vector<Intersection> Triangle::intersectionWith(Ray raw_ray) const
   beta = beta_matrix.det()/denominator_det;
   gamma = gamma_matrix.det()/denominator_det;
   t = t_matrix.det()/denominator_det;
-}
-
-
+  return {};
 }
 
 Tuple Triangle::localNormal(Tuple position) const
 {
   return (b - a) * (c - a);
 }
-*/
 

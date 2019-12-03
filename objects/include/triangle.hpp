@@ -16,7 +16,7 @@ class Triangle: public Shape {
       axis2 = a - origin;
       }
 
-    std::vector<double> intersectionWith(Ray ray) const;
+    std::vector<Intersection> intersectionWith(Ray ray);
     Tuple localNormal(Tuple position) const;
 };
 

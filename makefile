@@ -31,6 +31,7 @@ $(BUILD_DIRECTORY)/bin/main: main.cpp $(OBJ)
 	rm -f $(BUILD_DIRECTORY)/raytracer.hpp
 	echo $(HEADERS) >> $(BUILD_DIRECTORY)/raytracer.hpp
 	$(foreach d, $(DIRECTORIES), find $(d) -name *.hpp -exec echo "#include \"{}\"" >> $(BUILD_DIRECTORY)/raytracer.hpp \;;)
+	mkdir -p $(@D)
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
 .PHONY: clean entire try run refresh

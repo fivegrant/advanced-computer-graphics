@@ -28,8 +28,11 @@ Tuple World::colorAtIntersection(Intersection intersection){
   return final_color;
 }
 
-/*
-Tuple World::colorAt(){
-
+Tuple World::colorAtRay(Ray ray){
+  for(auto i : intersectionWith(ray)){
+    if (i.t > 0){
+      return colorAtIntersection(i);
+      }
+  return color(0, 0, 0);
+  }
 }
-*/

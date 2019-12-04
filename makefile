@@ -40,10 +40,10 @@ clean:
 
 entire: test main
 
-try:
-	@./build/bin/test
-run:
-	@./build/bin/main
+try: $(BUILD_DIRECTORY)/bin/test
+	@$^
+run: $(BUILD_DIRECTORY)/bin/main
+	@$^
 
 refresh: clean entire
 

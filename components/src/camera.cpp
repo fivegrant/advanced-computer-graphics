@@ -1,6 +1,6 @@
 #include "components/include/camera.hpp"
 
-Matrix Camera::view_transform(Tuple place, Tuple look, Tuple up)
+void Camera::set_view_transform(Tuple place, Tuple look, Tuple up)
 {
   Tuple forward = normalize(look - place);
   Tuple up_n = normalize(up);
@@ -11,14 +11,18 @@ Matrix Camera::view_transform(Tuple place, Tuple look, Tuple up)
 				-forward.x, -forward.y,  forward.z, 0,
 				     0,          0,         0,      1,
   				});
+  transform_matrix = orientation * translation(-place.x, -place.y, -place.z);
   transform_matrix.inverse();
-  return orientation * translation(-place.x, -place.y, -place.z);
 }
 
 void Camera::set_fov(double value)
 {
   field_of_view = value;
   pixel = pixel_size();
+}
+
+Matrix Camera::get_transform(){
+  return transform_matrix;
 }
 
 double Camera::pixel_size()
@@ -51,7 +55,7 @@ Ray Camera::ray_at_pixel(int x, int y) {
   // and then compute the ray's direction vector.
   // (remember that the canvas is at z = -1
   Tuple pixel_position = transform_matrix.inverse() * point(world_x, world_y, -1);
-  Tuple origin = transform_matrix * point(0, 0, 0);
+  Tuple origin = transform_matrix.inverse() * point(0, 0, 0);
   Tuple direction = normalize(pixel_position - origin);
   return Ray(origin, direction);
 
@@ -62,10 +66,14 @@ Canvas Camera::render(World world){
   pixel_size();
 
   Canvas image = Canvas(w, h);
-  for(int y = 0; y < w; y++){
-    for(int x = 0; x < h; x++){
+  for(int y = 0; y < h; y++){
+    for(int x = 0; x < w; x++){
       Ray ray = ray_at_pixel(x, y);
+      volatile Ray rr = ray;
+      volatile  Ray yeet = Ray(point(1, 1, 1), vector(-.7,-.07, -.7));
+      volatile Ray nnn = Ray(point(10, 1, 1), vector(-.7,-.07, -.7));
       Tuple pixel_color = world.colorAtRay(ray);
+      volatile Tuple h = pixel_color;
       image.write_pixel(x, y, pixel_color);
     }}
   return image;

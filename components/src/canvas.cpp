@@ -23,12 +23,12 @@ Tuple Canvas::colorTo255(Tuple raw_color) const{
 
 Tuple Canvas::pixel_at(int x_pos, int y_pos) const{
  Tuple capture = this->pixels[y_pos][x_pos];
- return this->pixels[y_pos][x_pos];
+ return pixels[y_pos][x_pos];
 }
 
 void Canvas::write_pixel(int x_pos, int y_pos, Tuple pixel) {
-  //this->pixels[x_pos][y_pos] = colorTo255(pixel);
-  this->pixels[y_pos][x_pos] = pixel;
+  //pixels[x_pos][y_pos] = colorTo255(pixel);
+  pixels[y_pos][x_pos] = pixel;
 }
 
 void Canvas::toPPM(std::string filename) const

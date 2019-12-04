@@ -23,7 +23,7 @@ class Material{
     }
 
     bool operator==(const Material&) const;
-    Tuple colorAtPoint(Light light, Tuple position, Tuple eyev, Tuple normalv);
+    Tuple colorAtPoint(Light light, Tuple position, Tuple eyev, Tuple normalv, bool in_shadow);
 };
 
 //String Conversion

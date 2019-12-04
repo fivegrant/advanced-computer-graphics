@@ -7,7 +7,7 @@ bool Material::operator==(const Material& rhs) const
   return condition_1 && condition_2;
 }
 
-Tuple Material::colorAtPoint(Light light, Tuple position, Tuple eyev, Tuple normalv)
+Tuple Material::colorAtPoint(Light light, Tuple position, Tuple eyev, Tuple normalv, bool in_shadow)
 {
   //normalv = normal
   //hitPoint = position
@@ -22,16 +22,15 @@ Tuple Material::colorAtPoint(Light light, Tuple position, Tuple eyev, Tuple norm
   // compute the ambient contribution
   Tuple effective_ambient = effective_color * ambient;
 
-  // computations for diffuse and specular contribution
-  Tuple effective_diffuse, effective_specular;
+  // set defaults for diffuse and specular contribution
+  Tuple effective_diffuse = color(0, 0, 0); 
+  Tuple effective_specular = color(0, 0, 0);;
 
+  if (!in_shadow){
   //  light_dot_normal represents the cosine of the angle between the 
   //  light vector and the normal vector. A negative number means the 
   //  light is on the other side of the surface.
-  if (vectorToLight.dot(normalv) < 0){
-    effective_diffuse = color(0, 0, 0);
-    effective_specular = color(0, 0, 0);
-  }else{
+  if (vectorToLight.dot(normalv) >= 0){
     // compute the diffuse contribution
     effective_diffuse = effective_color * diffuse * vectorToLight.dot(normalv);
 
@@ -48,6 +47,7 @@ Tuple Material::colorAtPoint(Light light, Tuple position, Tuple eyev, Tuple norm
       double factor = pow(reflect_dot_eye, shininess);
       effective_specular = light.intensity * specular * factor;
     }
+  }
   }
 
   // Add the three contributions together to get the final shading

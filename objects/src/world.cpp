@@ -1,13 +1,5 @@
 #include "objects/include/world.hpp"
 
-void World::addShape(Shape* shape){
-  objects.push_back(shape);
-}
-
-void World::addLight(Light light){
-  lights.push_back(light);
-}
-
 std::vector<Intersection> World::intersectionWith(Ray ray) const{
   std::vector<Intersection> intersections = {};
   for(Shape* shape: objects){
@@ -23,16 +15,59 @@ Tuple World::colorAtIntersection(Intersection intersection){
   HitRecord hit = intersection.generateHitRecord();
   Tuple final_color = color(0, 0, 0);
   for(Light light: lights){
-    final_color = final_color + intersection.subject->material.colorAtPoint(light, hit.hitPoint, hit.eye, hit.normal);
+    final_color = final_color + intersection.subject->material.colorAtPoint(light, hit.hitPoint, hit.eye, hit.normal, shadow(light, hit.overpoint));
 }
   return final_color;
 }
 
 Tuple World::colorAtRay(Ray ray){
-  for(auto i : intersectionWith(ray)){
-    if (i.t > 0){
-      return colorAtIntersection(i);
+  if (hit(intersectionWith(ray)).t > 0){
+      return colorAtIntersection(hit(intersectionWith(ray)));
       }
   return color(0, 0, 0);
+}
+
+//This will probably segfault without objects in world
+Intersection World::hit(std::vector<Intersection> hits){
+  for(auto i : hits){
+  if (i.t > 0){
+      return i;
+      }
+  }
+  return Intersection(-1 ,Ray(point(0, 0, 0), vector(0, 0, 0)),NULL);
+}
+
+bool World::shadow(Light light, Tuple overpoint) {
+  Tuple v = light.position - overpoint;
+  double distance = magnitude(v);
+  //ray automatically normalizes direction
+  Ray r = Ray(overpoint, v);
+  Intersection h = hit(intersectionWith(r));
+  if(h.t > 0 && h.t < distance){
+    return true;
+  }else{
+    return false; 
   }
 }
+
+bool World::shadow(Tuple overpoint) {
+  Tuple v = default_light.position - overpoint;
+  double distance = magnitude(v);
+  //ray automatically normalizes direction
+  Ray r = Ray(overpoint, v);
+  Intersection h = hit(intersectionWith(r));
+  if(h.t > 0 && h.t < distance){
+    return true;
+  }else{
+    return false; 
+  }
+}
+void World::addShape(Shape* shape){
+  objects.push_back(shape);
+}
+
+void World::addLight(Light light){
+  lights.push_back(light);
+}
+
+

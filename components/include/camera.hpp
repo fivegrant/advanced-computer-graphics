@@ -20,8 +20,9 @@ class Camera{
   Camera (int input_w, int input_h):
     w(input_w), h(input_h){}
 
-  void set_view_transform(Tuple place, Tuple look, Tuple up);
+  void set_transform(Matrix reset);
   void set_fov(double value);
+  double get_fov();
   Matrix get_transform();
   double pixel_size();
   Ray ray_at_pixel(int x, int y);

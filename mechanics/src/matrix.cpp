@@ -219,6 +219,20 @@ Matrix rotationz(double theta)
   return result;
 }
 
+Matrix view_transform(Tuple place, Tuple look, Tuple up)
+{
+  Tuple forward = normalize(look - place);
+  Tuple up_n = normalize(up);
+  Tuple left = cross(forward, up_n);
+  Tuple true_up = cross(left, forward);
+  Matrix orientation = Matrix({  left.x,     left.y,     left.z,    0,
+   				 true_up.x,  true_up.y,  true_up.z, 0,
+				-forward.x, -forward.y, -forward.z, 0,
+				     0,          0,         0,      1,
+  				});
+  return orientation * translation(-place.x, -place.y, -place.z);
+}
+
 //String Conversion
 std::ostream& operator << (std::ostream& os, Matrix const& matrix) {
     std::string output = "Matrix:\n";

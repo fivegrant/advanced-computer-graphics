@@ -58,5 +58,7 @@ Matrix rotationy(double theta);
 
 Matrix rotationz(double theta);
 
+Matrix view_transform(Tuple place, Tuple look, Tuple up);
+
 std::ostream& operator << (std::ostream& os, Matrix const& matrix);
 #endif

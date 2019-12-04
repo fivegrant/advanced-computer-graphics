@@ -1,12 +1,13 @@
 #include "objects/include/plane.hpp"
 
-std::vector<Intersection> Plane::intersectionWith(Ray ray)
+std::vector<Intersection> Plane::intersectionWith(Ray raw_ray)
 {
+  Ray ray = transform(raw_ray, this->transform_matrix.get_inverse());
   if(ray.direction.y == 0){
     return {};
   }else{
     double t = -ray.origin.y/ray.direction.y;
-    return {Intersection(t, ray, this)};
+    return {Intersection(t, raw_ray, this)};
   }
 }
 

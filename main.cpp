@@ -4,8 +4,9 @@ int main(){
 
 
 Camera camera = Camera(100, 50);
-camera.set_fov(PI/3);
-camera.set_view_transform(point(0, 1.5, -5), point(-0.5, 1, 0.5), vector(0, 1, 0));
+camera.set_fov(PI/2);
+camera.set_transform(view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0)));
+//camera.set_transform(view_transform(point(0, 1.5, -5), point(0, 0, 0), vector(0, 1, 0)));
 World w = World();
 
 //Scene Contents
@@ -52,9 +53,6 @@ left.set_transform(translation(-1.5, 0.33, -0.75));
 left.material = SURFACE;
 left.material.surface_color = LEFT_COLOR;
 w.addShape(&left);
-
-Light light_source = Light(point(-10, 10, 10), color(1, 1, 1));
-w.addLight(light_source);
 
 Canvas image = camera.render(w);
 image.toPPM("three_spheres.ppm");

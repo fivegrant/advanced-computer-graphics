@@ -13,7 +13,7 @@ class Camera{
     double field_of_view = PI/2;
     Matrix transform_matrix = Matrix();
     double pixel = 0;
-    int half_w, half_h;
+    double half_w, half_h;
   public:
     int w, h;
  

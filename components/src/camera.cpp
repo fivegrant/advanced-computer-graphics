@@ -26,8 +26,8 @@ double Camera::pixel_size()
   }else{
 	double half_view = tan(field_of_view/2);
 	double aspect = (double)w/(double)h;
-	double half_w = half_view;
-  	double half_h = half_view/aspect;
+	half_w = half_view;
+  	half_h = half_view/aspect;
   	if (aspect < 1){
     		half_w = half_view * aspect;
     		half_h = half_view;
@@ -38,6 +38,7 @@ double Camera::pixel_size()
 }
 
 Ray Camera::ray_at_pixel(int x, int y) {
+  //set the value of pixel
   pixel_size();
   // the offset from the edge of the canvas to the pixel's center
   double xoffset = (x + 0.5) * pixel;
@@ -57,9 +58,6 @@ Ray Camera::ray_at_pixel(int x, int y) {
 }
 
 Canvas Camera::render(World world){
-  //set the value of pixel
-  pixel_size();
-
   Canvas image = Canvas(w, h);
   for(int y = 0; y < h; y++){
     for(int x = 0; x < w; x++){

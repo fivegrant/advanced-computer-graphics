@@ -3,10 +3,10 @@
 int main(){
 
 
-Camera camera = Camera(100, 50);
+Camera camera = Camera(1000, 500);
 camera.set_fov(PI/2);
+camera.set_transform(view_transform(point(0, 1.5, -5), point(0, 2.5, 0), vector(0, 1, 0)));
 camera.set_transform(view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0)));
-//camera.set_transform(view_transform(point(0, 1.5, -5), point(0, 0, 0), vector(0, 1, 0)));
 World w = World();
 
 //Scene Contents
@@ -14,7 +14,7 @@ Tuple ROOM_COLOR = color(1, 0.9, 0.9);
 Tuple MIDDLE_COLOR = color(0.1, 1, 0.5);
 Tuple LEFT_COLOR = color(1, 0.8, 0.1);
 Tuple RIGHT_COLOR = color(0.5, 1, 0.1);
-Material SURFACE = Material(); SURFACE.ambient = .5; SURFACE.diffuse = 0.7; SURFACE.specular = 0.3;
+Material SURFACE = Material(); SURFACE.diffuse = 0.7; SURFACE.specular = 0.3;
 
 Plane floor = Plane();
 floor.material.surface_color = ROOM_COLOR;

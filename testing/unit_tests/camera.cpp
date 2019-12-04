@@ -39,9 +39,9 @@ TEST_CASE("An arbitrary view transformation"){
    Tuple u = point(1, 1, 0);
    Matrix x = view_transform(f, t, u);
    REQUIRE(x.approx(Matrix({  -0.50709,  -0.50709,  0.67612,  -2.36643,
-   			   0.76772,   0.60609,  0.12122,  -2.82843,
-   			  -0.35857,   0.59761, -0.71714,   0.00000,
-   			   0.00000,   0.00000,  0.00000,   1.00000,
+   			       0.76772,   0.60609,  0.12122,  -2.82843,
+   			      -0.35857,   0.59761, -0.71714,   0.00000,
+   			       0.00000,   0.00000,  0.00000,   1.00000,
 			          })));
 }
 
@@ -83,7 +83,7 @@ TEST_CASE("Constructing a ray when the camera is transformed"){
   c.set_transform(rotationy(PI/4) * translation(0, -2, 5));
   Ray r = c.ray_at_pixel(100, 50);
   REQUIRE(r.origin == point(0, 2, -5));
-  REQUIRE(r.direction == vector(sqrt(2)/2, 0, sqrt(2)/2));
+  REQUIRE(r.direction == vector(sqrt(2)/2, 0, -sqrt(2)/2));
 }
 TEST_CASE("Rendering a world with a camera"){
   World w = World();

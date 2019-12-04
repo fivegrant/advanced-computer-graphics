@@ -6,13 +6,16 @@
 - Catch2: https://github.com/catchorg/Catch2/blob/master/docs/tutorial.md#top 
 
 # TODO
-- Test World
-- Test Reflection
+- Make Render work
+- Fix World Test
+- Test Reflection and Refraction
 - Implement `inShadow()`
-- Implement Camera class in `components`
-  - Include Orthographic
-  - Include Perspective
+- Include Orthographic <- Ask Justin
+- Include Perspective <- Ask Justin
 - Finish Triangles
+- Load in OBJ
+- Class Factories
+- Scripting Language
 
 # Notes
 ## Object
@@ -146,6 +149,41 @@ SolidColor
     t = (sin(point.x) + 1)/2
     return color1*t+color2(1-t)
 ### 2D
+
+```#include <iostream>
+#include <limits>
+#include <numeric>
+// Computes the normal to this shape at the point p_W in the world frame, W.
+Tuple Shape::normalAtPoint(Tuple p_W)
+{
+  // Get the 4x4 matrix that transforms points from the body frame to the world
+  // frame.
+  Matrix X_WB = transform_matrix;
+
+  // localNormal() requires the point to be in the body frame (B). So transform
+  // the point from Frame W to Frame B.
+  Tuple p_B = X_WB.inverse() * p_W;  
+  Tuple normal_B = localNormal(p_B);
+  assert(std::abs(magnitude(normal_B) - 1.0) < std::numeric_limits<double>::epsilon()); 
+
+  // Transform the normal from Frame B back to Frame W. To do this, we need
+  // the rotational component of X_WB because we want to change the normal to 
+  // a different basis (W instead of B). We mimic this operation by zeroing the
+  // w component of normal_B.
+  normal_B.w = 0;
+  Tuple normal_W = X_WB * normal_B;
+
+  // Since scaling can be incorporated into the transformation matrix, we have
+  // to renormalize this vector.
+  return normalize(normal_W);
+}
+
+//String Conversion
+std::ostream& operator << (std::ostream& os, Shape const& shape) {
+    os << shape.shape_type + ": (" + std::to_string(shape.center.x) + ", " + std::to_string(shape.center.y) + ", " + std::to_string(shape.center.z) + ")";
+    return os;
+}```
+
 
 # Questions
 - Review Refraction

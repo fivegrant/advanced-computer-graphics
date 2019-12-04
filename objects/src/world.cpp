@@ -23,7 +23,7 @@ Tuple World::colorAtIntersection(Intersection intersection){
   HitRecord hit = intersection.generateHitRecord();
   Tuple final_color = color(0, 0, 0);
   for(Light light: lights){
-    final_color = final_color + intersection.subject->material.colorAtPoint(light, hit.hitPoint, hit.normal);
+    final_color = final_color + intersection.subject->material.colorAtPoint(light, hit.hitPoint, hit.eye, hit.normal);
 }
   return final_color;
 }

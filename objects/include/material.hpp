@@ -13,17 +13,17 @@ class Material{
 
     Material() {
       surface_color = Tuple(1, 1, 1, 0);
-      diffuse = 1;
-      ambient = 1;
-      specular = 1;
+      diffuse = .9;
+      ambient = .1;
+      specular = .9;
       shininess = 200;
-      reflectivity = 1;
+      reflectivity = 0;
       ior = 1;
       transparency  = 1;
     }
 
     bool operator==(const Material&) const;
-    Tuple colorAtPoint(Light light, Tuple position, Tuple normalv);
+    Tuple colorAtPoint(Light light, Tuple position, Tuple eyev, Tuple normalv);
 };
 
 //String Conversion

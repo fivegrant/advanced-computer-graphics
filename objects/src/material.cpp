@@ -7,18 +7,51 @@ bool Material::operator==(const Material& rhs) const
   return condition_1 && condition_2;
 }
 
-Tuple Material::colorAtPoint(Light light, Tuple position, Tuple normalv)
+Tuple Material::colorAtPoint(Light light, Tuple position, Tuple eyev, Tuple normalv)
 {
   //normalv = normal
   //hitPoint = position
-  Tuple vectorToLight = light.position - position;
-  Tuple unitVectorToLight = normalize(vectorToLight);
-  double lightIntensity = normalv.dot(unitVectorToLight);
-  Tuple result = light.intensity * lightIntensity * surface_color;
-  result.x = (result.x >= 0) ? result.x : 0;
-  result.y = (result.y >= 0) ? result.y : 0;
-  result.z = (result.z >= 0) ? result.z : 0;
-  return result;
+
+  // combine the surface color with the light's color/intensity
+  Tuple effective_color = surface_color * light.intensity;
+
+
+  // find the direction to the light source
+  Tuple vectorToLight = normalize(light.position - position);
+
+  // compute the ambient contribution
+  Tuple effective_ambient = effective_color * ambient;
+
+  // computations for diffuse and specular contribution
+  Tuple effective_diffuse, effective_specular;
+
+  //  light_dot_normal represents the cosine of the angle between the 
+  //  light vector and the normal vector. A negative number means the 
+  //  light is on the other side of the surface.
+  if (vectorToLight.dot(normalv) < 0){
+    effective_diffuse = color(0, 0, 0);
+    effective_specular = color(0, 0, 0);
+  }else{
+    // compute the diffuse contribution
+    effective_diffuse = effective_color * diffuse * vectorToLight.dot(normalv);
+
+    // reflect_dot_eye represents the cosine of the angle 
+    // between the reflection vector and the eye vector. 
+    // A negative number means the light reflects away from theeye. 
+    // the line below used to read `Tuple reflectv = vectorToLight.reflect(normalv);`
+    Tuple reflectv = vectorToLight.reflect(normalv);
+    double reflect_dot_eye = reflectv.dot(eyev);
+    if (reflect_dot_eye <= 0){
+      effective_specular = color(0, 0, 0);
+    }else{
+      // compute the specular contribution
+      double factor = pow(reflect_dot_eye, shininess);
+      effective_specular = light.intensity * specular * factor;
+    }
+  }
+
+  // Add the three contributions together to get the final shading
+  return effective_ambient + effective_diffuse + effective_specular;
 }
 
 std::ostream& operator << (std::ostream& os, Material const& material) {

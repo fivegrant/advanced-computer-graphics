@@ -20,6 +20,7 @@ HitRecord Intersection::generateHitRecord() const
     generated.isInside = true;
     generated.normal = generated.normal * -1;
     }
+  generated.reflectv = ray.direction.reflect(generated.normal);
   generated.overpoint = generated.hitPoint + (generated.normal * EPSILON);
   generated.underpoint = generated.hitPoint - (generated.normal * EPSILON);
   return generated;

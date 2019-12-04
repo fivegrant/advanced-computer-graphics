@@ -5,6 +5,7 @@ struct HitRecord {
   Tuple hitPoint;
   Tuple normal;
   Tuple eye;
+  Tuple reflectv;
   bool isInside;
   Tuple overpoint;
   Tuple underpoint;

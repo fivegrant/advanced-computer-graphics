@@ -17,6 +17,9 @@ Tuple World::colorAtIntersection(Intersection intersection){
   for(Light light: lights){
     final_color = final_color + intersection.subject->material.colorAtPoint(light, hit.hitPoint, hit.eye, hit.normal, shadow(light, hit.overpoint));
 }
+  if (lights.size() == 0){
+    final_color = final_color + intersection.subject->material.colorAtPoint(default_light, hit.hitPoint, hit.eye, hit.normal, shadow(default_light, hit.overpoint));; 
+  }
   return final_color;
 }
 
@@ -70,4 +73,7 @@ void World::addLight(Light light){
   lights.push_back(light);
 }
 
+World default_world(){
+
+}
 

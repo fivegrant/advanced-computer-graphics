@@ -9,7 +9,7 @@ class World{
   public:
      std::vector<Shape*> objects; 
      std::vector<Light> lights;
-     Light default_light = Light(point(0,0,-10), color(1, 1, 1));
+     Light default_light = Light(point(-10,10,-10), color(1, 1, 1));
 
     std::vector<Intersection> intersectionWith(Ray) const;
     Tuple colorAtIntersection(Intersection);

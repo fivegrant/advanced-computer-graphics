@@ -27,5 +27,30 @@ Tuple Sphere::localNormal(Tuple position) const
   return normalize(position - center);
 }
 
+Sphere DefaultSphere1(){
+  Sphere s = Sphere();
+  s.material.surface_color = color(0.8, 1, 0.6);
+  s.material.diffuse = 0.7;
+  s.material.specular = 0.2;
+  s.material.shininess = 200;
+  s.material.ambient = 0.1;
+  //s.material.ior = 1;
+  //s.materialreflectivity = 0;
+  //s.material.transparency = 0
+  return s;
+}
 
+Sphere DefaultSphere2(){
+  Sphere s = Sphere();
+  s.set_transform(scaling(0.5, 0.5, 0.5));
+  s.material.surface_color = color(1, 1, 1);
+  s.material.diffuse = 0.9;
+  s.material.specular = 0.9;
+  s.material.shininess = 200;
+  s.material.ambient = 0.1;
+  //s.material.ior = 1;
+  //s.materialreflectivity = 0;
+  //s.material.transparency = 0
+  return s;
+}
 

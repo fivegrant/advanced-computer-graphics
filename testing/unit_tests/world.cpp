@@ -58,16 +58,18 @@ TEST_CASE("Intersect a world with a ray"){
 }
 
 TEST_CASE("Shading an intersection"){
-  Light light = Light(point(-10, 10, -10), color(1, 1, 1));
+  //Light light = Light(point(-10, 10, -10), color(1, 1, 1));
   World w = World();
-  Sphere shape = Sphere();
-  Material m = Material(color(0.8, 1.0, 0.6), 0.7);
-  m.specular = 0.2;
-  shape.material = m;
-  w.addShape(&shape);
-  w.addLight(light);
+  Sphere shape1 = DefaultSphere1();
+  w.addShape(&shape1);
+  Sphere shape2 = DefaultSphere2();
+  w.addShape(&shape2);
+  //Material m = Material(color(0.8, 1.0, 0.6), 0.7);
+  //m.specular = 0.2;
+  //shape.material = m;
+  //w.addLight(light);
   Ray r = Ray(point(0, 0, -5), vector(0, 0, 1));
-  Intersection i = Intersection(4, r, &shape);
+  Intersection i = Intersection(4, r, &shape1);
   Tuple c = w.colorAtIntersection(i);
   REQUIRE(c == color(0.38066, 0.47583, 0.2855));
 }
@@ -86,6 +88,10 @@ TEST_CASE("Shading an intersection from the inside"){
 
 TEST_CASE("The color when a ray misses"){
   World w = World();
+  Sphere shape1 = DefaultSphere1();
+  w.addShape(&shape1);
+  Sphere shape2 = DefaultSphere2();
+  w.addShape(&shape2);
   Ray r = Ray(point(0, 0, -5), vector(0, 1, 0));
   Tuple c = w.colorAtRay(r);
   REQUIRE(c == color(0, 0, 0));
@@ -93,6 +99,10 @@ TEST_CASE("The color when a ray misses"){
 
 TEST_CASE("The color when a ray hits"){
   World w = World();
+  Sphere shape1 = DefaultSphere1();
+  w.addShape(&shape1);
+  Sphere shape2 = DefaultSphere2();
+  w.addShape(&shape2);
   Ray r = Ray(point(0, 0, -5), vector(0, 0, 1));
   Tuple c = w.colorAtRay(r);
   REQUIRE(c == color(0.38066, 0.47583, 0.2855));
@@ -100,9 +110,11 @@ TEST_CASE("The color when a ray hits"){
 
 TEST_CASE("The color with an intersection behind the ray"){
   World w = World();
-  Sphere outer = Sphere();
+  Sphere outer = DefaultSphere1();
+  w.addShape(&outer);
   outer.material.ambient = 1;
-  Sphere inner = Sphere();
+  Sphere inner = DefaultSphere2();
+  w.addShape(&inner);
   inner.material.ambient = 1;
   Ray r = Ray(point(0, 0, 0.75), vector(0, 0, -1));
   Tuple c = w.colorAtRay(r);
@@ -113,24 +125,40 @@ TEST_CASE("The color with an intersection behind the ray"){
 
 TEST_CASE("There is no shadow when nothing is collinear with point and light"){
   World w = World();
+  Sphere shape1 = DefaultSphere1();
+  w.addShape(&shape1);
+  Sphere shape2 = DefaultSphere2();
+  w.addShape(&shape2);
   Tuple p = point(0, 10, 0);
   REQUIRE(!w.shadow(p));
 }
 
 TEST_CASE("The shadow when an object is between the point and the light"){
   World w = World();
+  Sphere shape1 = DefaultSphere1();
+  w.addShape(&shape1);
+  Sphere shape2 = DefaultSphere2();
+  w.addShape(&shape2);
   Tuple p = point(10, -10, 10);
   REQUIRE(w.shadow(p));
 }
 
 TEST_CASE("There is no shadow when an object is behind the light"){
   World w = World();
+  Sphere shape1 = DefaultSphere1();
+  w.addShape(&shape1);
+  Sphere shape2 = DefaultSphere2();
+  w.addShape(&shape2);
   Tuple p = point(-20, 20, -20);
   REQUIRE(!w.shadow(p));
 }
 
 TEST_CASE("There is no shadow when an object is behind the point"){
   World w = World();
+  Sphere shape1 = DefaultSphere1();
+  w.addShape(&shape1);
+  Sphere shape2 = DefaultSphere2();
+  w.addShape(&shape2);
   Tuple p = point(-2, 2, -2);
   REQUIRE(!w.shadow(p));
 }

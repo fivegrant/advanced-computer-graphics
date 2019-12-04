@@ -11,4 +11,7 @@ class Sphere: public Shape {
     Tuple localNormal(Tuple position) const;
 };
 
+Sphere DefaultSphere1();
+Sphere DefaultSphere2();
+
 #endif

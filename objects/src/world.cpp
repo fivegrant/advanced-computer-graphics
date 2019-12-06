@@ -10,6 +10,19 @@ std::vector<Intersection> World::intersectionWith(Ray ray) const{
   return intersections;  
 }
 
+Tuple World::effective_reflective(Intersection i){
+  if (i.subject->material.reflective == 0 || function_depth < 0){
+    function_depth = 4;
+    return color(0, 0, 0);
+  }
+  HitRecord hit = i.generateHitRecord();
+  Ray reflect_ray = Ray(hit.overpoint, vector(0, 0, 0));
+  reflect_ray.direction = hit.reflectv;
+  Tuple found_color = colorAtRay(reflect_ray);
+  function_depth -= 1;
+  return found_color * i.subject->material.reflective;
+}
+
 Tuple World::colorAtIntersection(Intersection intersection){
 
   HitRecord hit = intersection.generateHitRecord();
@@ -20,7 +33,7 @@ Tuple World::colorAtIntersection(Intersection intersection){
   if (lights.size() == 0){
     final_color = final_color + intersection.subject->material.colorAtPoint(default_light, hit.hitPoint, hit.eye, hit.normal, shadow(default_light, hit.overpoint));; 
   }
-  return final_color;
+  return final_color + effective_reflective(intersection);
 }
 
 Tuple World::colorAtRay(Ray ray){

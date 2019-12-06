@@ -163,4 +163,18 @@ TEST_CASE("Multiplying colors"){
   REQUIRE(c1 * c2 == color(0.9, 0.2, 0.04));
 }
 
+// Custom Test Cases
 
+TEST_CASE("Reflecting a vector approaching at 45 degrees"){
+  Tuple v = vector(1, -1, 0);
+  Tuple n = vector(0, 1, 0);
+  Tuple r = v.reflect(n);
+  REQUIRE(r == vector(1, 1, 0));
+}
+
+TEST_CASE("Reflecting a vector off a slanted surface"){
+  Tuple v = vector(0, -1, 0);
+  Tuple n = vector(sqrt(2)/2, sqrt(2)/2, 0);
+  Tuple r = v.reflect(n);
+  REQUIRE(r == vector(1, 0, 0));
+}

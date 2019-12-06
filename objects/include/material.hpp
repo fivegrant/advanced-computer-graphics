@@ -6,7 +6,7 @@
 class Material{
   public:
     Tuple surface_color; 
-    double diffuse, ambient, shininess, specular, reflectivity, ior, transparency;
+    double diffuse, ambient, shininess, specular, reflective, ior, transparency;
 
     Material(Tuple r_color, double r_diffuse):
       surface_color(r_color), diffuse(r_diffuse){}
@@ -17,7 +17,7 @@ class Material{
       ambient = .1;
       specular = .9;
       shininess = 200;
-      reflectivity = 0;
+      reflective = 0;
       ior = 1;
       transparency  = 1;
     }

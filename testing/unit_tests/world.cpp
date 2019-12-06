@@ -177,3 +177,15 @@ TEST_CASE("shade_hit() is given an intersection in shadow"){
     REQUIRE(c == color(0.1, 0.1, 0.1));
 }
 
+// Custom Test Cases
+TEST_CASE("Reflectivity for the default material"){
+   REQUIRE(Material().reflective == 0 );
+}
+
+TEST_CASE("Precomputing the reflection vector"){
+  Plane shape = Plane();
+  Ray r = Ray(point(0, 1, -1), vector(0, -sqrt(2)/2, sqrt(2)/2));
+  Intersection i = Intersection(sqrt(2), r, &shape);
+  REQUIRE(i.generateHitRecord().reflectv == vector(0, sqrt(2)/2, sqrt(2)/2));
+}
+

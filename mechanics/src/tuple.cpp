@@ -44,7 +44,8 @@ Tuple Tuple::operator-() const
 //Methods
 Tuple Tuple::reflect(Tuple over) const
 {
-  return -(*this) + ((*this) * over) * 2. * over;
+  return *this - over * 2 * (*this).dot(over);
+  //return -(*this) + ((*this) * over) * 2. * over;
 }
 
 double Tuple::dot(const Tuple& other) const

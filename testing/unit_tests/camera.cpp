@@ -85,16 +85,4 @@ TEST_CASE("Constructing a ray when the camera is transformed"){
   REQUIRE(r.origin == point(0, 2, -5));
   REQUIRE(r.direction == vector(sqrt(2)/2, 0, -sqrt(2)/2));
 }
-TEST_CASE("Rendering a world with a camera"){
-  World w = World();
-  Sphere shape1 = DefaultSphere1();
-  Sphere shape2 = DefaultSphere2();
-  Camera c = Camera(11, 11);
-  Tuple f = point(0, 0, -5);
-  Tuple t = point(0, 0, 0);
-  Tuple u = vector(0, 1, 0);
-  c.set_transform(view_transform(f, t, u));
-  Canvas image = c.render(w);
-  REQUIRE(image.pixel_at(5, 5) == color(0.3806, 0.47583, 0.2855));
-  
-}
+

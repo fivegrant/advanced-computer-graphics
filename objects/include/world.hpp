@@ -10,8 +10,10 @@ class World{
      std::vector<Shape*> objects; 
      std::vector<Light> lights;
      Light default_light = Light(point(-10,10,-10), color(1, 1, 1));
+     double function_depth = 4;
 
     std::vector<Intersection> intersectionWith(Ray) const;
+    Tuple effective_reflective(Intersection);
     Tuple colorAtIntersection(Intersection);
     Tuple colorAtRay(Ray ray);
     Intersection hit(std::vector<Intersection> hits);

@@ -6,16 +6,12 @@
 - Catch2: https://github.com/catchorg/Catch2/blob/master/docs/tutorial.md#top 
 
 # TODO
-- Make Render work
-- Fix World Test
 - Test Reflection and Refraction
 - Implement `inShadow()`
-- Include Orthographic <- Ask Justin
-- Include Perspective <- Ask Justin
 - Finish Triangles
 - Load in OBJ
-- Class Factories
-- Scripting Language
+- Implement Antialiasing
+- Add Scripting Language if time allows?
 
 # Notes
 ## Object

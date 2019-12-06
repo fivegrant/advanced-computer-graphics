@@ -1,4 +1,5 @@
 #include "objects/include/material.hpp"
+#include <iostream>
 
 bool Material::operator==(const Material& rhs) const
 {

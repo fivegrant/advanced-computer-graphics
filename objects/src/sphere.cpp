@@ -34,9 +34,6 @@ Sphere DefaultSphere1(){
   s.material.specular = 0.2;
   s.material.shininess = 200;
   s.material.ambient = 0.1;
-  //s.material.ior = 1;
-  //s.materialreflectivity = 0;
-  //s.material.transparency = 0
   return s;
 }
 
@@ -48,9 +45,12 @@ Sphere DefaultSphere2(){
   s.material.specular = 0.9;
   s.material.shininess = 200;
   s.material.ambient = 0.1;
-  //s.material.ior = 1;
-  //s.materialreflectivity = 0;
-  //s.material.transparency = 0
   return s;
 }
 
+Sphere GlassSphere(){
+  Sphere s = Sphere();
+  s.material.ior = 1.5;
+  s.material.transparency = 1;
+  return s;
+}

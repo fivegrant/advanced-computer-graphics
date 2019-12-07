@@ -13,5 +13,6 @@ class Sphere: public Shape {
 
 Sphere DefaultSphere1();
 Sphere DefaultSphere2();
+Sphere GlassSphere();
 
 #endif

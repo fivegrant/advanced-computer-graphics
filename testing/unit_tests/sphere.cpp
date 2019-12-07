@@ -119,3 +119,10 @@ TEST_CASE("Intersecting a translated sphere with a ray"){
   REQUIRE(xs.size() == 0);
 }
 
+// Custom Test Cases
+TEST_CASE("A helper for producing a sphere wih a glassy material"){
+  Sphere s = GlassSphere();
+  REQUIRE(s.transform_matrix == Matrix());
+  REQUIRE(s.material.transparency == 1);
+  REQUIRE(s.material.ior == 1.5);
+}

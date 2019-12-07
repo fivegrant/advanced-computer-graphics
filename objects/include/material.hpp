@@ -19,7 +19,7 @@ class Material{
       shininess = 200;
       reflective = 0;
       ior = 1;
-      transparency  = 1;
+      transparency  = 0;
     }
 
     bool operator==(const Material&) const;

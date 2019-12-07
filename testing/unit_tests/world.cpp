@@ -9,6 +9,7 @@
 #include "objects/include/plane.hpp"
 
 
+std::vector<Intersection> unfilled = {};
 //TestCasesWeek5.txt
 TEST_CASE("Creating a world"){
   World w = World();
@@ -70,7 +71,7 @@ TEST_CASE("Shading an intersection"){
   //w.addLight(light);
   Ray r = Ray(point(0, 0, -5), vector(0, 0, 1));
   Intersection i = Intersection(4, r, &shape1);
-  Tuple c = w.colorAtIntersection(i);
+  Tuple c = w.colorAtIntersection(i, i.generateHitRecord(unfilled));
   REQUIRE(c == color(0.38066, 0.47583, 0.2855));
 }
 
@@ -82,7 +83,7 @@ TEST_CASE("Shading an intersection from the inside"){
   w.addShape(&shape);
   Ray r = Ray(point(0, 0, 0), vector(0, 0, 1));
   Intersection i = Intersection(0.5, r, &shape);
-  Tuple c = w.colorAtIntersection(i);
+  Tuple c = w.colorAtIntersection(i, i.generateHitRecord(unfilled));
   REQUIRE(c == color(0.90498, 0.90498, 0.90498));
 }
 
@@ -173,7 +174,7 @@ TEST_CASE("shade_hit() is given an intersection in shadow"){
     w.addShape(&ob2);
     Ray r = Ray(point(0, 0, 5), vector(0, 0, 1));
     Intersection i = Intersection(4, r, &ob2);
-    Tuple c = w.colorAtIntersection(i);
+    Tuple c = w.colorAtIntersection(i, i.generateHitRecord(unfilled));
     REQUIRE(c == color(0.1, 0.1, 0.1));
 }
 
@@ -186,6 +187,6 @@ TEST_CASE("Precomputing the reflection vector"){
   Plane shape = Plane();
   Ray r = Ray(point(0, 1, -1), vector(0, -sqrt(2)/2, sqrt(2)/2));
   Intersection i = Intersection(sqrt(2), r, &shape);
-  REQUIRE(i.generateHitRecord().reflectv == vector(0, sqrt(2)/2, sqrt(2)/2));
+  REQUIRE(i.generateHitRecord(unfilled).reflectv == vector(0, sqrt(2)/2, sqrt(2)/2));
 }
 

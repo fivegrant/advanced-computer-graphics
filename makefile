@@ -1,6 +1,6 @@
 #!/usr/bin/make -f
 CXX=clang++
-CXXFLAGS=-I. -std=c++11 -Wall -Wextra -g -ggdb -O2
+CXXFLAGS=-I. -std=c++11 -Wall -Wextra -g -ggdb -O0
 
 BUILD_DIRECTORY = ./build
 

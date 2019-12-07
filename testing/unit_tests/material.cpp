@@ -39,3 +39,10 @@ TEST_CASE("Lighting with the light behind the surface"){
   Tuple result = m.colorAtPoint(light, position, eyev, normalv, false);
   REQUIRE(result == color(0.1, 0.1, 0.1));
 }
+
+// Custom Test Cases
+TEST_CASE("Transparency and Refractive Index for the default material"){
+  Material m = Material();
+  REQUIRE(m.transparency == 0);
+  REQUIRE(m.ior == 1);
+}

@@ -11,12 +11,11 @@ std::vector<Intersection> World::intersectionWith(Ray ray) const{
   return intersections;  
 }
 
-Tuple World::effective_reflective(Intersection i){
+Tuple World::effective_reflective(Intersection i, HitRecord hit){
   if (i.subject->material.reflective == 0 || function_depth < 0){
     function_depth = 4;
     return color(0, 0, 0);
   }
-  HitRecord hit = i.generateHitRecord();
   Ray reflect_ray = Ray(hit.overpoint, vector(0, 0, 0));
   reflect_ray.direction = hit.reflectv;
   Tuple found_color = colorAtRay(reflect_ray);
@@ -24,9 +23,8 @@ Tuple World::effective_reflective(Intersection i){
   return found_color * i.subject->material.reflective;
 }
 
-Tuple World::colorAtIntersection(Intersection intersection){
+Tuple World::colorAtIntersection(Intersection intersection, HitRecord hit){
 
-  HitRecord hit = intersection.generateHitRecord();
   Tuple final_color = color(0, 0, 0);
   for(Light light: lights){
     final_color = final_color + intersection.subject->material.colorAtPoint(light, hit.hitPoint, hit.eye, hit.normal, shadow(light, hit.overpoint));
@@ -34,27 +32,15 @@ Tuple World::colorAtIntersection(Intersection intersection){
 }
   if (lights.size() == 0){
     final_color = final_color + intersection.subject->material.colorAtPoint(default_light, hit.hitPoint, hit.eye, hit.normal, shadow(default_light, hit.overpoint));; 
-    /*
-    if (final_color.x > 0.9 && final_color.y > 0.9 && final_color.z > 0.9){ //delete
-      std::cout << "COLOR COLOR COLOR\n";
-      std::cout << hit.hitPoint;
-      std::cout << "\n";
-      std::cout << hit.normal;
-      std::cout << "\n";
-      std::cout << hit.eye;
-      std::cout << "\n";
-      std::cout << hit.reflectv;
-      std::cout << "\n";
-      return final_color;
-    }
-    */
+
   }
-  return final_color + effective_reflective(intersection);
+  return final_color + effective_reflective(intersection, hit);
 }
 
 Tuple World::colorAtRay(Ray ray){
-  if (hit(intersectionWith(ray)).t > 0){
-      return colorAtIntersection(hit(intersectionWith(ray)));
+  std::vector<Intersection> hits = intersectionWith(ray);
+  if (hit(hits).t > 0){
+      return colorAtIntersection(hit(hits), hit(hits).generateHitRecord(hits));
       }
   return color(0, 0, 0);
 }
@@ -66,7 +52,7 @@ Intersection World::hit(std::vector<Intersection> hits){
       return i;
       }
   }
-  return Intersection(-1 ,Ray(point(0, 0, 0), vector(0, 0, 0)),NULL);
+  return Intersection(-1, Ray(point(0, 0, 0), vector(0, 0, 0)),NULL);
 }
 
 bool World::shadow(Light light, Tuple overpoint) {

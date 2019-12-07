@@ -15,7 +15,7 @@ class Intersection{
 
     bool operator==(const Intersection& rhs) const;
     bool operator<(const Intersection& rhs) const;
-    HitRecord generateHitRecord() const;
+    HitRecord generateHitRecord(std::vector<Intersection>) const;
 };
 
 //String Conversion

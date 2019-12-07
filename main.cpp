@@ -2,7 +2,6 @@
 
 int main(){
 
-
 Camera camera = Camera(1000, 500);
 camera.set_fov(PI/2);
 //camera.set_transform(view_transform(point(0, 1.5, -5), point(0, 2.5, 0), vector(0, 1, 0)));
@@ -57,7 +56,7 @@ left.material.surface_color = LEFT_COLOR;
 w.addShape(&left);
 
 Canvas image = camera.render(w);
-image.toPPM("reflect_sphere.ppm");
+image.toPPM("refract_sphere.ppm");
 
 
   return 0;

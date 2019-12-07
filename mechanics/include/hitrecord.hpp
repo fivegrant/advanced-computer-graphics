@@ -9,8 +9,8 @@ struct HitRecord {
   bool isInside;
   Tuple overpoint;
   Tuple underpoint;
-  //double ior_i
-  //double ior_t
+  double n1;
+  double n2;
 };
 
 #endif

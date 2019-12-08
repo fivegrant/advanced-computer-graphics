@@ -1,6 +1,7 @@
 #ifndef WORLD_H
 #define WORLD_H
 #include <vector> 
+#include <cmath> 
 #include "objects/include/intersection.hpp"
 #include "objects/include/light.hpp"
 #include "objects/include/shape.hpp"
@@ -15,10 +16,10 @@ class World{
 
     std::vector<Intersection> intersectionWith(Ray) const;
     double schlick(HitRecord);
-    Tuple effective_reflective(Intersection, HitRecord);
-    Tuple effective_refraction(Intersection, HitRecord);
-    Tuple colorAtIntersection(Intersection, HitRecord);
-    Tuple colorAtRay(Ray ray);
+    Tuple effective_reflective(Intersection, HitRecord, int);
+    Tuple effective_refraction(Intersection, HitRecord, int);
+    Tuple colorAtIntersection(Intersection, HitRecord, int);
+    Tuple colorAtRay(Ray ray, int);
     Intersection hit(std::vector<Intersection> hits);
     bool shadow(Light light, Tuple overpoint);
     bool shadow(Tuple overpoint);

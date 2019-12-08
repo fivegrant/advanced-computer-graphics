@@ -21,7 +21,7 @@ TEST_CASE("Lighting with the eye between the light and the surface"){
   Tuple normalv = vector(0.0, 0.0, -1.0);
   Light light = Light(point(0.0, 0.0, -10.0), color(1.0, 1.0, 1.0));
   Tuple result = m.colorAtPoint(light, position, eyev, normalv, false);
-  REQUIRE(result == color(1.9, 1.9, 1.9));
+  REQUIRE(result == color(1, 1, 1));
 }
 
 TEST_CASE("Lighting with eye opposite surface, light offset 45°"){

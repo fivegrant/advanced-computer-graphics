@@ -35,6 +35,10 @@ rightwall.set_transform(rotationy(PI/4));
 rightwall.set_transform(translation(0, 0, 5));
 w.addShape(&rightwall);
 
+//Sphere glass = GlassSphere();
+//glass.set_transform(translation(-0.5, 1, 0.5));
+//w.addShape(&glass);
+
 Sphere middle = Sphere();
 middle.set_transform(translation(-0.5, 1, 0.5));
 middle.material = SURFACE;

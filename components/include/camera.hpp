@@ -8,6 +8,8 @@
 #include "objects/include/world.hpp"
 #include "utilities/include/pi.hpp"
 
+const double REC_DEPTH = 5;
+
 class Camera{
   private:
     double field_of_view = PI/2;

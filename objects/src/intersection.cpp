@@ -39,9 +39,9 @@ HitRecord Intersection::generateHitRecord(std::vector<Intersection> xs) const
     }
     else{
       if(*(std::find(containers.begin(), containers.end(), i.subject)) == i.subject){
-        std::remove(containers.begin(), containers.end(), i.subject);
+        containers.erase(std::remove(containers.begin(), containers.end(), i.subject));
       }else{
-      containers.push_back(i.subject);
+        containers.push_back(i.subject);
       }
     }
 

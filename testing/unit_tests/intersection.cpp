@@ -111,5 +111,4 @@ TEST_CASE("Finding n1 and n2 at varios intersections"){
     REQUIRE(h.n1 == 1.5);
     REQUIRE(h.n2 == 1);
   }
-
 }

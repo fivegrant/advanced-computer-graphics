@@ -62,7 +62,7 @@ Canvas Camera::render(World world){
   for(int y = 0; y < h; y++){
     for(int x = 0; x < w; x++){
       Ray ray = ray_at_pixel(x, y);
-      Tuple pixel_color = world.colorAtRay(ray);
+      Tuple pixel_color = world.colorAtRay(ray, REC_DEPTH);
       image.write_pixel(x, y, pixel_color);
     }}
   return image;

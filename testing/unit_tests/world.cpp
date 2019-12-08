@@ -71,7 +71,7 @@ TEST_CASE("Shading an intersection"){
   //w.addLight(light);
   Ray r = Ray(point(0, 0, -5), vector(0, 0, 1));
   Intersection i = Intersection(4, r, &shape1);
-  Tuple c = w.colorAtIntersection(i, i.generateHitRecord(unfilled));
+  Tuple c = w.colorAtIntersection(i, i.generateHitRecord(unfilled), 5);
   REQUIRE(c == color(0.38066, 0.47583, 0.2855));
 }
 
@@ -83,7 +83,7 @@ TEST_CASE("Shading an intersection from the inside"){
   w.addShape(&shape);
   Ray r = Ray(point(0, 0, 0), vector(0, 0, 1));
   Intersection i = Intersection(0.5, r, &shape);
-  Tuple c = w.colorAtIntersection(i, i.generateHitRecord(unfilled));
+  Tuple c = w.colorAtIntersection(i, i.generateHitRecord(unfilled), 5);
   REQUIRE(c == color(0.90498, 0.90498, 0.90498));
 }
 
@@ -94,7 +94,7 @@ TEST_CASE("The color when a ray misses"){
   Sphere shape2 = DefaultSphere2();
   w.addShape(&shape2);
   Ray r = Ray(point(0, 0, -5), vector(0, 1, 0));
-  Tuple c = w.colorAtRay(r);
+  Tuple c = w.colorAtRay(r, 5);
   REQUIRE(c == color(0, 0, 0));
 }
 
@@ -105,7 +105,7 @@ TEST_CASE("The color when a ray hits"){
   Sphere shape2 = DefaultSphere2();
   w.addShape(&shape2);
   Ray r = Ray(point(0, 0, -5), vector(0, 0, 1));
-  Tuple c = w.colorAtRay(r);
+  Tuple c = w.colorAtRay(r, 5);
   REQUIRE(c == color(0.38066, 0.47583, 0.2855));
 }
 
@@ -118,7 +118,7 @@ TEST_CASE("The color with an intersection behind the ray"){
   w.addShape(&inner);
   inner.material.ambient = 1;
   Ray r = Ray(point(0, 0, 0.75), vector(0, 0, -1));
-  Tuple c = w.colorAtRay(r);
+  Tuple c = w.colorAtRay(r, 5);
   REQUIRE(c == inner.material.surface_color);
 }
 
@@ -174,7 +174,7 @@ TEST_CASE("shade_hit() is given an intersection in shadow"){
     w.addShape(&ob2);
     Ray r = Ray(point(0, 0, 5), vector(0, 0, 1));
     Intersection i = Intersection(4, r, &ob2);
-    Tuple c = w.colorAtIntersection(i, i.generateHitRecord(unfilled));
+    Tuple c = w.colorAtIntersection(i, i.generateHitRecord(unfilled), 5);
     REQUIRE(c == color(0.1, 0.1, 0.1));
 }
 
@@ -190,3 +190,72 @@ TEST_CASE("Precomputing the reflection vector"){
   REQUIRE(i.generateHitRecord(unfilled).reflectv == vector(0, sqrt(2)/2, sqrt(2)/2));
 }
 
+TEST_CASE("The refracted color of opaque surfaces"){
+  World w = World();
+  Sphere shape1 = DefaultSphere1();
+  w.addShape(&shape1);
+  Sphere shape2 = DefaultSphere2();
+  w.addShape(&shape2);
+  Ray r = Ray(point(0, 0, -5), vector(0, 0, 0));
+  r.direction = vector(0, 0, 1);
+  std::vector<Intersection> xs = {Intersection(4, r, &shape1), Intersection(6, r, &shape1)};
+  Tuple c = w.effective_refraction(xs[0], xs[0].generateHitRecord(xs), 5);
+  REQUIRE(c == color(0, 0, 0));
+}
+
+TEST_CASE("The refracted color at the maximum recursive depth"){
+   World w = World();
+  Sphere shape1 = DefaultSphere1();
+  shape1.material.transparency = 1;
+  shape1.material.ior = 1.5;
+  w.addShape(&shape1);
+  Sphere shape2 = DefaultSphere2();
+  //w.addShape(&shape2);
+  Ray r = Ray(point(0, 0, -5), vector(0, 0, 0));
+  r.direction = vector(0, 0, 1);
+  std::vector<Intersection> xs = {Intersection(4, r, &shape1), Intersection(6, r, &shape1)};
+  Tuple c = w.effective_refraction(xs[0], xs[0].generateHitRecord(xs), 5);
+  REQUIRE(c == color(0, 0, 0));
+
+}
+
+TEST_CASE("The refracted color under total internal reflection"){
+  World w = World();
+  Sphere shape1 = DefaultSphere1();
+  shape1.material.transparency = 1;
+  shape1.material.ior = 1.5;
+  w.addShape(&shape1);
+  Sphere shape2 = DefaultSphere2();
+  w.addShape(&shape2);
+  Ray r = Ray(point(0, 0,sqrt(2)/2), vector(0, 0, 0));
+  r.direction = vector(0, 1, 0);
+  std::vector<Intersection> xs = {Intersection(-sqrt(2)/2, r, &shape1), Intersection(sqrt(2)/2, r, &shape1)};
+  Tuple c = w.effective_refraction(xs[1], xs[1].generateHitRecord(xs), 5);
+  REQUIRE(c == color(0, 0, 0));
+}
+
+TEST_CASE("colorAtIntersection with a transparent material"){
+  World w = World();
+  Sphere def1 = DefaultSphere1();
+  w.addShape(&def1);
+  Sphere def2 = DefaultSphere2();
+  w.addShape(&def2);
+
+  Plane floor = Plane();
+  floor.set_transform(translation(0, -1, 0));
+  floor.material.ior = 1.5;
+  floor.material.transparency = 0.5;
+  w.addShape(&floor);
+
+  Sphere ball = Sphere();
+  ball.material.surface_color = color(1, 0, 0);
+  ball.material.ambient = .5;
+  floor.set_transform(translation(0, -3.5, -0.5));
+  w.addShape(&ball);
+
+  Ray r = Ray(point(0, 0, -3), vector(0, 0, 0));
+  r.direction = vector(0, -sqrt(2)/2, sqrt(2)/2);
+  std::vector<Intersection> xs = {Intersection(sqrt(2), r, &floor)};
+  Tuple c = w.colorAtIntersection(xs[0], xs[0].generateHitRecord(xs), 5);
+  REQUIRE(c == color(.93642, .68642, .68642));
+}

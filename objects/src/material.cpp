@@ -1,5 +1,4 @@
 #include "objects/include/material.hpp"
-#include <iostream>
 
 bool Material::operator==(const Material& rhs) const
 {
@@ -8,13 +7,14 @@ bool Material::operator==(const Material& rhs) const
   return condition_1 && condition_2;
 }
 
-Tuple Material::colorAtPoint(Light light, Tuple position, Tuple eyev, Tuple normalv, bool in_shadow)
+Tuple Material::colorAtPoint(Light light, Tuple position, Tuple eyev, Tuple normalv, Matrix object_transform, bool in_shadow)
 {
   //normalv = normal
   //hitPoint = position
 
   // combine the surface color with the light's color/intensity
-  Tuple effective_color = surface_color * light.intensity;
+  // also check for pattern
+  Tuple effective_color = pattern.active ? pattern.pattern_at_shape(position, object_transform) : surface_color * light.intensity;
 
 
   // find the direction to the light source

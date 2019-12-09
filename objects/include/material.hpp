@@ -1,12 +1,13 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
-#include "mechanics/include/tuple.hpp"
+#include "objects/include/pattern.hpp"
 #include "objects/include/light.hpp"
 
 class Material{
   public:
     Tuple surface_color; 
     double diffuse, ambient, shininess, specular, reflective, ior, transparency;
+    Pattern pattern;
 
     Material(Tuple r_color, double r_diffuse):
       surface_color(r_color), diffuse(r_diffuse){}
@@ -20,10 +21,11 @@ class Material{
       reflective = 0;
       ior = 1;
       transparency  = 0;
+      pattern = Pattern();
     }
 
     bool operator==(const Material&) const;
-    Tuple colorAtPoint(Light light, Tuple position, Tuple eyev, Tuple normalv, bool in_shadow);
+    Tuple colorAtPoint(Light light, Tuple position, Tuple eyev, Tuple normalv, Matrix object_transform, bool in_shadow);
 };
 
 //String Conversion

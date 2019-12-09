@@ -16,8 +16,6 @@ void Shape::set_transform(Matrix operation_matrix)
   transform_matrix.inverse();
 }
 
-
-
 // Computes the normal to this shape at the point p_W in the world frame, W.
 Tuple Shape::normalAtPoint(Tuple point_WorldFrame)
 {

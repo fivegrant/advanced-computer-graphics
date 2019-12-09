@@ -2,7 +2,7 @@
 
 std::vector<Intersection> Plane::intersectionWith(Ray raw_ray)
 {
-  Ray ray = transform(raw_ray, this->transform_matrix.get_inverse());
+  Ray ray = transform(raw_ray, transform_matrix.get_inverse());
   if(ray.direction.y == 0){
     return {};
   }else{

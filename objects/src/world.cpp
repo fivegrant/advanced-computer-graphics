@@ -55,10 +55,15 @@ Tuple World::colorAtIntersection(Intersection intersection, HitRecord hit, int r
   if (lights.size() == 0){
     final_color = final_color + intersection.subject->material.colorAtPoint(default_light, hit.hitPoint, hit.eye, hit.normal, intersection.subject->transform_matrix, shadow(default_light, hit.overpoint)); 
   }
+  remaining -= 1;
   Tuple reflect_color = effective_reflective(intersection, hit, remaining);
   Tuple refract_color = effective_refraction(intersection, hit, remaining);
-  remaining -= 1;
 
+  if(intersection.subject->material.reflective > 0 && intersection.subject->material.transparency > 0){
+    double reflectance = intersection.schlick(hit);
+    reflect_color = reflect_color * reflectance;
+    refract_color = refract_color * (1 - reflectance);
+  }
   return final_color + reflect_color + refract_color;
 }
 

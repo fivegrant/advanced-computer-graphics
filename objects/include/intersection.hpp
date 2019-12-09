@@ -16,9 +16,9 @@ class Intersection{
     bool operator==(const Intersection& rhs) const;
     bool operator<(const Intersection& rhs) const;
     HitRecord generateHitRecord(std::vector<Intersection>) const;
+    double schlick(HitRecord hit);
 };
 
-double schlick(HitRecord hit);
 
 //String Conversion
 std::ostream& operator << (std::ostream& os, Intersection const& intersection);

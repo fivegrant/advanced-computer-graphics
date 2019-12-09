@@ -64,7 +64,7 @@ HitRecord Intersection::generateHitRecord(std::vector<Intersection> xs) const
   return generated;
 }
 
-double schlick(HitRecord hit)
+double Intersection::schlick(HitRecord hit)
 {
   // find the cosine of the angle beween the eye and normal vectors
   double cosine = hit.eye.dot(hit.normal);

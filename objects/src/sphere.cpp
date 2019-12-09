@@ -2,7 +2,7 @@
 
 std::vector<Intersection> Sphere::intersectionWith(Ray raw_ray)
 {
-  Ray ray = transform(raw_ray, this->transform_matrix.get_inverse());
+  Ray ray = transform(raw_ray, transform_matrix.get_inverse());
   Tuple o = ray.origin - point(0, 0, 0);
   double a = dot(ray.direction, ray.direction);
   double b = dot(ray.direction, o) * 2;

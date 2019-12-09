@@ -283,7 +283,7 @@ TEST_CASE("The Schlick approximation under total internal reflection"){
   Ray r = Ray(point(0, 0, sqrt(2)/2), vector(0, 0, 0));
   r.direction = vector(0, 1, 0);
   std::vector<Intersection> xs = {Intersection(-sqrt(2)/2, r, &glass), Intersection(sqrt(2)/2, r, &glass)};
-  double reflectance = schlick(xs[1].generateHitRecord(xs));
+  double reflectance = xs[0].schlick(xs[1].generateHitRecord(xs));
   REQUIRE(reflectance == 1);
 }
 
@@ -292,7 +292,7 @@ TEST_CASE("The Schlick approximation with a perpendicular viewing angle"){
   Ray r = Ray(point(0, 0, 0), vector(0, 0, 0));
   r.direction = vector(0, 1, 0);
   std::vector<Intersection> xs = {Intersection(-1, r, &glass), Intersection(1, r, &glass)};
-  double reflectance = schlick(xs[1].generateHitRecord(xs));
+  double reflectance = xs[0].schlick(xs[1].generateHitRecord(xs));
   REQUIRE(abs(reflectance -.04) < EPSILON);
 }
 
@@ -301,7 +301,7 @@ TEST_CASE("The Schlick approximation with small angle and n2 > n1"){
   Ray r = Ray(point(0, 0.99, -2), vector(0, 0, 0));
   r.direction = vector(0, 0, 1);
   std::vector<Intersection> xs = {Intersection(1.8589, r, &glass)};
-  double reflectance = schlick(xs[0].generateHitRecord(xs));
+  double reflectance = xs[0].schlick(xs[0].generateHitRecord(xs));
   REQUIRE(abs(reflectance - .48873) < EPSILON);
 }
 
@@ -311,19 +311,23 @@ TEST_CASE("colorAtIntersection with a reflective, transparent material"){
   w.addShape(&def1);
   Sphere def2 = DefaultSphere2();
   w.addShape(&def2);
+
   Ray r = Ray(point(0, 0, -3), vector(0, 0, 0));
   r.direction = vector(0, -sqrt(2)/2, sqrt(2)/2);
+
   Plane floor = Plane();
   floor.set_transform(translation(0, -1, 0));
   floor.material.reflective = .5;
   floor.material.transparency = .5;
   floor.material.ior = 1.5;
   w.addShape(&floor);
+
   Sphere ball = Sphere();
   ball.material.surface_color = color(1, 0, 0);
   ball.material.ambient = .5;
   ball.set_transform(translation(0, -3.5, -.5));
   w.addShape(&ball);
+
   std::vector<Intersection> xs = {Intersection(sqrt(2), r, &floor)};
   Tuple c = w.colorAtIntersection(xs[0], xs[0].generateHitRecord(xs), 5);
   REQUIRE(c == color(.93391, 0.69643, .69243));

@@ -4,7 +4,6 @@ int main(){
 
 Camera camera = Camera(1000, 500);
 camera.set_fov(PI/2);
-//camera.set_transform(view_transform(point(0, 1.5, -5), point(0, 2.5, 0), vector(0, 1, 0)));
 camera.set_transform(view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0)));
 World w = World();
 
@@ -37,6 +36,9 @@ w.addShape(&rightwall);
 
 Sphere glass = GlassSphere();
 glass.set_transform(translation(-0.5, 1, 0.5));
+glass.material.reflective = .9;
+glass.material.diffuse = .1;
+glass.material.ambient = .1;
 w.addShape(&glass);
 
 Sphere middle = Sphere();
@@ -52,14 +54,18 @@ right.set_transform(scaling(0.5, 0.5, 0.5));
 right.set_transform(translation(1.5, 0.5, -0.5));
 right.material = SURFACE;
 right.material.surface_color = RIGHT_COLOR;
-//w.addShape(&right);
+right.material.pattern.active = true;
+right.material.pattern.pattern_func = &checker;
+right.material.pattern.color_a = color(0, 1, 0);
+right.material.pattern.color_b = color(0, 0, 1);
+w.addShape(&right);
 
 Sphere left = Sphere();
 left.set_transform(scaling(0.33, 0.33, 0.33));
 left.set_transform(translation(-1.5, 0.33, -0.75));
 left.material = SURFACE;
 left.material.surface_color = LEFT_COLOR;
-//w.addShape(&left);
+w.addShape(&left);
 
 Canvas image = camera.render(w);
 image.toPPM("refract_sphere.ppm");

@@ -2,6 +2,7 @@
 
 std::vector<Intersection> Triangle::intersectionWith(Ray raw_ray)
 {
+  /*
   double beta, gamma, t;
   //Matrix answer = a - raw_ray; <- Tuple and Ray TODO: FIX THIS
   //Cramer's Rule
@@ -29,10 +30,11 @@ std::vector<Intersection> Triangle::intersectionWith(Ray raw_ray)
   gamma = gamma_matrix.det()/denominator_det;
   t = t_matrix.det()/denominator_det;
   return {};
+  */
 }
 
 Tuple Triangle::localNormal(Tuple position) const
 {
-  return (b - a) * (c - a);
+  return normalize((b - a) * (c - a));
 }
 

@@ -35,29 +35,29 @@ rightwall.set_transform(rotationy(PI/4));
 rightwall.set_transform(translation(0, 0, 5));
 w.addShape(&rightwall);
 
-//Sphere glass = GlassSphere();
-//glass.set_transform(translation(-0.5, 1, 0.5));
-//w.addShape(&glass);
+Sphere glass = GlassSphere();
+glass.set_transform(translation(-0.5, 1, 0.5));
+w.addShape(&glass);
 
 Sphere middle = Sphere();
 middle.set_transform(translation(-0.5, 1, 0.5));
 middle.material = SURFACE;
 middle.material.surface_color = MIDDLE_COLOR;
-w.addShape(&middle);
+//w.addShape(&middle);
 
 Sphere right = Sphere();
 right.set_transform(scaling(0.5, 0.5, 0.5));
 right.set_transform(translation(1.5, 0.5, -0.5));
 right.material = SURFACE;
 right.material.surface_color = RIGHT_COLOR;
-w.addShape(&right);
+//w.addShape(&right);
 
 Sphere left = Sphere();
 left.set_transform(scaling(0.33, 0.33, 0.33));
 left.set_transform(translation(-1.5, 0.33, -0.75));
 left.material = SURFACE;
 left.material.surface_color = LEFT_COLOR;
-w.addShape(&left);
+//w.addShape(&left);
 
 Canvas image = camera.render(w);
 image.toPPM("refract_sphere.ppm");

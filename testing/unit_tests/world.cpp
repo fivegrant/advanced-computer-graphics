@@ -210,11 +210,11 @@ TEST_CASE("The refracted color at the maximum recursive depth"){
   shape1.material.ior = 1.5;
   w.addShape(&shape1);
   Sphere shape2 = DefaultSphere2();
-  //w.addShape(&shape2);
+  w.addShape(&shape2);
   Ray r = Ray(point(0, 0, -5), vector(0, 0, 0));
   r.direction = vector(0, 0, 1);
   std::vector<Intersection> xs = {Intersection(4, r, &shape1), Intersection(6, r, &shape1)};
-  Tuple c = w.effective_refraction(xs[0], xs[0].generateHitRecord(xs), 5);
+  Tuple c = w.effective_refraction(xs[0], xs[0].generateHitRecord(xs), 0);
   REQUIRE(c == color(0, 0, 0));
 
 }

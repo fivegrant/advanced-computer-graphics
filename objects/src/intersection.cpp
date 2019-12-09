@@ -39,7 +39,14 @@ HitRecord Intersection::generateHitRecord(std::vector<Intersection> xs) const
     }
     else{
       if(*(std::find(containers.begin(), containers.end(), i.subject)) == i.subject){
-        containers.erase(std::remove(containers.begin(), containers.end(), i.subject));
+        //containers.erase(std::remove(containers.begin(), containers.end(), i.subject));
+	std::vector<Shape*> hold = {};
+	for(auto shape: containers){
+	  if(i.subject != shape){
+	    hold.push_back(shape);
+	  }
+	containers = hold;
+	}
       }else{
         containers.push_back(i.subject);
       }

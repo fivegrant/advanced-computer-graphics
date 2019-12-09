@@ -43,9 +43,7 @@ Tuple World::effective_reflective(Intersection i, HitRecord hit, int remaining){
 }
 
 Tuple World::effective_refraction(Intersection i, HitRecord hit, int remaining){
-  return color(0, 0, 0);//refraction causes segfault
-  if(remaining < 0){
-    remaining = 4;
+  if(remaining < 1){
     return color(0, 0, 0);
   }
   if(i.subject->material.transparency == 0){
@@ -76,7 +74,7 @@ Tuple World::colorAtIntersection(Intersection intersection, HitRecord hit, int r
       
 }
   if (lights.size() == 0){
-    final_color = final_color + intersection.subject->material.colorAtPoint(default_light, hit.hitPoint, hit.eye, hit.normal, shadow(default_light, hit.overpoint));; 
+    final_color = final_color + intersection.subject->material.colorAtPoint(default_light, hit.hitPoint, hit.eye, hit.normal, shadow(default_light, hit.overpoint)); 
   }
   Tuple reflect_color = effective_reflective(intersection, hit, remaining);
   Tuple refract_color = effective_refraction(intersection, hit, remaining);

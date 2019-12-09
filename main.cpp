@@ -1,11 +1,17 @@
+#include <iostream>
 #include "build/raytracer.hpp"
 
 int main(){
+
+std::cout << "Start\n";
 
 Camera camera = Camera(1000, 500);
 camera.set_fov(PI/2);
 camera.set_transform(view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0)));
 World w = World();
+
+std::cout << "Set up Camera and World\n";
+
 
 //Scene Contents
 Tuple ROOM_COLOR = color(1, 0.9, 0.9);
@@ -14,6 +20,11 @@ Tuple LEFT_COLOR = color(1, 0.8, 0.1);
 Tuple RIGHT_COLOR = color(0.5, 1, 0.1);
 Material SURFACE = Material(); SURFACE.reflective = .5;SURFACE.diffuse = 0.3; SURFACE.specular = 0.2;
 Material WALL = Material(); WALL.specular = 0.0;
+WALL.pattern.active = true;
+WALL.pattern.pattern_func = &stripe;
+WALL.pattern.color_a = color(0, 1, 0);
+WALL.pattern.color_b = color(0, 0, 1);
+//WALL.pattern.set_transform(scaling(2, 2, 2));
 
 Plane floor = Plane();
 floor.material = WALL;
@@ -33,6 +44,27 @@ rightwall.set_transform(rotationx(PI/2));
 rightwall.set_transform(rotationy(PI/4));
 rightwall.set_transform(translation(0, 0, 5));
 w.addShape(&rightwall);
+
+Plane ceiling = Plane();
+ceiling.material = WALL;
+rightwall.set_transform(translation(0, 5, 0));
+//w.addShape(&ceiling);
+
+Plane leftalt = Plane();
+leftalt.material = WALL;
+leftalt.set_transform(rotationx(PI/2));
+leftalt.set_transform(rotationy(-PI/4));
+leftalt.set_transform(translation(0, 0, -5));
+//w.addShape(&leftalt);
+
+Plane rightalt = Plane();
+rightalt.material = WALL;
+rightalt.material.surface_color = ROOM_COLOR;
+rightalt.set_transform(rotationx(PI/2));
+rightalt.set_transform(rotationy(PI/4));
+rightalt.set_transform(translation(0, 0, -5));
+//w.addShape(&rightalt);
+
 
 Sphere glass = GlassSphere();
 glass.set_transform(translation(-0.5, 1, 0.5));
@@ -54,10 +86,6 @@ right.set_transform(scaling(0.5, 0.5, 0.5));
 right.set_transform(translation(1.5, 0.5, -0.5));
 right.material = SURFACE;
 right.material.surface_color = RIGHT_COLOR;
-right.material.pattern.active = true;
-right.material.pattern.pattern_func = &checker;
-right.material.pattern.color_a = color(0, 1, 0);
-right.material.pattern.color_b = color(0, 0, 1);
 w.addShape(&right);
 
 Sphere left = Sphere();
@@ -67,9 +95,15 @@ left.material = SURFACE;
 left.material.surface_color = LEFT_COLOR;
 w.addShape(&left);
 
+std::cout << "Initialize Scene\n";
+
 Canvas image = camera.render(w);
-image.toPPM("refract_sphere.ppm");
 
+std::cout << "Render Scene\n";
 
+std::string FILENAME = "look_here.ppm";
+image.toPPM(FILENAME);
+
+std::cout << "Save to " << FILENAME << "\n";
   return 0;
 }

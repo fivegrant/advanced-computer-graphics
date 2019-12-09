@@ -7,7 +7,6 @@
 #include "objects/include/world.hpp"
 #include "objects/include/sphere.hpp"
 #include "objects/include/plane.hpp"
-#include "utilities/include/epsilon.hpp"
 
 
 std::vector<Intersection> unfilled = {};
@@ -243,12 +242,12 @@ TEST_CASE("The refracted color with a refracted ray"){
   w.addShape(&a);
   Sphere b = DefaultSphere2();
   b.material.transparency = 1;
-  b.material.ior = 1.5;
+  b..ior = 1.5;
   w.addShape(&b);
   Ray r = Ray(point(0, 0, 0.1), vector(0, 0, 0));
   r.direction = vector(0, 1, 0);
   std::vector<Intersection> xs = {Intersection(-.9899, r, &a), Intersection(-.4899, r, &b), Intersection(.4899, r, &b), Intersection(.9899, r, &a)};
-  Tuple c = w.effective_refraction(xs[2], xs[2].generateHitRecord(xs), 5);
+  c = w.effective_refraction(xs[2], xs[2].generateHitRecord(xs), 5);
   REQUIRE(c == color(0, 0.99888, .04725));
 }
 
@@ -268,7 +267,7 @@ TEST_CASE("colorAtIntersection with a transparent material"){
   Sphere ball = Sphere();
   ball.material.surface_color = color(1, 0, 0);
   ball.material.ambient = .5;
-  ball.set_transform(translation(0, -3.5, -0.5));
+  floor.set_transform(translation(0, -3.5, -0.5));
   w.addShape(&ball);
 
   Ray r = Ray(point(0, 0, -3), vector(0, 0, 0));
@@ -276,55 +275,4 @@ TEST_CASE("colorAtIntersection with a transparent material"){
   std::vector<Intersection> xs = {Intersection(sqrt(2), r, &floor)};
   Tuple c = w.colorAtIntersection(xs[0], xs[0].generateHitRecord(xs), 5);
   REQUIRE(c == color(.93642, .68642, .68642));
-}
-
-TEST_CASE("The Schlick approximation under total internal reflection"){
-  Sphere glass = GlassSphere();
-  Ray r = Ray(point(0, 0, sqrt(2)/2), vector(0, 0, 0));
-  r.direction = vector(0, 1, 0);
-  std::vector<Intersection> xs = {Intersection(-sqrt(2)/2, r, &glass), Intersection(sqrt(2)/2, r, &glass)};
-  double reflectance = schlick(xs[1].generateHitRecord(xs));
-  REQUIRE(reflectance == 1);
-}
-
-TEST_CASE("The Schlick approximation with a perpendicular viewing angle"){
-  Sphere glass = GlassSphere();
-  Ray r = Ray(point(0, 0, 0), vector(0, 0, 0));
-  r.direction = vector(0, 1, 0);
-  std::vector<Intersection> xs = {Intersection(-1, r, &glass), Intersection(1, r, &glass)};
-  double reflectance = schlick(xs[1].generateHitRecord(xs));
-  REQUIRE(abs(reflectance -.04) < EPSILON);
-}
-
-TEST_CASE("The Schlick approximation with small angle and n2 > n1"){
-  Sphere glass = GlassSphere();
-  Ray r = Ray(point(0, 0.99, -2), vector(0, 0, 0));
-  r.direction = vector(0, 0, 1);
-  std::vector<Intersection> xs = {Intersection(1.8589, r, &glass)};
-  double reflectance = schlick(xs[0].generateHitRecord(xs));
-  REQUIRE(abs(reflectance - .48873) < EPSILON);
-}
-
-TEST_CASE("colorAtIntersection with a reflective, transparent material"){
-  World w = World();
-  Sphere def1 = DefaultSphere1();
-  w.addShape(&def1);
-  Sphere def2 = DefaultSphere2();
-  w.addShape(&def2);
-  Ray r = Ray(point(0, 0, -3), vector(0, 0, 0));
-  r.direction = vector(0, -sqrt(2)/2, sqrt(2)/2);
-  Plane floor = Plane();
-  floor.set_transform(translation(0, -1, 0));
-  floor.material.reflective = .5;
-  floor.material.transparency = .5;
-  floor.material.ior = 1.5;
-  w.addShape(&floor);
-  Sphere ball = Sphere();
-  ball.material.surface_color = color(1, 0, 0);
-  ball.material.ambient = .5;
-  ball.set_transform(translation(0, -3.5, -.5));
-  w.addShape(&ball);
-  std::vector<Intersection> xs = {Intersection(sqrt(2), r, &floor)};
-  Tuple c = w.colorAtIntersection(xs[0], xs[0].generateHitRecord(xs), 5);
-  REQUIRE(c == color(.93391, 0.69643, .69243));
 }

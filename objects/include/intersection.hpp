@@ -18,6 +18,8 @@ class Intersection{
     HitRecord generateHitRecord(std::vector<Intersection>) const;
 };
 
+double schlick(HitRecord hit);
+
 //String Conversion
 std::ostream& operator << (std::ostream& os, Intersection const& intersection);
 #endif

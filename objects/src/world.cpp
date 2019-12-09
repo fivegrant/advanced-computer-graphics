@@ -10,27 +10,6 @@ std::vector<Intersection> World::intersectionWith(Ray ray) const{
   return intersections;  
 }
 
-double World::schlick(HitRecord hit){
-  // find the cosine of the angle beween the eye and normal vectors
-  double cosine = hit.eye.dot(hit.normal);
-
-  // total internal reflection can only occur if n1 > n2
-  if(hit.n1 > hit.n2){
-    double n = hit.n1/hit.n2;
-    double sin2_t = pow(n, 2.) * (1 - pow(cosine, 2.));
-    if(sin2_t > 1){
-      return 1;
-    }
-  
-  // compute cosine of theta_t using trig identity
-  double cos_t = sqrt(1 - sin2_t);
-  
-  // when n1 > n2, use cos(theta_t) instead
-  cosine = cos_t;
-  }
-  double r0 = pow((hit.n1 = hit.n2)/(hit.n1 + hit.n2), 2);
-  return r0 + (1 - r0) * pow(1 - cosine, 5);
-}
 
 Tuple World::effective_reflective(Intersection i, HitRecord hit, int remaining){
   if (i.subject->material.reflective == 0 || remaining < 1){

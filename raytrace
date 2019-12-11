@@ -1,0 +1,11 @@
+#!/bin/bash
+
+echo "Build Raytracer"
+make entire >> .log
+
+echo "Test Raytracer"
+./build/bin/test
+rm -f RENDERTEST.ppm feature_canvas.ppm
+
+echo "Execute Raytracer"
+./build/bin/main

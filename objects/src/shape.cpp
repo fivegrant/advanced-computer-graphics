@@ -1,4 +1,5 @@
 #include "objects/include/shape.hpp"
+#include <iostream>
 
 bool Shape::operator==(const Shape& rhs) const
 {
@@ -11,9 +12,9 @@ bool Shape::operator==(const Shape& rhs) const
 
 Tuple Shape::world_to_object(Tuple point){
   if(parent){
-    point = parent->world_to_object(point);
+  std::cout << "\n\n\nACCESS PARENT OBJECT" << shape_type << "\n\n\n";
+    return transform_matrix.inverse() * parent->world_to_object(point);
   }
-
   return transform_matrix.inverse() * point;
 }
 
@@ -23,6 +24,7 @@ Tuple Shape::normal_to_world(Tuple normal_WorldFrame){
   Tuple normal_BodyFrame = normalize(point_BodyFrame);
 
   if(parent){
+  std::cout << "\n\n\nACCESS PARENT NORMAL" << shape_type << "\n\n\n";
     normal_BodyFrame = parent->world_to_object(normal_BodyFrame);
     }
   
@@ -38,24 +40,7 @@ void Shape::set_transform(Matrix operation_matrix)
 // Computes the normal to this shape at the point p_W in the world frame, W.
 Tuple Shape::normalAtPoint(Tuple point_WorldFrame)
 {
-  /*
-  // position = point_WorldFrame
-  // localNormal() requires the point to be in the body frame (B). So transform
-  // the point from Frame W to Frame B.
-  Tuple point_BodyFrame = transform_matrix.inverse() * point_WorldFrame;  
-  Tuple normal_BodyFrame = localNormal(point_BodyFrame);
-
-  // Transform the normal from Frame B back to Frame W. To do this, we need
-  // the rotational component of X_WB because we want to change the normal to 
-  // a different basis (W instead of B). We mimic this operation by zeroing the
-  // w component of normal_B.
-  normal_BodyFrame.w = 0;
-  Tuple normal_WorldFrame = transform_matrix * normal_BodyFrame;
-
-  // Since scaling can be incorporated into the transformation matrix, we have
-  // to renormalize this vector.
-  return normalize(normal_WorldFrame);
-  */
+  
   Tuple point_BodyFrame = world_to_object(point_WorldFrame);
   Tuple normal_BodyFrame = localNormal(point_BodyFrame);
   return normal_to_world(normal_BodyFrame);

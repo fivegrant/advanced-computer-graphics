@@ -9,7 +9,6 @@
 - Finish Triangles
 - Load in OBJ
 - Implement Antialiasing
-- Add Scripting Language if time allows?
 
 # Notes
 ## More Lighting
@@ -99,7 +98,6 @@ std::ostream& operator << (std::ostream& os, Shape const& shape) {
 
 
 # Questions
-- Review Refraction
 - Review Monte Carlo Integration/Sampling
 
 # Acknowledgements

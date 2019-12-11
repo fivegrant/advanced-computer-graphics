@@ -13,8 +13,8 @@ std::vector<Intersection> Group::intersectionWith(Ray raw_ray)
 
 Tuple Group::localNormal(Tuple position) const
 {
-  std::cout << "SOMETHING HAS GONE HORRIBLY WRONG";
-  return vector(0, 0, 0);
+  std::cout << "\nSOMETHING HAS GONE HORRIBLY WRONG!\n";
+  return vector(1000, 1000, 1000);
 }
 
 void Group::addShape(Shape* shape){

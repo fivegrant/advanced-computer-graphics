@@ -9,6 +9,25 @@ bool Shape::operator==(const Shape& rhs) const
   return condition_type && condition_center && condition_material;
 }
 
+Tuple Shape::world_to_object(Tuple point){
+  if(parent){
+    point = parent->world_to_object(point);
+  }
+
+  return transform_matrix.inverse() * point;
+}
+
+Tuple Shape::normal_to_world(Tuple normal_WorldFrame){
+  Tuple point_BodyFrame = transform_matrix.inverse().transpose() * normal_WorldFrame;
+  point_BodyFrame.w = 0;
+  Tuple normal_BodyFrame = normalize(point_BodyFrame);
+
+  if(parent){
+    normal_BodyFrame = parent->world_to_object(normal_BodyFrame);
+    }
+  
+  return normal_BodyFrame;
+ }
 
 void Shape::set_transform(Matrix operation_matrix)
 {
@@ -19,6 +38,7 @@ void Shape::set_transform(Matrix operation_matrix)
 // Computes the normal to this shape at the point p_W in the world frame, W.
 Tuple Shape::normalAtPoint(Tuple point_WorldFrame)
 {
+  /*
   // position = point_WorldFrame
   // localNormal() requires the point to be in the body frame (B). So transform
   // the point from Frame W to Frame B.
@@ -35,6 +55,10 @@ Tuple Shape::normalAtPoint(Tuple point_WorldFrame)
   // Since scaling can be incorporated into the transformation matrix, we have
   // to renormalize this vector.
   return normalize(normal_WorldFrame);
+  */
+  Tuple point_BodyFrame = world_to_object(point_WorldFrame);
+  Tuple normal_BodyFrame = localNormal(point_BodyFrame);
+  return normal_to_world(normal_BodyFrame);
 }
 
 //String Conversion

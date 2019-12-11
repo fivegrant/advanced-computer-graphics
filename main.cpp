@@ -21,7 +21,7 @@ Tuple RIGHT_COLOR = color(0.5, 1, 0.1);
 Material SURFACE = Material(); SURFACE.reflective = .5;SURFACE.diffuse = 0.3; SURFACE.specular = 0.2;
 Material WALL = Material(); WALL.specular = 0.0;
 WALL.pattern.active = true;
-WALL.pattern.pattern_func = &stripe;
+WALL.pattern.pattern_func = &checker;
 WALL.pattern.color_a = color(0, 1, 0);
 WALL.pattern.color_b = color(0, 0, 1);
 //WALL.pattern.set_transform(scaling(2, 2, 2));

@@ -1,5 +1,4 @@
 #include "objects/include/shape.hpp"
-#include <iostream>
 
 bool Shape::operator==(const Shape& rhs) const
 {
@@ -12,7 +11,6 @@ bool Shape::operator==(const Shape& rhs) const
 
 Tuple Shape::world_to_object(Tuple point){
   if(parent){
-  std::cout << "\n\n\nACCESS PARENT OBJECT" << shape_type << "\n\n\n";
     return transform_matrix.inverse() * parent->world_to_object(point);
   }
   return transform_matrix.inverse() * point;
@@ -24,8 +22,7 @@ Tuple Shape::normal_to_world(Tuple normal_WorldFrame){
   Tuple normal_BodyFrame = normalize(point_BodyFrame);
 
   if(parent){
-  std::cout << "\n\n\nACCESS PARENT NORMAL" << shape_type << "\n\n\n";
-    normal_BodyFrame = parent->world_to_object(normal_BodyFrame);
+    normal_BodyFrame = parent->normal_to_world(normal_BodyFrame);
     }
   
   return normal_BodyFrame;

@@ -9,3 +9,4 @@ build/
 *.o
 .log
 a.out
+RENDERTEST.ppm

@@ -26,13 +26,16 @@ WALL.pattern.color_a = color(1, 0, 0);
 WALL.pattern.color_b = color(0, 0, 1);
 WALL.pattern.set_transform(scaling(2, 2, 2));
 
+Triangle trithing = Triangle(point(0,1.2,0), point(-1, 2, 1), point(1, 2, -1));
+trithing.material.ambient = .9;
+w.addShape(&trithing);
+
 Plane floor = Plane();
 floor.material = WALL;
 floor.material.reflective = .1;
 floor.material.diffuse = .4;
 floor.material.ambient = .4;
-
-w.addShape(&floor);
+//w.addShape(&floor);
 
 Plane leftwall = Plane();
 leftwall.material = WALL;
@@ -88,7 +91,7 @@ middle.material.pattern.active = true;
 middle.material.pattern.pattern_func = &ring;
 middle.material.pattern.color_a = color(1, 1, 1);
 middle.material.pattern.color_b = color(1, 0, 0);
-w.addShape(&middle);
+//w.addShape(&middle);
 
 Sphere right = Sphere();
 right.set_transform(scaling(0.5, 0.5, 0.5));

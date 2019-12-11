@@ -31,10 +31,34 @@ std::vector<Intersection> Triangle::intersectionWith(Ray raw_ray)
   t = t_matrix.det()/denominator_det;
   return {};
   */
+  
+  Tuple cross_direction = cross(raw_ray.direction, (axis2 - origin));
+  double det = (axis1 - origin).dot(cross_direction);
+  if(abs(det) < EPSILON){
+    return std::vector<Intersection> {};
+  }
+
+  double factor = 1.0/det;
+  Tuple distance = raw_ray.origin - origin;
+  double u =  factor * distance.dot(cross_direction);
+  if (u < 0 || u > 1){
+    return std::vector<Intersection> {};
+    }
+
+  Tuple cross_origin = cross(distance, (axis1 - origin));
+  double v = factor * raw_ray.direction.dot(cross_origin);
+  if (v < 0 || u + v > 1){
+    return std::vector<Intersection> {};
+    }
+
+  double t = factor * (axis2 - origin).dot(cross_origin);
+  return std::vector<Intersection>{Intersection(t, raw_ray, this)};
+
+
 }
 
 Tuple Triangle::localNormal(Tuple position) const
 {
-  return normalize((b - a) * (c - a));
+  return normalize(cross((axis2 - origin),((axis2 - origin))));
 }
 
